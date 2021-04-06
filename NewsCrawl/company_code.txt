@@ -1,0 +1,10 @@
+회사명	종목코드
+삼성전자	%BB%EF%BC%BA%C0%FC%C0%DA
+카카오	%C4%AB%C4%AB%BF%C0
+sk하이닉스	sk%C7%CF%C0%CC%B4%D0%BD%BA
+네이버	%B3%D7%C0%CC%B9%F6
+lg화학	lg%C8%AD%C7%D0
+현대모비스	%C7%F6%B4%EB%B8%F0%BA%F1%BD%BA
+셀트리온	%BC%BF%C6%AE%B8%AE%BF%C2
+현대자동차	%C7%F6%B4%EB%C0%DA%B5%BF%C2%F7
+포스코	%C6%F7%BD%BA%C4%DA

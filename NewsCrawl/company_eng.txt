@@ -1,0 +1,10 @@
+회사명	영문명
+삼성전자	Samsung
+카카오	Kakao
+sk하이닉스	SKhynix
+네이버	Naver
+lg화학	LGchem
+현대모비스	HDmobis
+셀트리온	Celltrion
+현대자동차	HDcar
+포스코	Posco
