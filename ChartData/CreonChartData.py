@@ -23,7 +23,7 @@ for code in codeList:
     objStockChart.SetInputValue(0, code)  # 종목코드
     objStockChart.SetInputValue(1, ord('1'))  # 기간으로 받기
     objStockChart.SetInputValue(2, 20201231)  # To 날짜
-    objStockChart.SetInputValue(3, 20180101)  # From 날짜
+    objStockChart.SetInputValue(3, 20170101)  # From 날짜
     # objStockChart.SetInputValue(4, 500)  # 최근 500일치
     objStockChart.SetInputValue(5, [0, 2, 3, 4, 5, 8])  # 날짜,시가,고가,저가,종가,거래량
     objStockChart.SetInputValue(6, ord('D'))  # '차트 주기 - 일간 차트 요청
