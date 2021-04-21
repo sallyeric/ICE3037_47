@@ -25,3 +25,7 @@
 1. charaData.py 2017 ~ 2020 4개년으로 수정
 2. 상위 9개 기업 차트데이터.xlsx 일일 변화량 추가
 3. samsung.csv 
+
+*2021.04.21 (최세현)*
+
+1. pytorch LSTM model prototype 업로드
