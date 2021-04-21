@@ -49,7 +49,7 @@ window_size = 20
 num_epochs = 200
 batch_size = 16
 num_test = 200
-# =================================
+# ==================================
 
 # 마지막 2000일치의 데이터를 시간순서대로 정규화
 data = normalize(pd.read_csv(os.path.join(base_path, '005930.csv'), encoding='utf8')[:2000][::-1])
