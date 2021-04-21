@@ -33,3 +33,7 @@
 *2021.04.21 (유대청)*
 
 1. keras LSTM model 업로드
+
+*2021.04.21 (박재형)*
+
+1. Doc2Vec Analysis 업로드
