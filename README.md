@@ -37,3 +37,7 @@
 *2021.04.21 (박재형)*
 
 1. Doc2Vec Analysis 업로드
+
+*2021.04.23 (진승현)*
+1. /NewsModel 에 SamsungMapping 업로드
+2. 매핑된 csv는 톡방에 있습니다
