@@ -102,7 +102,7 @@ base_path = "C:/Users/YOO/PycharmProjects/종설프/"
 # ============학습 변수 =============
 window_size = 20
 num_epochs = 200
-batch_size = 8
+batch_size = 16
 num_test = 200
 # =================================
 
@@ -200,7 +200,7 @@ for i in range(800, len(pred)-1):
         capital -= ((capital // real[i][0])-j) * real[i][0] + fees(((capital // real[i][0]) - j) * real[i][0])
 
     elif tomorrow < today:
-        capital += stock * real[i][0] - fees(stock * real[i][0])
+        capital += stock * real[i][0] - fees(stock * real[i][0]) - 0.0023 * stock * real[i][0]
         stock -= stock
 
     # print("\nDay"+str(i))
