@@ -13,19 +13,20 @@ class LSTM(nn.Module):
         self.device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
         self.lstm = nn.LSTM(input_size=input_size, hidden_size=hidden_size,
-                            num_layers=num_layers, batch_first=True)  # lstm
+                            num_layers=num_layers, batch_first=True,
+                            dropout=0.2)  # lstm
         self.fc_1 = nn.Linear(hidden_size, 128)  # fully connected 1
         self.fc = nn.Linear(128, num_classes)  # fully connected last layer
 
         self.relu = nn.ReLU()
 
-    def forward(self, x):
+    def forward(self, x, asdf=False):
         h_0 = Variable(torch.zeros(self.num_layers, x.size(0), self.hidden_size)).to(self.device)  # hidden state
         c_0 = Variable(torch.zeros(self.num_layers, x.size(0), self.hidden_size)).to(self.device)  # internal state
         # Propagate input through LSTM
 
         output, (hn, cn) = self.lstm(x, (h_0, c_0))  # lstm with input, hidden, and internal state
-
+        if(asdf): print(output)
         hn = hn.view(-1, self.hidden_size)  # reshaping the data for Dense layer next
         out = self.relu(hn)
         out = self.fc_1(out)  # first Dense
