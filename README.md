@@ -41,3 +41,12 @@
 *2021.04.23 (진승현)*
 1. /NewsModel 에 SamsungMapping 업로드
 2. 매핑된 csv는 톡방에 있습니다
+
+
+## Android App
+*2021.05.01 (진승현)*
+1. /Front-end 생성
+2. 그 안에 안드로이드 프로젝트 만들었습니다.
+3. TabLayout 완성 (Home, Info, Mypage)
+4. ViewPager까지 구현 (화면 스크롤 시, 탭 이동)
+
