@@ -1,12 +1,35 @@
 package edu.skku2.map.ice3037;
 
+import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentTransaction;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+import com.google.android.material.tabs.TabLayout;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -14,7 +37,7 @@ import android.view.ViewGroup;
  * Use the {@link InfoFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class InfoFragment extends Fragment {
+public class InfoFragment extends Fragment implements View.OnClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -23,6 +46,15 @@ public class InfoFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    //    Chart
+//    private LineChart chart1;
+//    private LineChart chart2;
+//    private Thread thread;
+
+    // A class instance
+    private Handler mHandler = new Handler(Looper.getMainLooper());
+    private Button bt_tab1, bt_tab2;
 
     public InfoFragment() {
         // Required empty public constructor
@@ -59,6 +91,45 @@ public class InfoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_info, container, false);
+        View v = inflater.inflate(R.layout.fragment_info, container, false);
+
+        bt_tab1 = (Button)v.findViewById(R.id.bt_tab1);
+        bt_tab2 = (Button)v.findViewById(R.id.bt_tab2);
+
+        bt_tab1.setOnClickListener(this);
+        bt_tab2.setOnClickListener(this);
+        callFragment(1);
+
+        return v;
     }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.bt_tab1 :
+                callFragment(1);
+                break;
+
+            case R.id.bt_tab2 :
+                callFragment(2);
+                break;
+        }
+    }
+    private void callFragment(int frament_no){
+        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+        switch (frament_no){
+            case 1:
+                BlankFragment fragment1 = new BlankFragment();
+                transaction.replace(R.id.fragment_container, fragment1);
+                transaction.commit();
+                break;
+            case 2:
+                BlankFragment2 fragment2 = new BlankFragment2();
+                transaction.replace(R.id.fragment_container, fragment2);
+                transaction.commit();
+                break;
+        }
+    }
+
+
 }
