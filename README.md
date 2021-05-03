@@ -48,7 +48,7 @@
 3. TabLayout 완성 (Home, Info, Mypage)
 4. ViewPager까지 구현 (화면 스크롤 시, 탭 이동)
 
-*2021.05.04 (모두)*
+*2021.05.03 - 2021.05.04 (모두)*
 1. 박재형: Info 탭
 2. 최세현: flask_sehyun
 3. 유대청: flask_daechung
