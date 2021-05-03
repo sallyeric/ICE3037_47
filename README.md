@@ -51,6 +51,6 @@
 *2021.05.04 (모두)*
 1. 박재형: Info 탭
 2. 최세현: flask_sehyun
-3. 유대청: 
+3. 유대청: flask_daechung
 4. 진승현: Login & Signup 추가
 
