@@ -92,6 +92,9 @@ public class BlankFragment2 extends Fragment {
         // if disabled, scaling can be done on x- and y-axis separately
         chart2.setPinchZoom(true);
 
+        chart2.getAxisLeft().setDrawGridLines(false);
+        chart2.getXAxis().setDrawGridLines(false);
+
         chart2.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
         chart2.getAxisRight().setEnabled(false);
         chart2.getLegend().setTextColor(Color.WHITE);
@@ -157,7 +160,8 @@ public class BlankFragment2 extends Fragment {
             @Override
             public void run() {
                 while (true) {
-                    getActivity().runOnUiThread(runnable);
+                    if(getActivity() != null)
+                        getActivity().runOnUiThread(runnable);
                     try {
                         Thread.sleep(3000);
                     } catch (InterruptedException ie) {

@@ -4,7 +4,6 @@
     <item android:state_pressed = "true" android:drawable="@drawable/circle_button3press">
 
     </item>
-
     <item android:drawable="@drawable/circle_button3">
 
     </item>

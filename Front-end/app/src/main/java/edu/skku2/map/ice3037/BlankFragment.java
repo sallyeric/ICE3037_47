@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Description;
@@ -38,6 +39,10 @@ public class BlankFragment extends Fragment {
 
     //    Chart
     private LineChart chart1;
+    private TextView title;
+    private TextView price;
+    private TextView price_change;
+
 
     public BlankFragment() {
         // Required empty public constructor
@@ -76,6 +81,12 @@ public class BlankFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_blank, container, false);
 
+        title = v.findViewById(R.id.title);
+        price = v.findViewById(R.id.price);
+
+        title.setText("삼성전자");
+        price.setText("200,000원");
+        
         chart1 = v.findViewById(R.id.line_chart1);
         // description text
         chart1.getDescription().setEnabled(true);
@@ -93,6 +104,9 @@ public class BlankFragment extends Fragment {
         chart1.setDrawGridBackground(false);
         // if disabled, scaling can be done on x- and y-axis separately
         chart1.setPinchZoom(true);
+
+        chart1.getAxisLeft().setDrawGridLines(false);
+        chart1.getXAxis().setDrawGridLines(false);
 
         chart1.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
         chart1.getAxisRight().setEnabled(false);
