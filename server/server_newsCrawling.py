@@ -33,7 +33,7 @@ def crawler(company, companyCode):
         title_result = []
         company_result = []
         for title in titles:
-            title = title.get_text()
+            title = title.get_text().strip()
             title = re.sub('\n', '', title)
             title = re.sub('\t', '', title)
             title_result.append(title)
@@ -48,14 +48,18 @@ def crawler(company, companyCode):
 
         # 뉴스 날짜
         dates = html.select('.wdate')
-        date_result = [date.get_text() for date in dates]
+        date_result = [date.get_text().strip() for date in dates]
+        time_result = []
         for i in range(len(date_result)):
             date_result[i] = re.sub('\t', '', date_result[i])
             date_result[i] = re.sub('\n', '', date_result[i])
+            time_result.append(date_result[i][-5:])
+            date_result[i] = date_result[i][:-5]
+
 
         # 뉴스 매체
         sources = html.select('.press')
-        source_result = [source.get_text() for source in sources]
+        source_result = [source.get_text().strip() for source in sources]
 
         # 뉴스 본문
         links = [a for a in html.find_all(class_='articleSubject')]
@@ -80,8 +84,9 @@ def crawler(company, companyCode):
             if client.Project.newsData.find_one({"날짜": date_result[i], "언론사": source_result[i], "기사제목": title_result[i]}) is not None:
                 flag = False
                 break
-            client.Project.newsData.insert_one({"회사명": company_result[i], "날짜": date_result[i], "언론사": source_result[i],
-                                                "기사제목": title_result[i], "링크": link_result[i], "본문": content_result[i]})
+            client.Project.newsData.insert_one({"회사명": company_result[i], "날짜": date_result[i], "시간": time_result[i],
+                                                "언론사": source_result[i], "기사제목": title_result[i], "링크": link_result[i],
+                                                "본문": content_result[i]})
             client.close()
 
         page += 1
