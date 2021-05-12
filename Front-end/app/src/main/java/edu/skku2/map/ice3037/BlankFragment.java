@@ -110,7 +110,7 @@ public class BlankFragment extends Fragment {
 
         chart1.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
         chart1.getAxisRight().setEnabled(false);
-        chart1.getLegend().setTextColor(Color.WHITE);
+        chart1.getLegend().setTextColor(Color.BLACK);
         chart1.animateXY(2000, 2000);
         chart1.invalidate();
 
@@ -121,21 +121,22 @@ public class BlankFragment extends Fragment {
         }
 
         LineDataSet set1;
-        set1 = new LineDataSet(values, "DataSet 1");
+        set1 = new LineDataSet(values, "Price");
         ArrayList<ILineDataSet> dataSets = new ArrayList<>();
         dataSets.add(set1); // add the data sets
         // create a data object with the data sets
         LineData data = new LineData(dataSets);
+
         // black lines and points
         set1.setFillAlpha(110);
-        set1.setFillColor(Color.parseColor("#d7e7fa"));
-        set1.setColor(Color.parseColor("#0B80C9"));
+        set1.setFillColor(Color.parseColor("#fae7d7"));
+        set1.setColor(Color.parseColor("#FF0000"));
         set1.setCircleColor(Color.parseColor("#FFA1B4DC"));
         set1.setCircleHoleColor(Color.BLUE);
-        set1.setValueTextColor(Color.WHITE);
+        set1.setValueTextColor(Color.BLACK);
         set1.setDrawValues(false);
-        set1.setLineWidth(2);
-        set1.setCircleRadius(3);
+        set1.setLineWidth(2f);
+        set1.setCircleRadius(3f);
         set1.setDrawCircleHole(false);
         set1.setDrawCircles(false);
         set1.setValueTextSize(9f);
