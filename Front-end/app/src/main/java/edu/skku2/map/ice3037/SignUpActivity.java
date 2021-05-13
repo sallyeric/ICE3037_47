@@ -48,6 +48,7 @@ public class SignUpActivity extends AppCompatActivity {
                 signupPwConfirm = pwconfirmET.getText().toString();
                 signupCreonAccount = creonaccountET.getText().toString();
 
+                // 통신
                 if(signupUsername.isEmpty() || signupPassword.isEmpty() || signupCreonAccount.isEmpty() || signupPwConfirm.isEmpty()){
                     Toast.makeText(getApplicationContext(),"필수입력사항을 모두 입력해주세요", Toast.LENGTH_SHORT).show();
                 }

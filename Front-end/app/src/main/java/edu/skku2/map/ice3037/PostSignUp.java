@@ -9,7 +9,7 @@ public class PostSignUp {
     private Boolean success;
 
     public PostSignUp(){
-
+        //
     }
 
     public String getMessage() {

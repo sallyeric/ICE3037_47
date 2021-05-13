@@ -41,6 +41,7 @@ public class LoginActivity extends AppCompatActivity {
                 uid = usernameET.getText().toString();
                 pw = passwordET.getText().toString();
 
+                // 통신
                 if(uid.isEmpty() || pw.isEmpty()){
                     Toast.makeText(getApplicationContext(),"아이디와 비밀번호를 모두 입력해주세요", Toast.LENGTH_SHORT).show();
                 }

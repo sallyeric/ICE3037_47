@@ -13,7 +13,7 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public interface RetrofitAPI {
-
+    
     @FormUrlEncoded
     @POST("/signup")
     Call<PostSignUp> signUp(@Field("userId") String userId,
