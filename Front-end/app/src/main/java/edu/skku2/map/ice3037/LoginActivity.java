@@ -10,9 +10,9 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+//import retrofit2.Call;
+//import retrofit2.Callback;
+//import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -42,23 +42,23 @@ public class LoginActivity extends AppCompatActivity {
                 pw = passwordET.getText().toString();
 
                 // 통신
-                if(uid.isEmpty() || pw.isEmpty()){
-                    Toast.makeText(getApplicationContext(),"아이디와 비밀번호를 모두 입력해주세요", Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    Call<PostSignUp> call = RetrofitClient.getApiService().login(uid, pw);
-                    call.enqueue(new Callback<PostSignUp>() {
-                        @Override
-                        public void onResponse(Call<PostSignUp> call, Response<PostSignUp> response) {
-                            if(!response.isSuccessful()){
-                                Toast.makeText(getApplicationContext(),"서버통신에 오류가 발생했습니다.".concat(String.valueOf(response.code())), Toast.LENGTH_SHORT).show();
-                                return;
-                            }
-
-                            PostSignUp postResponse = response.body();
-
-                            if (postResponse.getSuccess()){
-                                Toast.makeText(getApplicationContext(), postResponse.getMessage(), Toast.LENGTH_SHORT).show();
+//                if(uid.isEmpty() || pw.isEmpty()){
+//                    Toast.makeText(getApplicationContext(),"아이디와 비밀번호를 모두 입력해주세요", Toast.LENGTH_SHORT).show();
+//                }
+//                else{
+//                    Call<PostSignUp> call = RetrofitClient.getApiService().login(uid, pw);
+//                    call.enqueue(new Callback<PostSignUp>() {
+//                        @Override
+//                        public void onResponse(Call<PostSignUp> call, Response<PostSignUp> response) {
+//                            if(!response.isSuccessful()){
+//                                Toast.makeText(getApplicationContext(),"서버통신에 오류가 발생했습니다.".concat(String.valueOf(response.code())), Toast.LENGTH_SHORT).show();
+//                                return;
+//                            }
+//
+//                            PostSignUp postResponse = response.body();
+//
+//                            if (postResponse.getSuccess()){
+//                                Toast.makeText(getApplicationContext(), postResponse.getMessage(), Toast.LENGTH_SHORT).show();
 
                                 // Intent: Go to Main Activity
                                 EditText username = (EditText) findViewById(R.id.userid);
@@ -66,20 +66,20 @@ public class LoginActivity extends AppCompatActivity {
                                 loginIntent.putExtra("Username", username.getText().toString());
                                 startActivity(loginIntent);
 
-                            }
-                            else {
-                                Toast.makeText(getApplicationContext(), postResponse.getMessage(), Toast.LENGTH_SHORT).show();
-                                usernameET.setText("");
-                                passwordET.setText("");
-                            }
-
-                        }
-                        @Override
-                        public void onFailure(Call<PostSignUp> call, Throwable t) {
-                            Toast.makeText(getApplicationContext(),"서버와의 연결에 실패했습니다.", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }
+//                            }
+//                            else {
+//                                Toast.makeText(getApplicationContext(), postResponse.getMessage(), Toast.LENGTH_SHORT).show();
+//                                usernameET.setText("");
+//                                passwordET.setText("");
+//                            }
+//
+//                        }
+//                        @Override
+//                        public void onFailure(Call<PostSignUp> call, Throwable t) {
+//                            Toast.makeText(getApplicationContext(),"서버와의 연결에 실패했습니다.", Toast.LENGTH_SHORT).show();
+//                        }
+//                    });
+//                }
 
             }
         });
