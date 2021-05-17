@@ -42,7 +42,9 @@ def login():
             message = "일치하는 아이디가 없습니다."
     else:
         return 400
-
+    print('login')
+    print(success, message)
+    print(jsonify({'success': success, 'message': message}))
     return jsonify({'success': success, 'message': message}), 200
 
 @app.route('/signup', methods=['POST'])
@@ -59,7 +61,9 @@ def signup():
         else:
             data = {"userId": request.form['userId'], "password": request.form['password'], "creonAccount": request.form['creonAccount'], 'active': False}
             g.client.Project.userData.insert_one(data)
-
+    print('signup')
+    print(success, message)
+    print(jsonify({'success': success, 'message': message}))
     return jsonify({'success': success, 'message': message}), 200
 
 @app.route('/home', methods=['POST'])
@@ -78,6 +82,9 @@ def home():
                 user['own']['currentDiff'] += user['own']['stocks'][stock]['diff'] * user['own']['stocks'][stock]['size']
             success = True
             message = user['own']
+    print('home')
+    print(success, message)
+    print(jsonify({'success': success, 'message': message}))
     return jsonify({'success': success, 'message': message}), 200
 
 @app.route('/info', methods=['POST'])
@@ -93,6 +100,9 @@ def info():
             db = g.client.Project
             news = db.newsData.find({'회사명': realTimeChartObj.datas['companyName']}).limit(20)
             message['newsData'] = [{'기사제목': n['기사제목'], '언론사':n['언론사'], '날짜':n['날짜'], '링크':n['링크']} for n in news]
+    print('info')
+    print(success, message)
+    print(jsonify({'success': success, 'message': message}))
     return jsonify({'success': success, 'message': message}), 200
 
 @app.route('/myInfo', methods=['POST'])
@@ -112,13 +122,14 @@ def myInfo():
                     'size']
             message = user['own']
             message['history'] = [h for h in user['history'][:30]]
-
+    print('myInfo')
+    print(success, message)
+    print(jsonify({'success': success, 'message': message}))
     return jsonify({'success': success, 'message': message}), 200
 
 if __name__ == '__main__':
     realTimeChartObj.run()
-    dayChartObj.getOldDatas(30) # 최근 30일
     dayChartObj.run()
     # client = MongoClient("mongodb+srv://choi:zeKf2E10mHYA9Ivu@cluster0.pidsj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
     # db = client.Project
-    app.run(debug=DEBUG)
+    app.run(debug=DEBUG, host='0.0.0.0', port=5000)
