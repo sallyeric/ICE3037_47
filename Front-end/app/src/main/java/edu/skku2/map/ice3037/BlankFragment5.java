@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Description;
@@ -26,10 +25,10 @@ import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link BlankFragment#newInstance} factory method to
+ * Use the {@link BlankFragment5#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class BlankFragment extends Fragment {
+public class BlankFragment5 extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -39,16 +38,14 @@ public class BlankFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
     //    Chart
-    private LineChart chart1;
-    private TextView title;
-    private TextView price;
-    private TextView price_change;
+    private LineChart chart5;
+    private TextView title5;
+    private TextView price5;
     private Button auto_trade;
+    private TextView price_change;
 
-
-    public BlankFragment() {
+    public BlankFragment5() {
         // Required empty public constructor
     }
 
@@ -58,11 +55,11 @@ public class BlankFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment BlankFragment.
+     * @return A new instance of fragment BlankFragment5.
      */
     // TODO: Rename and change types and number of parameters
-    public static BlankFragment newInstance(String param1, String param2) {
-        BlankFragment fragment = new BlankFragment();
+    public static BlankFragment5 newInstance(String param1, String param2) {
+        BlankFragment5 fragment = new BlankFragment5();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -83,50 +80,50 @@ public class BlankFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_blank, container, false);
+        View v = inflater.inflate(R.layout.fragment_blank5, container, false);
 
-        title = v.findViewById(R.id.title);
-        price = v.findViewById(R.id.price);
+        title5 = v.findViewById(R.id.title5);
+        price5 = v.findViewById(R.id.price5);
+
+        title5.setText("엔씨소프트");
+        price5.setText("900,000원");
         auto_trade = v.findViewById(R.id.auto_button);
         auto_trade.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), auto_trade.class);
-                intent.putExtra("종목",title.getText());
+                intent.putExtra("종목",title5.getText());
                 startActivity(intent);
             }
         });
-        title.setText("삼성전자");
-        price.setText("200,000원");
-        
-        chart1 = v.findViewById(R.id.line_chart1);
+        chart5 = v.findViewById(R.id.line_chart5);
         // description text
-        chart1.getDescription().setEnabled(true);
-        Description des1 = chart1.getDescription();
+        chart5.getDescription().setEnabled(true);
+        Description des1 = chart5.getDescription();
         des1.setEnabled(true);
         des1.setText("Data Chart");
         des1.setTextSize(10f);
         des1.setTextColor(Color.WHITE);
 
         // touch gestures (false-비활성화)
-        chart1.setTouchEnabled(true);
+        chart5.setTouchEnabled(true);
         // scaling and dragging (false-비활성화)
-        chart1.setDragEnabled(true);
-        chart1.setScaleEnabled(true);
-        chart1.setDrawGridBackground(false);
+        chart5.setDragEnabled(true);
+        chart5.setScaleEnabled(true);
+        chart5.setDrawGridBackground(false);
         // if disabled, scaling can be done on x- and y-axis separately
-        chart1.setPinchZoom(true);
-        chart1.getAxisLeft().setDrawGridLines(false);
-        chart1.getXAxis().setDrawGridLines(false);
+        chart5.setPinchZoom(true);
+        chart5.getAxisLeft().setDrawGridLines(false);
+        chart5.getXAxis().setDrawGridLines(false);
 
-        chart1.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
-        chart1.getAxisRight().setEnabled(false);
-        chart1.getLegend().setTextColor(Color.BLACK);
-        chart1.animateXY(2000, 2000);
-        XAxis x = chart1.getXAxis();
+        chart5.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+        chart5.getAxisRight().setEnabled(false);
+        chart5.getLegend().setTextColor(Color.BLACK);
+        chart5.animateXY(2000, 2000);
+        XAxis x = chart5.getXAxis();
         x.setAxisMinimum(40);
         x.setAxisMaximum(200);
-        chart1.invalidate();
+        chart5.invalidate();
 
         ArrayList<Entry> values = new ArrayList<>();
         for (int i = 60; i < 100; i++) {
@@ -159,7 +156,7 @@ public class BlankFragment extends Fragment {
         set1.setHighLightColor(Color.rgb(244, 117, 117));
 
         // set data
-        chart1.setData(data);
+        chart5.setData(data);
 
         return v;
 

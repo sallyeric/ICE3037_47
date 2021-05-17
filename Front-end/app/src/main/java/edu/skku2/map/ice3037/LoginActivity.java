@@ -54,18 +54,14 @@ public class LoginActivity extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(),"서버통신에 오류가 발생했습니다.".concat(String.valueOf(response.code())), Toast.LENGTH_SHORT).show();
                                 return;
                             }
-
                             PostSignUp postResponse = response.body();
-
                             if (postResponse.getSuccess()){
                                 Toast.makeText(getApplicationContext(), postResponse.getMessage(), Toast.LENGTH_SHORT).show();
-
                                 // Intent: Go to Main Activity
                                 EditText username = (EditText) findViewById(R.id.userid);
                                 Intent loginIntent = new Intent(LoginActivity.this, MainActivity.class);
                                 loginIntent.putExtra("Username", username.getText().toString());
                                 startActivity(loginIntent);
-
                             }
                             else {
                                 Toast.makeText(getApplicationContext(), postResponse.getMessage(), Toast.LENGTH_SHORT).show();
@@ -80,7 +76,6 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     });
                 }
-
             }
         });
 

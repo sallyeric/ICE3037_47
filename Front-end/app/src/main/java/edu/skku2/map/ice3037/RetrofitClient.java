@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClient {
 
-    private static final String BASE_URL = "http://2f77adfb7db7.ngrok.io/"; //이 url은 서버컴을 재부팅하면 초기화해야 합니다...
+    private static final String BASE_URL = "http://1e081cbf915a.ngrok.io/"; //이 url은 서버컴을 재부팅하면 초기화해야 합니다...
 
     public static RetrofitAPI getApiService(){return getInstance().create(RetrofitAPI.class);}
 

@@ -1,6 +1,7 @@
 package edu.skku2.map.ice3037;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -17,6 +18,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Description;
@@ -30,6 +33,8 @@ import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 
 /**
@@ -54,7 +59,8 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
 
     // A class instance
     private Handler mHandler = new Handler(Looper.getMainLooper());
-    private Button bt_tab1, bt_tab2;
+    private Button bt_tab1, bt_tab2, bt_tab3, bt_tab4, bt_tab5;
+    private CircleImageView bt1;
 
     public InfoFragment() {
         // Required empty public constructor
@@ -93,25 +99,37 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_info, container, false);
 
-        bt_tab1 = (Button)v.findViewById(R.id.bt_tab1);
+        bt1 = (CircleImageView)v.findViewById(R.id.bt1);
         bt_tab2 = (Button)v.findViewById(R.id.bt_tab2);
-
-        bt_tab1.setOnClickListener(this);
+        bt_tab3 = (Button)v.findViewById(R.id.bt_tab3);
+        bt_tab4 = (Button)v.findViewById(R.id.bt_tab4);
+        bt_tab5 = (Button)v.findViewById(R.id.bt_tab5);
+        bt1.setOnClickListener(this);
         bt_tab2.setOnClickListener(this);
+        bt_tab3.setOnClickListener(this);
+        bt_tab4.setOnClickListener(this);
+        bt_tab5.setOnClickListener(this);
         callFragment(1);
 
         return v;
     }
-
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.bt_tab1 :
+            case R.id.bt1:
                 callFragment(1);
                 break;
-
             case R.id.bt_tab2 :
                 callFragment(2);
+                break;
+            case R.id.bt_tab3 :
+                callFragment(3);
+                break;
+            case R.id.bt_tab4 :
+                callFragment(4);
+                break;
+            case R.id.bt_tab5 :
+                callFragment(5);
                 break;
         }
     }
@@ -126,6 +144,21 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
             case 2:
                 BlankFragment2 fragment2 = new BlankFragment2();
                 transaction.replace(R.id.fragment_container, fragment2);
+                transaction.commit();
+                break;
+            case 3:
+                BlankFragment3 fragment3 = new BlankFragment3();
+                transaction.replace(R.id.fragment_container, fragment3);
+                transaction.commit();
+                break;
+            case 4:
+                BlankFragment4 fragment4 = new BlankFragment4();
+                transaction.replace(R.id.fragment_container, fragment4);
+                transaction.commit();
+                break;
+            case 5:
+                BlankFragment5 fragment5 = new BlankFragment5();
+                transaction.replace(R.id.fragment_container, fragment5);
                 transaction.commit();
                 break;
         }
