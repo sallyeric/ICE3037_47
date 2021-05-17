@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.LineChart;
@@ -52,15 +53,23 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
     private String mParam1;
     private String mParam2;
 
-    //    Chart
-//    private LineChart chart1;
-//    private LineChart chart2;
-//    private Thread thread;
-
     // A class instance
     private Handler mHandler = new Handler(Looper.getMainLooper());
-    private Button bt_tab1, bt_tab2, bt_tab3, bt_tab4, bt_tab5;
     private CircleImageView bt1;
+    private CircleImageView bt2;
+    private CircleImageView bt3;
+    private CircleImageView bt4;
+    private CircleImageView bt5;
+    private CircleImageView bt6;
+    private CircleImageView bt7;
+    private CircleImageView bt8;
+    private CircleImageView bt9;
+    //    Chart
+    private LineChart chart;
+    private TextView title;
+    private TextView price;
+    private TextView price_change;
+    private Button auto_trade;
 
     public InfoFragment() {
         // Required empty public constructor
@@ -98,71 +107,162 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_info, container, false);
-
         bt1 = (CircleImageView)v.findViewById(R.id.bt1);
-        bt_tab2 = (Button)v.findViewById(R.id.bt_tab2);
-        bt_tab3 = (Button)v.findViewById(R.id.bt_tab3);
-        bt_tab4 = (Button)v.findViewById(R.id.bt_tab4);
-        bt_tab5 = (Button)v.findViewById(R.id.bt_tab5);
+        bt2 = (CircleImageView)v.findViewById(R.id.bt2);
+        bt3 = (CircleImageView)v.findViewById(R.id.bt3);
+        bt4 = (CircleImageView)v.findViewById(R.id.bt4);
+        bt5 = (CircleImageView)v.findViewById(R.id.bt5);
+        bt6 = (CircleImageView)v.findViewById(R.id.bt6);
+        bt7 = (CircleImageView)v.findViewById(R.id.bt7);
+        bt8 = (CircleImageView)v.findViewById(R.id.bt8);
+        bt9 = (CircleImageView)v.findViewById(R.id.bt9);
         bt1.setOnClickListener(this);
-        bt_tab2.setOnClickListener(this);
-        bt_tab3.setOnClickListener(this);
-        bt_tab4.setOnClickListener(this);
-        bt_tab5.setOnClickListener(this);
-        callFragment(1);
+        bt2.setOnClickListener(this);
+        bt3.setOnClickListener(this);
+        bt4.setOnClickListener(this);
+        bt5.setOnClickListener(this);
+        bt6.setOnClickListener(this);
+        bt7.setOnClickListener(this);
+        bt8.setOnClickListener(this);
+        bt9.setOnClickListener(this);
 
+        title = v.findViewById(R.id.title);
+        price = v.findViewById(R.id.price);
+        auto_trade = v.findViewById(R.id.auto_button);
+        auto_trade.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), auto_trade.class);
+                intent.putExtra("종목",title.getText());
+                startActivity(intent);
+            }
+        });
+
+        title.setText("삼성전자");
+        price.setText("200,000원");
+        chart = v.findViewById(R.id.line_chart);
+        makeChart(chart);
         return v;
     }
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.bt1:
-                callFragment(1);
+                title.setText("삼성전자");
+                price.setText("200,000원");
+                makeChart(chart);
+                chart.animateXY(2000, 2000);
                 break;
-            case R.id.bt_tab2 :
-                callFragment(2);
+            case R.id.bt2 :
+                title.setText("SK하이닉스");
+                price.setText("100,000원");
+                makeChart(chart);
+                chart.animateXY(2000, 2000);
                 break;
-            case R.id.bt_tab3 :
-                callFragment(3);
+            case R.id.bt3 :
+                title.setText("LG화학");
+                price.setText("1,000,000원");
+                makeChart(chart);
+                chart.animateXY(2000, 2000);
                 break;
-            case R.id.bt_tab4 :
-                callFragment(4);
+            case R.id.bt4 :
+                title.setText("셀트리온");
+                price.setText("200,000원");
+                makeChart(chart);
+                chart.animateXY(2000, 2000);
                 break;
-            case R.id.bt_tab5 :
-                callFragment(5);
+            case R.id.bt5 :
+                title.setText("NAVER");
+                price.setText("300,000원");
+                makeChart(chart);
+                chart.animateXY(2000, 2000);
+                break;
+            case R.id.bt6 :
+                title.setText("현대차");
+                price.setText("200,000원");
+                makeChart(chart);
+                chart.animateXY(2000, 2000);
+                break;
+            case R.id.bt7 :
+                title.setText("카카오");
+                price.setText("50,000원");
+                makeChart(chart);
+                chart.animateXY(2000, 2000);
+                break;
+            case R.id.bt8 :
+                title.setText("기아");
+                price.setText("100,000원");
+                makeChart(chart);
+                chart.animateXY(2000, 2000);
+                break;
+            case R.id.bt9 :
+                title.setText("POSCO");
+                price.setText("400,000원");
+                makeChart(chart);
+                chart.animateXY(2000, 2000);
                 break;
         }
     }
-    private void callFragment(int frament_no){
-        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-        switch (frament_no){
-            case 1:
-                BlankFragment fragment1 = new BlankFragment();
-                transaction.replace(R.id.fragment_container, fragment1);
-                transaction.commit();
-                break;
-            case 2:
-                BlankFragment2 fragment2 = new BlankFragment2();
-                transaction.replace(R.id.fragment_container, fragment2);
-                transaction.commit();
-                break;
-            case 3:
-                BlankFragment3 fragment3 = new BlankFragment3();
-                transaction.replace(R.id.fragment_container, fragment3);
-                transaction.commit();
-                break;
-            case 4:
-                BlankFragment4 fragment4 = new BlankFragment4();
-                transaction.replace(R.id.fragment_container, fragment4);
-                transaction.commit();
-                break;
-            case 5:
-                BlankFragment5 fragment5 = new BlankFragment5();
-                transaction.replace(R.id.fragment_container, fragment5);
-                transaction.commit();
-                break;
-        }
-    }
+    public void makeChart(LineChart chart){
+        // description text
+        chart.getDescription().setEnabled(true);
+        Description des1 = chart.getDescription();
+        des1.setEnabled(true);
+        des1.setText("Data Chart");
+        des1.setTextSize(10f);
+        des1.setTextColor(Color.WHITE);
+        // touch gestures (false-비활성화)
+        chart.setTouchEnabled(true);
+        // scaling and dragging (false-비활성화)
+        chart.setDragEnabled(true);
+        chart.setScaleEnabled(true);
+        chart.setDrawGridBackground(false);
+        // if disabled, scaling can be done on x- and y-axis separately
+        chart.setPinchZoom(true);
+        chart.getAxisLeft().setDrawGridLines(false);
+        chart.getXAxis().setDrawGridLines(false);
+        chart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+        chart.getAxisRight().setEnabled(false);
+        chart.getLegend().setTextColor(Color.BLACK);
+        chart.animateXY(2000, 2000);
 
+        XAxis x = chart.getXAxis();
+        x.setAxisMinimum(40);
+        x.setAxisMaximum(200);
+        chart.invalidate();
+
+        ArrayList<Entry> values = new ArrayList<>();
+        for (int i = 60; i < 100; i++) {
+            float val = (float) (Math.random() * 10);
+            values.add(new Entry(i, val));
+        }
+
+        LineDataSet set1;
+        set1 = new LineDataSet(values, "Price");
+        ArrayList<ILineDataSet> dataSets = new ArrayList<>();
+        dataSets.add(set1); // add the data sets
+        // create a data object with the data sets
+        LineData data = new LineData(dataSets);
+
+        // black lines and points
+        set1.setFillAlpha(110);
+        set1.setFillColor(Color.parseColor("#fae7d7"));
+        set1.setColor(Color.parseColor("#FF0000"));
+        set1.setCircleColor(Color.parseColor("#FFA1B4DC"));
+        set1.setCircleHoleColor(Color.BLUE);
+        set1.setValueTextColor(Color.BLACK);
+        set1.setDrawValues(false);
+        set1.setLineWidth(2f);
+        set1.setCircleRadius(3f);
+        set1.setDrawCircleHole(false);
+        set1.setDrawCircles(false);
+        set1.setValueTextSize(9f);
+        set1.setDrawFilled(true);
+        set1.setAxisDependency(YAxis.AxisDependency.LEFT);
+        set1.setHighLightColor(Color.rgb(244, 117, 117));
+
+        // set data
+        chart.setData(data);
+    }
 
 }

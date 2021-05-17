@@ -10,9 +10,9 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-//import retrofit2.Call;
-//import retrofit2.Callback;
-//import retrofit2.Response;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -32,7 +32,6 @@ public class LoginActivity extends AppCompatActivity {
             Intent signupIntent = getIntent();
             username.setText(signupIntent.getStringExtra("Username"));
         }
-
         TextView login = (TextView) findViewById(R.id.loginButton);
         login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,7 +67,6 @@ public class LoginActivity extends AppCompatActivity {
                                 usernameET.setText("");
                                 passwordET.setText("");
                             }
-
                         }
                         @Override
                         public void onFailure(Call<PostSignUp> call, Throwable t) {
