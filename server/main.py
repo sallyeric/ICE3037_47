@@ -111,12 +111,13 @@ def myInfo():
                 user['own']['currentDiff'] += (user['own']['stocks'][stock]['price'] - realTimeChartObj.datas[stock]['price']) * user['own']['stocks'][stock][
                     'size']
             message = user['own']
-            message['history'] = [h for h in user['history'].find().limit(30)]
+            message['history'] = [h for h in user['history'][:30]]
 
     return jsonify({'success': success, 'message': message}), 200
 
 if __name__ == '__main__':
     realTimeChartObj.run()
+    dayChartObj.getOldDatas(30) # 최근 30일
     dayChartObj.run()
     # client = MongoClient("mongodb+srv://choi:zeKf2E10mHYA9Ivu@cluster0.pidsj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
     # db = client.Project
