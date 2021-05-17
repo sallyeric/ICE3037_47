@@ -84,8 +84,8 @@ def home():
             message = user['own']
     print('home')
     print(success, message)
-    print(jsonify({'success': success, 'message': message}))
-    return jsonify({'success': success, 'message': message}), 200
+    print(jsonify({'success': success, 'message': json.dumps(message, ensure_ascii=False)}))
+    return jsonify({'success': success, 'message': json.dumps(message, ensure_ascii=False)}), 200
 
 @app.route('/info', methods=['POST'])
 def info():
@@ -98,12 +98,12 @@ def info():
                        'diff': realTimeChartObj.datas[request.form['companyName']]['diff'],
                        'chartData': dayChartObj.datas[request.form['companyName']]}
             db = g.client.Project
-            news = db.newsData.find({'회사명': realTimeChartObj.datas['companyName']}).limit(20)
+            news = db.newsData.find({'회사명': request.form['companyName']}).limit(20)
             message['newsData'] = [{'기사제목': n['기사제목'], '언론사':n['언론사'], '날짜':n['날짜'], '링크':n['링크']} for n in news]
     print('info')
     print(success, message)
-    print(jsonify({'success': success, 'message': message}))
-    return jsonify({'success': success, 'message': message}), 200
+    print(jsonify({'success': success, 'message': json.dumps(message, ensure_ascii=False)}))
+    return jsonify({'success': success, 'message': json.dumps(message, ensure_ascii=False)}), 200
 
 @app.route('/myInfo', methods=['POST'])
 def myInfo():
@@ -124,8 +124,8 @@ def myInfo():
             message['history'] = [h for h in user['history'][:30]]
     print('myInfo')
     print(success, message)
-    print(jsonify({'success': success, 'message': message}))
-    return jsonify({'success': success, 'message': message}), 200
+    print(jsonify({'success': success, 'message': json.dumps(message, ensure_ascii=False)}))
+    return jsonify({'success': success, 'message': json.dumps(message, ensure_ascii=False)}), 200
 
 if __name__ == '__main__':
     realTimeChartObj.run()
