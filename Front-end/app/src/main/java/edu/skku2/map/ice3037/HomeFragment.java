@@ -1,7 +1,9 @@
 package edu.skku2.map.ice3037;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,9 +22,16 @@ import java.util.ArrayList;
  */
 public class HomeFragment extends Fragment {
 
-    private RecyclerView recyclerView;
-    HomeAdapter adapter;
-    private ArrayList<String> list = new ArrayList<>();
+    // 이전코드
+//    private RecyclerView recyclerView;
+    HomeAdapter mAdapter;
+    private ArrayList<Item> mArrayList;
+    private int count = -1;
+
+    // 새코드
+//    RecyclerView mRecyclerView = null ;
+//    HomeAdapter mAdapter = null ;
+//    ArrayList<Item> mList = new ArrayList<Item>();
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -70,13 +79,53 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         // ADD
         View v = inflater.inflate(R.layout.fragment_home, container, false);
-        recyclerView = (RecyclerView) v.findViewById(R.id.recyclerView);
 
-        recyclerView.setHasFixedSize(true);
-        adapter = new HomeAdapter(getActivity().getApplicationContext(), list);
-        recyclerView.setLayoutManager(new LinearLayoutManager(v.getContext()));
-        recyclerView.setAdapter(adapter);
+        // 이전코드
+//        recyclerView = (RecyclerView) v.findViewById(R.id.recyclerView);
+//
+//        recyclerView.setHasFixedSize(true);
+//        adapter = new HomeAdapter(getActivity().getApplicationContext(), list);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(v.getContext()));
+//        recyclerView.setAdapter(adapter);
+        RecyclerView mRecyclerView = v.findViewById(R.id.recyclerView);
+        LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(v.getContext());
+        mRecyclerView.setLayoutManager(mLinearLayoutManager) ;
 
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        mArrayList = new ArrayList<>();
+
+        mAdapter = new HomeAdapter(getActivity().getApplicationContext(), mArrayList);
+
+        mRecyclerView.setAdapter(mAdapter) ;
+//        mRecyclerView.setLayoutManager(new LinearLayoutManager(v.getContext())) ;
+
+        // 아이템 추가.
+        Item item1 = new Item("삼성전자", "3000", "+0.02");
+        mArrayList.add(item1);
+        Item item2 = new Item("네이버", "8000 원", "-0.05");
+        mArrayList.add(item2);
+        Item item3 = new Item("SK 하이닉스", "6000 원", "+0.5");
+        mArrayList.add(item3);
+
+        // 두 번째 아이템 추가.
+//        addItem(ContextCompat.getDrawable(v.getContext(), R.drawable.logo_naver),
+//                "네이버", "8000 원", "-0.05") ;
+//        // 세 번째 아이템 추가.
+//        addItem(ContextCompat.getDrawable(v.getContext(), R.drawable.logo_skhynix),
+//                "SK 하이닉스", "6000 원", "+0.5") ;
+
+        mAdapter.notifyDataSetChanged() ;
+
+        return v;
     }
+
+//    public void addItem(String corp, String price, String updown) {
+//        Item item = new Item("", "", "");
+//
+////        item.setLogo(logo);
+//        item.setCorp(corp);
+//        item.setPrice(price);
+//        item.setUpdown(updown);
+//
+//        mArrayList.add(item);
+//    }
 }
