@@ -5,23 +5,21 @@ import android.graphics.drawable.Drawable;
 import java.util.ArrayList;
 
 public class Item {
-//    private Drawable logo; // 회사 로고 이미지
+    private Drawable logoDrawable; // 회사 로고 이미지
     private String corpString; // 회사명
     private String priceString; // 시가총액
     private String updownString; // 변화량(%)
 
 //    public Item () { }
 //
-    public Item(String corp, String price, String updown) {
-//        this.logo = logo;
+    public Item(Drawable logo, String corp, String price, String updown) {
+        logoDrawable = logo;
         corpString = corp;
         priceString = price;
         updownString = updown;
     }
 
-//    public void setLogo(Drawable logo) {
-//        logoDrawable = logo ;
-//    }
+    public void setLogo(Drawable logo) { logoDrawable = logo ; }
     public void setCorp(String corp) {
         corpString = corp ;
     }
@@ -32,7 +30,7 @@ public class Item {
         updownString = updown ;
     }
 
-//    public Drawable getLogo() { return this.logo; }
+    public Drawable getLogo() { return logoDrawable; }
 
     public String getCorp() { return corpString; }
 

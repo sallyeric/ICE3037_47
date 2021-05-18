@@ -99,11 +99,14 @@ public class HomeFragment extends Fragment {
 //        mRecyclerView.setLayoutManager(new LinearLayoutManager(v.getContext())) ;
 
         // 아이템 추가.
-        Item item1 = new Item("삼성전자", "3000", "+0.02");
+        Item item1 = new Item(ContextCompat.getDrawable(v.getContext(), R.drawable.logo_samsung),
+                "삼성전자", "3000", "+0.02");
         mArrayList.add(item1);
-        Item item2 = new Item("네이버", "8000 원", "-0.05");
+        Item item2 = new Item(ContextCompat.getDrawable(v.getContext(), R.drawable.logo_naver),
+                "네이버", "8000 원", "-0.05");
         mArrayList.add(item2);
-        Item item3 = new Item("SK 하이닉스", "6000 원", "+0.5");
+        Item item3 = new Item(ContextCompat.getDrawable(v.getContext(), R.drawable.logo_skhynix),
+                "SK 하이닉스", "6000 원", "+0.5");
         mArrayList.add(item3);
 
         // 두 번째 아이템 추가.

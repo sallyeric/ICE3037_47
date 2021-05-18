@@ -53,7 +53,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.Holder>{
 //        Item item = mData.get(position);
         int itemposition = position;
 
-//        holder.logo.setImageDrawable(item.getLogo());
+        holder.logo.setImageDrawable(mData.get(itemposition).getLogo());
         holder.corp.setText(mData.get(itemposition).getCorp());
         holder.price.setText(mData.get(itemposition).getPrice());
         holder.updown.setText(mData.get(itemposition).getUpdown());
@@ -67,7 +67,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.Holder>{
 
     // 아이템 뷰를 저장하는 뷰홀더 클래스.
     public class Holder extends RecyclerView.ViewHolder {
-//        ImageView logo;
+        ImageView logo;
         TextView corp;
         TextView price;
         TextView updown;
@@ -76,7 +76,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.Holder>{
             super(view);
 
             // 뷰 객체에 대한 참조. (hold strong reference)
-//            logo = (TextView) view.findViewById(R.id.home_item_logo);
+            logo = (ImageView) view.findViewById(R.id.home_item_logo);
             corp = (TextView) view.findViewById(R.id.home_item_corp);
             price = (TextView) view.findViewById(R.id.home_item_price);
             updown = (TextView) view.findViewById(R.id.home_item_updown);
