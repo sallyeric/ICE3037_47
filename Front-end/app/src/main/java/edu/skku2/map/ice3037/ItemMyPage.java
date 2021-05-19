@@ -4,6 +4,8 @@ import android.graphics.drawable.Drawable;
 
 import java.util.ArrayList;
 
+// 회사명, 매도/매수금액, 몇 주, 시간, 수익/손실, 수익률/손실률
+
 public class ItemMyPage {
     private String timeString; // 시간
     private String corpString; // 회사명
@@ -13,8 +15,6 @@ public class ItemMyPage {
     private String percentString; // 수익률/손실률
     private int viewTypeInt;
 
-    //    public Item () { }
-//
     public ItemMyPage(String corp, String price, String stock, String time, String profit, String percent, int viewType) {
         timeString = time;
         corpString = corp;

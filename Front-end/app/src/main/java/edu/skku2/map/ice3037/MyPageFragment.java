@@ -52,14 +52,6 @@ public class MyPageFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_my_page, container, false);
 
-//        RecyclerView recyclerView = v.findViewById(R.id.recyclerView2);
-//
-//        LinearLayoutManager manager = new LinearLayoutManager(v.getContext(), LinearLayoutManager.VERTICAL,false);
-//
-//        recyclerView.setLayoutManager(manager); // LayoutManager 등록
-//        recyclerView.setAdapter(new MyPageAdapter(mArrayList));  // Adapter 등록
-
-        //
         RecyclerView mRecyclerView = v.findViewById(R.id.recyclerView2);
         LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(v.getContext());
         mRecyclerView.setLayoutManager(mLinearLayoutManager) ;
@@ -69,10 +61,16 @@ public class MyPageFragment extends Fragment {
         mAdapter = new MyPageAdapter(mArrayList);
 
         mRecyclerView.setAdapter(mAdapter) ;
-        //
 
-        // 아이템 추가.
-        // String corp, String price, String stock, String time, String profit, String percent, int viewType
+        /*TODO
+        *  [Backend] 여기 코드 수정하면 될 것 같습니다.
+        * 아이템 추가.
+        * viewType에 따라 item의 색깔이 다르게 나타납니다. (회색/빨강/파랑)
+        * 수익/손실에 따라 viewType을 설정해주면 됩니다. (0/1/2)
+        * 매수: 회사명, 매수금액, 몇 주, 시간, viewType(0)
+        * 매도 (+): 회사명, 매수금액, 몇 주, 시간,  수익/손실, 수익률/손실률, viewType(1)
+        * 매도 (-): 회사명, 매수금액, 몇 주, 시간,  수익/손실, 수익률/손실률, viewType(2) */
+
         ItemMyPage item1 = new ItemMyPage("네이버","8000 원","4 주", "2021-05-25",
                 null, null, 0);
         mArrayList.add(item1);

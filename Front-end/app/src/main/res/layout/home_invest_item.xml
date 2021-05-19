@@ -5,10 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="20dp">
+    android:padding="10dp">
 
     <de.hdodenhof.circleimageview.CircleImageView
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_marginTop="10dp"
         android:id="@+id/home_item_logo"
         android:layout_width="60dp"
         android:layout_height="60dp"
@@ -28,15 +29,48 @@
             android:textColor="#FF000000"
             android:textSize="18dp"
             android:textStyle="bold" />
-        <TextView
-            android:id="@+id/home_item_price"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:text="82,100 원"
-            android:textColor="#FF000000"
-            android:textSize="15dp"
-            android:textStyle="bold" />
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="현재가: "
+                android:textColor="#FF000000"
+                android:textSize="15dp"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/home_item_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="82,100 원"
+                android:textColor="#FF000000"
+                android:textSize="15dp"
+                android:textStyle="bold" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="평가금액: "
+                android:textColor="#FF000000"
+                android:textSize="15dp"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/home_item_eval"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="82,100 원"
+                android:textColor="#FF000000"
+                android:textSize="15dp"
+                android:textStyle="bold" />
+        </LinearLayout>
     </LinearLayout>
     <TextView
         android:id="@+id/home_item_updown"

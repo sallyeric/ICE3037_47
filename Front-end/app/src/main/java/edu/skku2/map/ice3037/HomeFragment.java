@@ -64,17 +64,20 @@ public class HomeFragment extends Fragment {
 
         mRecyclerView.setAdapter(mAdapter) ;
 
+        /*TODO
+         *  [Backend] 여기 코드 수정하면 될 것 같습니다*/
         // 아이템 추가.
+        // Item: 회사 로고, 회사명, 현재가, 평가금액, 수익률
         Item item1 = new Item(ContextCompat.getDrawable(v.getContext(), R.drawable.logo_samsung),
-                "삼성전자", "3000", "+0.02");
+                "삼성전자", "3000", "10000", "+0.02");
         mArrayList.add(item1);
 
         Item item2 = new Item(ContextCompat.getDrawable(v.getContext(), R.drawable.logo_naver),
-                "네이버", "8000 원", "-0.05");
+                "네이버", "8000", "20000", "-0.05");
         mArrayList.add(item2);
 
         Item item3 = new Item(ContextCompat.getDrawable(v.getContext(), R.drawable.logo_skhynix),
-                "SK 하이닉스", "6000 원", "+0.5");
+                "SK 하이닉스", "6000","30000", "+0.5");
         mArrayList.add(item3);
 
         mAdapter.notifyDataSetChanged() ;
