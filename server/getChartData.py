@@ -62,10 +62,8 @@ class getDayChartData:
                 c = self.db[name].find_one({'date': int(date)})
                 if c:
                     cnt+=1
-                    self.datas[name].append(c)
+                    self.datas[name].append({'date':c['date'], 'price':c['close']})
                 if cnt >= 30: break
-        print(self.datas)
-
 
     def run(self):
         print('checking day chart')
