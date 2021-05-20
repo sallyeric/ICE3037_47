@@ -16,12 +16,36 @@ public interface RetrofitAPI {
 
     @FormUrlEncoded
     @POST("/signup")
-    Call<PostSignUp> signUp(@Field("userId") String userId,
+    Call<Post> signUp(@Field("userId") String userId,
                             @Field("password") String password,
                             @Field("creonAccount") String creonAccount);
 
     @FormUrlEncoded
     @POST("/login")
-    Call<PostSignUp> login(@Field("userId") String userId,
+    Call<Post> login(@Field("userId") String userId,
                            @Field("password") String password);
+
+    @FormUrlEncoded
+    @POST("/home")
+    Call<Post> home(@Field("userId") String userId);
+
+    @FormUrlEncoded
+    @POST("/info")
+    Call<Post> info(@Field("companyName") String companyName);
+
+    @FormUrlEncoded
+    @POST("/OnAutoTrade")
+    Call<Post> OnAutoTrade(@Field("userId") String userId,
+                           @Field("companyName") String companyName,
+                           @Field("budgets") String budgets);
+
+    @FormUrlEncoded
+    @POST("/OffAutoTrade")
+    Call<Post> OffAutoTrade(@Field("userId") String userId,
+                           @Field("companyName") String companyName);
+
+    @FormUrlEncoded
+    @POST("/myInfo")
+    Call<Post> myInfo(@Field("userId") String userId);
+
 }

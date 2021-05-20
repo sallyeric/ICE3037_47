@@ -2,13 +2,13 @@ package edu.skku2.map.ice3037;
 
 import com.google.gson.annotations.SerializedName;
 
-public class PostSignUp {
+public class Post {
     @SerializedName("message")
     private String message;
     @SerializedName("success")
     private Boolean success;
 
-    public PostSignUp(){
+    public Post(){
         //
     }
 
@@ -28,3 +28,4 @@ public class PostSignUp {
         this.success = success;
     }
 }
+
