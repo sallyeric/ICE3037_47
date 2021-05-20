@@ -1,24 +1,18 @@
 package edu.skku2.map.ice3037;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,12 +24,19 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
-import com.google.android.material.tabs.TabLayout;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import java.text.DecimalFormat;
 
 
 /**
@@ -52,6 +53,18 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private String[] companyNameList = {
+            "삼성전자",
+            "SK하이닉스",
+            "LG화학",
+            "셀트리온",
+            "NAVER",
+            "현대차",
+            "카카오",
+            "기아",
+            "POSCO"
+    };
 
     // A class instance
     private Handler mHandler = new Handler(Looper.getMainLooper());
@@ -70,6 +83,9 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
     private TextView price;
     private TextView price_change;
     private Button auto_trade;
+
+    private JSONArray chartData;
+    private JSONArray newsData;
 
     public InfoFragment() {
         // Required empty public constructor
@@ -128,6 +144,7 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
 
         title = v.findViewById(R.id.title);
         price = v.findViewById(R.id.price);
+        price_change = v.findViewById(R.id.price_change);
         auto_trade = v.findViewById(R.id.auto_button);
         auto_trade.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -138,71 +155,54 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
             }
         });
 
-        title.setText("삼성전자");
-        price.setText("200,000원");
+        request(companyNameList[0]);
         chart = v.findViewById(R.id.line_chart);
         makeChart(chart);
+        chart.animateXY(2000, 2000);
+
         return v;
     }
     @Override
     public void onClick(View v) {
+
+        String companyName = "";
+        Integer presentPrice;
+
         switch (v.getId()){
             case R.id.bt1:
-                title.setText("삼성전자");
-                price.setText("200,000원");
-                makeChart(chart);
-                chart.animateXY(2000, 2000);
+                companyName = companyNameList[0];
                 break;
             case R.id.bt2 :
-                title.setText("SK하이닉스");
-                price.setText("100,000원");
-                makeChart(chart);
-                chart.animateXY(2000, 2000);
+                companyName = companyNameList[1];
                 break;
             case R.id.bt3 :
-                title.setText("LG화학");
-                price.setText("1,000,000원");
-                makeChart(chart);
-                chart.animateXY(2000, 2000);
+                companyName = companyNameList[2];
                 break;
             case R.id.bt4 :
-                title.setText("셀트리온");
-                price.setText("200,000원");
-                makeChart(chart);
-                chart.animateXY(2000, 2000);
+                companyName = companyNameList[3];
                 break;
             case R.id.bt5 :
-                title.setText("NAVER");
-                price.setText("300,000원");
-                makeChart(chart);
-                chart.animateXY(2000, 2000);
+                companyName = companyNameList[4];
                 break;
             case R.id.bt6 :
-                title.setText("현대차");
-                price.setText("200,000원");
-                makeChart(chart);
-                chart.animateXY(2000, 2000);
+                companyName = companyNameList[5];
                 break;
             case R.id.bt7 :
-                title.setText("카카오");
-                price.setText("50,000원");
-                makeChart(chart);
-                chart.animateXY(2000, 2000);
+                companyName = companyNameList[6];
                 break;
             case R.id.bt8 :
-                title.setText("기아");
-                price.setText("100,000원");
-                makeChart(chart);
-                chart.animateXY(2000, 2000);
+                companyName = companyNameList[7];
                 break;
             case R.id.bt9 :
-                title.setText("POSCO");
-                price.setText("400,000원");
-                makeChart(chart);
-                chart.animateXY(2000, 2000);
+                companyName = companyNameList[8];
                 break;
         }
+
+        request(companyName);
+        makeChart(chart);
+        chart.animateXY(2000, 2000);
     }
+
     public void makeChart(LineChart chart){
         // description text
         chart.getDescription().setEnabled(true);
@@ -263,6 +263,57 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
 
         // set data
         chart.setData(data);
+    }
+    
+    private void request(String companyName){
+        /*
+         * userId : 사용자 아이디를 입력값으로 요청
+         * title, price, price_change 에 표시되는 값을 변경
+         * chartData, newsData 에 값을 할당
+         * */
+
+        title.setText(companyName);
+
+        Call<Post> call = RetrofitClient.getApiService().info(companyName);
+        call.enqueue(new Callback<Post>() {
+            @Override
+            public void onResponse(Call<Post> call, Response<Post> response) {
+                if(!response.isSuccessful()){
+                    Toast.makeText(getActivity().getApplicationContext(),"서버통신에 오류가 발생했습니다.".concat(String.valueOf(response.code())), Toast.LENGTH_SHORT).show();
+
+                    return;
+                }
+                Post postResponse = response.body();
+                if (postResponse.getSuccess()){
+
+                    try {
+                        JSONObject obj = new JSONObject(postResponse.getMessage());
+                        Log.d("==========", obj.toString());
+
+                        price.setText(String.format("%s원", new DecimalFormat("###,###").format(obj.getInt("price"))));
+                        price_change.setText(String.format("%s(%.2f%%)", new DecimalFormat("###,###").format(obj.getInt("diff")), (float) obj.getInt("diff")/ obj.getInt("price")*100));
+
+                        chartData = (JSONArray) obj.get("chartData");
+                        newsData = (JSONArray) obj.get("newsData");
+
+                        Log.d("==========", chartData.toString());
+                        Log.d("==========", newsData.toString());
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+                else {
+                    Toast.makeText(getActivity().getApplicationContext(), postResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                    Log.d("==========", postResponse.getMessage());
+                }
+            }
+            @Override
+            public void onFailure(Call<Post> call, Throwable t) {
+                Toast.makeText(getActivity().getApplicationContext(),"서버와의 연결에 실패했습니다.", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 }
