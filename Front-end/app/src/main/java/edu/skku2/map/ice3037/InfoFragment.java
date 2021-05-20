@@ -17,18 +17,23 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.InetAddress;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -37,6 +42,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import java.text.DecimalFormat;
+import java.util.Date;
 
 
 /**
@@ -157,8 +163,6 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
 
         request(companyNameList[0]);
         chart = v.findViewById(R.id.line_chart);
-        makeChart(chart);
-        chart.animateXY(2000, 2000);
 
         return v;
     }
@@ -197,13 +201,10 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
                 companyName = companyNameList[8];
                 break;
         }
-
         request(companyName);
-        makeChart(chart);
-        chart.animateXY(2000, 2000);
     }
 
-    public void makeChart(LineChart chart){
+    public void makeChart(LineChart chart, JSONArray chartData){
         // description text
         chart.getDescription().setEnabled(true);
         Description des1 = chart.getDescription();
@@ -222,19 +223,22 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
         chart.getAxisLeft().setDrawGridLines(false);
         chart.getXAxis().setDrawGridLines(false);
         chart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+        chart.getXAxis().setLabelCount(5, true);
         chart.getAxisRight().setEnabled(false);
+        chart.getXAxis().setDrawLabels(false);
+        chart.getXAxis().setGranularity(1f);
         chart.getLegend().setTextColor(Color.BLACK);
-        chart.animateXY(2000, 2000);
 
         XAxis x = chart.getXAxis();
-        x.setAxisMinimum(40);
-        x.setAxisMaximum(200);
         chart.invalidate();
 
         ArrayList<Entry> values = new ArrayList<>();
-        for (int i = 60; i < 100; i++) {
-            float val = (float) (Math.random() * 10);
-            values.add(new Entry(i, val));
+        JSONObject element;
+        for (int i = 0; i < chartData.length()-1; i++){
+            element = (JSONObject) chartData.opt(chartData.length() - i - 1);
+            int getDate = Integer.parseInt(element.optString("date"));
+            int getPrice = Integer.parseInt(element.optString("price"));
+            values.add(new Entry(i, getPrice));
         }
 
         LineDataSet set1;
@@ -264,7 +268,6 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
         // set data
         chart.setData(data);
     }
-    
     private void request(String companyName){
         /*
          * userId : 사용자 아이디를 입력값으로 요청
@@ -295,6 +298,9 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
 
                         chartData = (JSONArray) obj.get("chartData");
                         newsData = (JSONArray) obj.get("newsData");
+
+                        makeChart(chart, chartData);
+                        chart.animateXY(2000, 2000);
 
                         Log.d("==========", chartData.toString());
                         Log.d("==========", newsData.toString());
