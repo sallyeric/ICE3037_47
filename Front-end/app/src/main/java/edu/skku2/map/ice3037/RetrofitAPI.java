@@ -37,7 +37,7 @@ public interface RetrofitAPI {
     @POST("/OnAutoTrade")
     Call<Post> OnAutoTrade(@Field("userId") String userId,
                            @Field("companyName") String companyName,
-                           @Field("budgets") String budgets);
+                           @Field("budgets") int budgets);
 
     @FormUrlEncoded
     @POST("/OffAutoTrade")
