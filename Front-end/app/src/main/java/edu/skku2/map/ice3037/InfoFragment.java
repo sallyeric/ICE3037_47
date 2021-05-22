@@ -5,6 +5,8 @@ import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Handler;
 import android.os.Looper;
@@ -93,6 +95,9 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
     private JSONArray chartData;
     private JSONArray newsData;
 
+    InfoNewsAdapter mAdapter;
+    private ArrayList<NewsItem> mArrayList;
+
     public InfoFragment() {
         // Required empty public constructor
     }
@@ -160,6 +165,19 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
                 startActivity(intent);
             }
         });
+
+        // news
+        RecyclerView mRecyclerView = v.findViewById(R.id.recyclerView_news);
+        LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(v.getContext());
+        mRecyclerView.setLayoutManager(mLinearLayoutManager) ;
+        mArrayList = new ArrayList<>();
+        mAdapter = new InfoNewsAdapter(mArrayList);
+        mRecyclerView.setAdapter(mAdapter);
+        NewsItem item1 = new NewsItem("2020-01-01","뉴스제목입니다","종설프tv","https://www.naver.com/");
+        mArrayList.add(item1);
+        NewsItem item2 = new NewsItem("2020-01-02","뉴스제목입니다2","종설프tv","https://www.naver.com/");
+        mArrayList.add(item2);
+        mAdapter.notifyDataSetChanged();
 
         request(companyNameList[0]);
         chart = v.findViewById(R.id.line_chart);
