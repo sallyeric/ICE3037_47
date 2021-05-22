@@ -68,7 +68,6 @@ public class MyPageFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-<<<<<<< HEAD
 
         View v = inflater.inflate(R.layout.fragment_my_page, container, false);
 
@@ -104,16 +103,14 @@ public class MyPageFragment extends Fragment {
         mAdapter.notifyDataSetChanged() ;
 
         return v;
-=======
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_my_page, container, false);
-
-        budgets = v.findViewById(R.id.budget_info);
-        yield = v.findViewById(R.id.yield_info);
-
-        request("choi2");
-
-        return v;
+//        View v = inflater.inflate(R.layout.fragment_my_page, container, false);
+//        budgets = v.findViewById(R.id.budget_info);
+//        yield = v.findViewById(R.id.yield_info);
+//
+//        request("choi2");
+//
+//        return v;
     }
 
     private void request(String userId){
@@ -159,6 +156,5 @@ public class MyPageFragment extends Fragment {
                 Toast.makeText(getActivity().getApplicationContext(),"서버와의 연결에 실패했습니다.", Toast.LENGTH_SHORT).show();
             }
         });
->>>>>>> 6d3dd5727251ec088239fc032d123ede5e84c8b0
     }
 }

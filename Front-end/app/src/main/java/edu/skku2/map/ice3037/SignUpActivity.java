@@ -10,16 +10,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-<<<<<<< HEAD
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
-
-=======
->>>>>>> 6d3dd5727251ec088239fc032d123ede5e84c8b0
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

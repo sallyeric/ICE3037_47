@@ -2,6 +2,7 @@ package edu.skku2.map.ice3037;
 
 import android.os.Bundle;
 
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -142,8 +143,8 @@ public class HomeFragment extends Fragment {
                                 budgets.setText(String.format("%s원", new DecimalFormat("###,###").format(obj.getInt("currentMoney"))));
                                 yield.setText(String.format("%.2f%%", (float)obj.getInt("currentDiff")/obj.getInt("currentMoney")*100));
 
-                                Item item = new Item(enterpriseList[i], String.valueOf(price), String.format("%.2f%%", (float)diff/price*100));
-                                mArrayList.add(item);
+//                                Item item = new Item(enterpriseList[i], String.valueOf(price), String.format("%.2f%%", (float)diff/price*100));
+//                                mArrayList.add(item);
 
                             }catch (JSONException e){
 

@@ -1,8 +1,17 @@
 package edu.skku2.map.ice3037;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -37,7 +46,26 @@ public class auto_trade extends AppCompatActivity {
     public void onButtonClick(View v){
         String ReturnEditText;
         ReturnEditText = editText.getText().toString();
+
         if (!ReturnEditText.isEmpty()) {
+            // 알림
+            createNotificationChannel();
+            Bitmap mLargeIconForNoti = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
+            PendingIntent mPendingIntent = PendingIntent.getActivity(this, 0, new Intent(getApplicationContext(), MainActivity.class),
+                    PendingIntent.FLAG_UPDATE_CURRENT);
+            NotificationCompat.Builder mBuilder =
+                    new NotificationCompat.Builder(auto_trade.this,"alarm_channel_id")
+                            .setSmallIcon(R.mipmap.ic_launcher)
+                            .setContentTitle("제목")
+                            .setContentText("내용")
+                            .setDefaults(Notification.DEFAULT_SOUND)
+                            .setLargeIcon(mLargeIconForNoti)
+                            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                            .setAutoCancel(true)
+                            .setContentIntent(mPendingIntent)
+                    ;
+            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+            notificationManager.notify(0,mBuilder.build());
             Intent intent = new Intent(this, MainActivity.class);
             intent.putExtra("금액", Integer.parseInt(ReturnEditText));
             startActivity(intent);
@@ -46,7 +74,19 @@ public class auto_trade extends AppCompatActivity {
             Toast.makeText(this.getApplicationContext(),"금액을 적어 주세요",Toast.LENGTH_SHORT).show();
         }
     }
-
+    private void createNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel("alarm_channel_id", "알람 테스트", importance);
+            channel.setDescription("알람테스트");
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
     private void requestOnAutoTrade(String userId, String companyName, int budget){
         /*
          * userId : 사용자 아이디를 입력값으로 요청
