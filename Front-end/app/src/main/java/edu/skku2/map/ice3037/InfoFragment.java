@@ -1,7 +1,9 @@
 package edu.skku2.map.ice3037;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -98,6 +101,7 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
     RecyclerView mRecyclerView;
     InfoNewsAdapter mAdapter;
     private ArrayList<NewsItem> mArrayList;
+    private ProgressDialog customProgressDialog;
 
     public InfoFragment() {
         // Required empty public constructor
@@ -293,6 +297,13 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
 
         title.setText(companyName);
 
+        //로딩창
+        customProgressDialog = new ProgressDialog(getActivity());
+        customProgressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        customProgressDialog.getWindow().setGravity(Gravity.CENTER);
+        customProgressDialog.setCancelable(false);
+        customProgressDialog.show();
+
         Call<Post> call = RetrofitClient.getApiService().info(companyName);
         call.enqueue(new Callback<Post>() {
             @Override
@@ -316,7 +327,7 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
                         newsData = (JSONArray) obj.get("newsData");
 
                         makeChart(chart, chartData);
-                        chart.animateXY(2000, 2000);
+                        chart.animateXY(1000, 1000);
 
                         mArrayList = new ArrayList<>();
                         mAdapter = new InfoNewsAdapter(mArrayList);
@@ -330,7 +341,8 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
                         }
 
                         mAdapter.notifyDataSetChanged();
-
+                        //로딩종료
+                        customProgressDialog.dismiss();
 
                         Log.d("==========", chartData.toString());
                         Log.d("==========", newsData.toString());

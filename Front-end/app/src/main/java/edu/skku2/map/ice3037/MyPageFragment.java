@@ -109,7 +109,6 @@ public class MyPageFragment extends Fragment {
         mAdapter.notifyDataSetChanged() ;
 
         return v;
-<<<<<<< HEAD
         // Inflate the layout for this fragment
 //        View v = inflater.inflate(R.layout.fragment_my_page, container, false);
 //        budgets = v.findViewById(R.id.budget_info);
@@ -118,8 +117,6 @@ public class MyPageFragment extends Fragment {
 //        request("choi2");
 //
 //        return v;
-=======
->>>>>>> JSH_tab1tab2
     }
 
     private void request(String userId){
@@ -169,9 +166,5 @@ public class MyPageFragment extends Fragment {
                 Toast.makeText(getActivity().getApplicationContext(),"서버와의 연결에 실패했습니다.", Toast.LENGTH_SHORT).show();
             }
         });
-<<<<<<< HEAD
-=======
-
->>>>>>> JSH_tab1tab2
     }
 }
