@@ -68,7 +68,6 @@ public class MyPageFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-<<<<<<< HEAD
 
         View v = inflater.inflate(R.layout.fragment_my_page, container, false);
 
@@ -91,6 +90,12 @@ public class MyPageFragment extends Fragment {
         * 매도 (+): 회사명, 매수금액, 몇 주, 시간,  수익/손실, 수익률/손실률, viewType(1)
         * 매도 (-): 회사명, 매수금액, 몇 주, 시간,  수익/손실, 수익률/손실률, viewType(2) */
 
+        // 내 자산과 수익률
+        budgets = v.findViewById(R.id.budget_info);
+        yield = v.findViewById(R.id.yield_info);
+
+        request("choi2");
+
         ItemMyPage item1 = new ItemMyPage("네이버","8000 원","4 주", "2021-05-25",
                 null, null, 0);
         mArrayList.add(item1);
@@ -102,16 +107,6 @@ public class MyPageFragment extends Fragment {
         mArrayList.add(item3);
 
         mAdapter.notifyDataSetChanged() ;
-
-        return v;
-=======
-        // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_my_page, container, false);
-
-        budgets = v.findViewById(R.id.budget_info);
-        yield = v.findViewById(R.id.yield_info);
-
-        request("choi2");
 
         return v;
     }
@@ -144,6 +139,10 @@ public class MyPageFragment extends Fragment {
                         stocks = (JSONObject) obj.get("stocks");
                         history = (JSONArray) obj.get("history");
 
+                        int size = stocks.getInt("size"); // 몇 주
+                        int price = stocks.getInt("price"); // 현재가
+                        int diff = stocks.getInt("diff"); // 현재 가격 - 산 가격
+
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -159,6 +158,6 @@ public class MyPageFragment extends Fragment {
                 Toast.makeText(getActivity().getApplicationContext(),"서버와의 연결에 실패했습니다.", Toast.LENGTH_SHORT).show();
             }
         });
->>>>>>> 6d3dd5727251ec088239fc032d123ede5e84c8b0
+
     }
 }
