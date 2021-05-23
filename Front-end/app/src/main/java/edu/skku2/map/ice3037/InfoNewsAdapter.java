@@ -29,13 +29,15 @@ public class InfoNewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     // 아이템 뷰를 저장하는 뷰홀더 클래스.
     public class ViewHolder extends RecyclerView.ViewHolder {
+        TextView date;
         TextView time;
         TextView title;
         TextView media;
         ViewHolder(View itemView) {
             super(itemView) ;
-            time = itemView.findViewById(R.id.time);
-            title = itemView.findViewById(R.id.title);
+            date = itemView.findViewById(R.id.news_date);
+            time = itemView.findViewById(R.id.news_time);
+            title = itemView.findViewById(R.id.news_title);
             media = itemView.findViewById(R.id.media);
         }
     }
@@ -54,6 +56,7 @@ public class InfoNewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         ViewHolder mholder =(ViewHolder)holder;
+        mholder.date.setText(myDataList.get(position).getDate());
         mholder.time.setText(myDataList.get(position).getTime());
         mholder.title.setText(myDataList.get(position).getTitle());
         mholder.media.setText(myDataList.get(position).getMedia());

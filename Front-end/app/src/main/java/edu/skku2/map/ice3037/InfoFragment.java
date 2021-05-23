@@ -95,6 +95,7 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
     private JSONArray chartData;
     private JSONArray newsData;
 
+    RecyclerView mRecyclerView;
     InfoNewsAdapter mAdapter;
     private ArrayList<NewsItem> mArrayList;
 
@@ -167,17 +168,14 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
         });
 
         // news
-        RecyclerView mRecyclerView = v.findViewById(R.id.recyclerView_news);
+        mRecyclerView = v.findViewById(R.id.recyclerView_news);
         LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(v.getContext());
         mRecyclerView.setLayoutManager(mLinearLayoutManager) ;
-        mArrayList = new ArrayList<>();
-        mAdapter = new InfoNewsAdapter(mArrayList);
-        mRecyclerView.setAdapter(mAdapter);
-        NewsItem item1 = new NewsItem("2020-01-01","뉴스제목입니다","종설프tv","https://www.naver.com/");
-        mArrayList.add(item1);
-        NewsItem item2 = new NewsItem("2020-01-02","뉴스제목입니다2","종설프tv","https://www.naver.com/");
-        mArrayList.add(item2);
-        mAdapter.notifyDataSetChanged();
+//        mArrayList = new ArrayList<>();
+//        mAdapter = new InfoNewsAdapter(mArrayList);
+//        mRecyclerView.setAdapter(mAdapter);
+
+//        mAdapter.notifyDataSetChanged();
 
         request(companyNameList[0]);
         chart = v.findViewById(R.id.line_chart);
@@ -320,6 +318,20 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
                         makeChart(chart, chartData);
                         chart.animateXY(2000, 2000);
 
+                        mArrayList = new ArrayList<>();
+                        mAdapter = new InfoNewsAdapter(mArrayList);
+                        mRecyclerView.setAdapter(mAdapter);
+
+                        JSONObject el;
+                        for (int i=0; i < newsData.length()-1; i++){
+                            el = (JSONObject) newsData.opt(i);
+                            NewsItem item = new NewsItem(el.optString("날짜").toString(), el.optString("시간").toString(), el.optString("기사제목").toString(),el.optString("언론사").toString(),el.optString("링크").toString());
+                            mArrayList.add(item);
+                        }
+
+                        mAdapter.notifyDataSetChanged();
+
+
                         Log.d("==========", chartData.toString());
                         Log.d("==========", newsData.toString());
 
@@ -338,6 +350,10 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
                 Toast.makeText(getActivity().getApplicationContext(),"서버와의 연결에 실패했습니다.", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void makeNewsList(){
+
     }
 
 }
