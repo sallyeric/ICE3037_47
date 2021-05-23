@@ -110,7 +110,7 @@ public class HomeFragment extends Fragment {
          * mArrayList 에 값을 할당
          * */
 
-        Call<Post> call = RetrofitClient.getApiService().home("choi2");
+        Call<Post> call = RetrofitClient.getApiService().home("choi3");
         call.enqueue(new Callback<Post>() {
             @Override
             public void onResponse(Call<Post> call, Response<Post> response) {
@@ -122,7 +122,6 @@ public class HomeFragment extends Fragment {
                 Post postResponse = response.body();
                 if (postResponse.getSuccess()){
                     Log.d("==========", postResponse.getMessage());
-
                     try {
                         obj = new JSONObject(postResponse.getMessage());
 
