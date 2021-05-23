@@ -1,5 +1,6 @@
 package edu.skku2.map.ice3037;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.core.content.ContextCompat;
@@ -53,8 +54,6 @@ public class HomeFragment extends Fragment {
 
     private JSONObject obj;
 
-
-
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -83,10 +82,8 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_home, container, false);
-
-        budgets = v.findViewById(R.id.bugets);
-        yield = v.findViewById(R.id.yield_info);
-
+        budgets = v.findViewById(R.id.budgets);
+        yield = v.findViewById(R.id.yield);
         RecyclerView mRecyclerView = v.findViewById(R.id.recyclerView);
         LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(v.getContext());
         mRecyclerView.setLayoutManager(mLinearLayoutManager) ;
@@ -98,6 +95,7 @@ public class HomeFragment extends Fragment {
         mRecyclerView.setAdapter(mAdapter) ;
 
         request("choi3");
+<<<<<<< HEAD
 
         Item item3 = new Item(ContextCompat.getDrawable(v.getContext(), R.drawable.logo_skhynix),
                 "SK 하이닉스", "6000","30000", "+0.5");
@@ -105,6 +103,12 @@ public class HomeFragment extends Fragment {
 
         mAdapter.notifyDataSetChanged() ;
 
+=======
+//        Item item3 = new Item(ContextCompat.getDrawable(v.getContext(), R.drawable.logo_skhynix),
+//                "SK 하이닉스", "6000", "+0.5");
+//        mArrayList.add(item3);
+//        mAdapter.notifyDataSetChanged() ;
+>>>>>>> 6c8148da55da89c39f565b28112221bf85f7bf05
         return v;
     }
 
@@ -136,16 +140,52 @@ public class HomeFragment extends Fragment {
                             try{
                                 JSONObject tmp = (JSONObject) obj.get("stocks");
                                 JSONObject enter = (JSONObject) tmp.get(enterpriseList[i]);
-                                int size = enter.getInt("size");
-                                int price = enter.getInt("price");
-                                int diff = enter.getInt("diff");
+                                int size = enter.getInt("size"); // 몇 주
+                                int price = enter.getInt("price"); // 현재가
+                                int diff = enter.getInt("diff"); // 현재 가격 - 산 가격
 
                                 budgets.setText(String.format("%s원", new DecimalFormat("###,###").format(obj.getInt("currentMoney"))));
                                 yield.setText(String.format("%.2f%%", (float)obj.getInt("currentDiff")/obj.getInt("currentMoney")*100));
 
 //                                Item item = new Item(enterpriseList[i], String.valueOf(price), String.format("%.2f%%", (float)diff/price*100));
 //                                mArrayList.add(item);
-
+                                // 로고 설정
+                                if(enterpriseList[i] == "삼성전자"){
+                                    Item item = new Item(ContextCompat.getDrawable(getContext(), R.drawable.logo_samsung), enterpriseList[i], String.valueOf(price), String.format("%.2f%%", (float)diff/price*100));
+                                    mArrayList.add(item);
+                                }
+                                else if (enterpriseList[i] == "SK하이닉스"){
+                                    Item item = new Item(ContextCompat.getDrawable(getContext(), R.drawable.logo_skhynix), enterpriseList[i], String.valueOf(price), String.format("%.2f%%", (float)diff/price*100));
+                                    mArrayList.add(item);
+                                }
+                                else if (enterpriseList[i] == "LG화학"){
+                                    Item item = new Item(ContextCompat.getDrawable(getContext(), R.drawable.lgchemi), enterpriseList[i], String.valueOf(price), String.format("%.2f%%", (float)diff/price*100));
+                                    mArrayList.add(item);
+                                }
+                                else if (enterpriseList[i] == "셀트리온"){
+                                    Item item = new Item(ContextCompat.getDrawable(getContext(), R.drawable.celltrion), enterpriseList[i], String.valueOf(price), String.format("%.2f%%", (float)diff/price*100));
+                                    mArrayList.add(item);
+                                }
+                                else if (enterpriseList[i] == "NAVER"){
+                                    Item item = new Item(ContextCompat.getDrawable(getContext(), R.drawable.logo_skhynix), enterpriseList[i], String.valueOf(price), String.format("%.2f%%", (float)diff/price*100));
+                                    mArrayList.add(item);
+                                }
+                                else if (enterpriseList[i] == "현대차"){
+                                    Item item = new Item(ContextCompat.getDrawable(getContext(), R.drawable.naver), enterpriseList[i], String.valueOf(price), String.format("%.2f%%", (float)diff/price*100));
+                                    mArrayList.add(item);
+                                }
+                                else if (enterpriseList[i] == "카카오"){
+                                    Item item = new Item(ContextCompat.getDrawable(getContext(), R.drawable.kakao), enterpriseList[i], String.valueOf(price), String.format("%.2f%%", (float)diff/price*100));
+                                    mArrayList.add(item);
+                                }
+                                else if (enterpriseList[i] == "기아"){
+                                    Item item = new Item(ContextCompat.getDrawable(getContext(), R.drawable.kia), enterpriseList[i], String.valueOf(price), String.format("%.2f%%", (float)diff/price*100));
+                                    mArrayList.add(item);
+                                }
+                                else if (enterpriseList[i] == "POSCO"){
+                                    Item item = new Item(ContextCompat.getDrawable(getContext(), R.drawable.posco), enterpriseList[i], String.valueOf(price), String.format("%.2f%%", (float)diff/price*100));
+                                    mArrayList.add(item);
+                                }
                             }catch (JSONException e){
 
                             }

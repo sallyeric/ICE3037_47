@@ -90,6 +90,12 @@ public class MyPageFragment extends Fragment {
         * 매도 (+): 회사명, 매수금액, 몇 주, 시간,  수익/손실, 수익률/손실률, viewType(1)
         * 매도 (-): 회사명, 매수금액, 몇 주, 시간,  수익/손실, 수익률/손실률, viewType(2) */
 
+        // 내 자산과 수익률
+        budgets = v.findViewById(R.id.budget_info);
+        yield = v.findViewById(R.id.yield_info);
+
+        request("choi2");
+
         ItemMyPage item1 = new ItemMyPage("네이버","8000 원","4 주", "2021-05-25",
                 null, null, 0);
         mArrayList.add(item1);
@@ -140,6 +146,10 @@ public class MyPageFragment extends Fragment {
 
                         stocks = (JSONObject) obj.get("stocks");
                         history = (JSONArray) obj.get("history");
+
+                        int size = stocks.getInt("size"); // 몇 주
+                        int price = stocks.getInt("price"); // 현재가
+                        int diff = stocks.getInt("diff"); // 현재 가격 - 산 가격
 
                     } catch (JSONException e) {
                         e.printStackTrace();
