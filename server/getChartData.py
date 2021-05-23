@@ -53,7 +53,7 @@ class getDayChartData:
         self.db = self.client.chartData
         self.updateTime = datetime.datetime.now().strftime("%Y%m%d")
         self.datas = {}
-        self.getOldDatas(30)
+        self.getOldDatas(1)
         dates = [(datetime.datetime.now() - relativedelta(days=i)).strftime("%Y%m%d") for i in range(60)]
         for name in tqdm.tqdm(self.names, desc='getChartDataFromDB'):
             cnt = 0
