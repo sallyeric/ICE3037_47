@@ -1,22 +1,21 @@
 from pymongo import MongoClient
 from flask import Flask, request, session, g, redirect, url_for, abort, render_template, flash, jsonify
 from getChartData import getDayChartData, getRealTimeChartData
+from newsCrawl import newsCrawl
 import json
 
 # configuration
 DEBUG = False
-SECRET_KEY = 'development key'
-client = None
 
 # create our little application
 app = Flask(__name__)
 app.config.from_object(__name__)
 realTimeChartObj = getRealTimeChartData()
 dayChartObj = getDayChartData()
+newsCrawlObj = newsCrawl()
 
 @app.before_request
 def before_request():
-    # g.client = MongoClient("localhost", 27017)
     g.client = MongoClient("mongodb+srv://yoo:789retry@cluster0.pidsj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
 
 @app.teardown_request
@@ -99,7 +98,7 @@ def info():
                        'chartData': dayChartObj.datas[request.form['companyName']]}
             db = g.client.Project
             news = db.newsData.find({'회사명': request.form['companyName']}).limit(20)
-            message['newsData'] = [{'기사제목': n['기사제목'], '언론사':n['언론사'], '날짜':n['날짜'], '링크':n['링크']} for n in news]
+            message['newsData'] = [{'기사제목': n['기사제목'], '언론사':n['언론사'], '날짜':n['날짜'], '시간':n['시간'], '링크':n['링크']} for n in news]
     print('info')
     print(success, message)
     print(jsonify({'success': success, 'message': json.dumps(message, ensure_ascii=False)}))
@@ -130,6 +129,5 @@ def myInfo():
 if __name__ == '__main__':
     realTimeChartObj.run()
     dayChartObj.run()
-    # client = MongoClient("mongodb+srv://choi:zeKf2E10mHYA9Ivu@cluster0.pidsj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
-    # db = client.Project
+    newsCrawlObj.start()
     app.run(debug=DEBUG, host='0.0.0.0', port=5000)
