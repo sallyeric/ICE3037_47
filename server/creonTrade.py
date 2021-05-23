@@ -39,7 +39,6 @@ class CpRPCurrentPrice:
 
         item = {}
         item['code'] = code
-        # caller.curData['종목명'] = g_objCodeMgr.CodeToName(code)
         item['cur'] = self.objStockMst.GetHeaderValue(11)  # 종가
         item['diff'] = self.objStockMst.GetHeaderValue(12)  # 전일대비
         item['vol'] = self.objStockMst.GetHeaderValue(18)  # 거래량
@@ -57,7 +56,7 @@ class CpRPCurrentPrice:
 
 class creonTrade():
     def __init__(self):
-        self.g_objCodeMgr = win32com.client.Dispatch('CpUtil.CpCodeMgr')
+        print('init creonTrade')
         self.g_objCpStatus = win32com.client.Dispatch('CpUtil.CpCybos')
         self.g_objCpTrade = win32com.client.Dispatch('CpTrade.CpTdUtil')
         InitPlusCheck(self.g_objCpStatus, self.g_objCpTrade)

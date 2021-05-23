@@ -374,5 +374,6 @@ class MACD_calculator():
 
 class getRealTimeMACD():
     def __init__(self, creonTradeObj):
+        print('init getRealTimeMACD')
         self.codes = ['A000270', 'A000660', 'A005380', 'A005490', 'A005930', 'A035420', 'A035720', 'A051910', 'A068270']
         self.objs = [MACD_calculator(code, creonTradeObj) for code in self.codes]
