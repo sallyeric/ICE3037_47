@@ -3,11 +3,14 @@ package edu.skku2.map.ice3037;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -38,12 +41,16 @@ public class LoginActivity extends AppCompatActivity {
                 // DB에서 값 비교
                 uid = usernameET.getText().toString();
                 pw = passwordET.getText().toString();
-
                 if(uid.isEmpty() || pw.isEmpty()){
                     Toast.makeText(getApplicationContext(),"아이디와 비밀번호를 모두 입력해주세요", Toast.LENGTH_SHORT).show();
                 }
                 else{
-                    request(uid, pw);
+                    String token = FirebaseInstanceId.getInstance().getToken();
+                    SharedPreferences pref = getSharedPreferences("userFile",MODE_PRIVATE);
+                    SharedPreferences.Editor editor = pref.edit();
+                    editor.putString("token",token);
+                    editor.commit();
+                    request(uid, pw, token);
                 }
 
 //                EditText username = (EditText) findViewById(R.id.userid);
@@ -64,8 +71,8 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void request(String userId, String pw){
-        Call<Post> call = RetrofitClient.getApiService().login(uid, pw);
+    private void request(String userId, String pw, String token){
+        Call<Post> call = RetrofitClient.getApiService().login(uid, pw, token);
         call.enqueue(new Callback<Post>() {
             @Override
             public void onResponse(Call<Post> call, Response<Post> response) {
@@ -76,6 +83,11 @@ public class LoginActivity extends AppCompatActivity {
                 Post postResponse = response.body();
                 if (postResponse.getSuccess()){
                     Toast.makeText(getApplicationContext(), postResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                    SharedPreferences pref = getSharedPreferences("userFile",MODE_PRIVATE);
+                    SharedPreferences.Editor editor = pref.edit();
+                    editor.putString("userid", userId);
+                    editor.putString("password", pw);
+                    editor.commit();
                     // Intent: Go to Main Activity
                     EditText username = (EditText) findViewById(R.id.userid);
                     Intent loginIntent = new Intent(LoginActivity.this, MainActivity.class);

@@ -1,5 +1,7 @@
 package edu.skku2.map.ice3037;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
@@ -12,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +27,8 @@ import java.util.ArrayList;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class HomeFragment extends Fragment {
 
@@ -94,7 +99,9 @@ public class HomeFragment extends Fragment {
 
         mRecyclerView.setAdapter(mAdapter) ;
 
-        request("choi3");
+        SharedPreferences check = this.getActivity().getSharedPreferences("userFile",MODE_PRIVATE);
+        String pastID = check.getString("userid","");
+        request(pastID);
 
         mAdapter.notifyDataSetChanged() ;
 

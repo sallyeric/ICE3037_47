@@ -23,7 +23,8 @@ public interface RetrofitAPI {
     @FormUrlEncoded
     @POST("/login")
     Call<Post> login(@Field("userId") String userId,
-                     @Field("password") String password);
+                     @Field("password") String password,
+                     @Field("token") String token);
 
     @FormUrlEncoded
     @POST("/home")

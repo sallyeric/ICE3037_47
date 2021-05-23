@@ -41,6 +41,7 @@ def login():
 
         if user:
             if user['password'] == request.form['password']:
+                db.userData.update_one({'userId':request.form['userId']}, {'$set':{'token':request.form['token']}})
                 return jsonify({'success': success, 'message': message}), 200
             else:
                 success = False

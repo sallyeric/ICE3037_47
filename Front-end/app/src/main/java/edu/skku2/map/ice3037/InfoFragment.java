@@ -314,14 +314,12 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
         customProgressDialog.getWindow().setGravity(Gravity.CENTER);
         customProgressDialog.setCancelable(false);
         customProgressDialog.show();
-
         Call<Post> call = RetrofitClient.getApiService().info(companyName);
         call.enqueue(new Callback<Post>() {
             @Override
             public void onResponse(Call<Post> call, Response<Post> response) {
                 if(!response.isSuccessful()){
                     Toast.makeText(getActivity().getApplicationContext(),"서버통신에 오류가 발생했습니다.".concat(String.valueOf(response.code())), Toast.LENGTH_SHORT).show();
-
                     return;
                 }
                 Post postResponse = response.body();
