@@ -97,7 +97,7 @@ public class HomeFragment extends Fragment {
 
         mRecyclerView.setAdapter(mAdapter) ;
 
-        request("choi2");
+        request("choi3");
 
         Item item3 = new Item(ContextCompat.getDrawable(v.getContext(), R.drawable.logo_skhynix),
                 "SK 하이닉스", "6000","30000", "+0.5");
@@ -116,7 +116,7 @@ public class HomeFragment extends Fragment {
          * mArrayList 에 값을 할당
          * */
 
-        Call<Post> call = RetrofitClient.getApiService().home("choi2");
+        Call<Post> call = RetrofitClient.getApiService().home("choi3");
         call.enqueue(new Callback<Post>() {
             @Override
             public void onResponse(Call<Post> call, Response<Post> response) {

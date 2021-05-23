@@ -156,12 +156,22 @@
                                 android:textStyle="bold" />
 
                             <Button
-                                android:id="@+id/auto_button"
+                                android:id="@+id/onAutoTrade_button"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:layout_weight="1"
-                                android:text="자동매매" />
+                                android:textSize="30px"
+                                android:text="매매시작" />
+                            <Button
+                                android:id="@+id/offAutoTrade_button"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_weight="1"
+                                android:textSize="30px"
+                                android:layout_marginRight="5dp"
+                                android:text="매매중지" />
                         </LinearLayout>
 
                         <TextView

@@ -17,13 +17,13 @@ public interface RetrofitAPI {
     @FormUrlEncoded
     @POST("/signup")
     Call<Post> signUp(@Field("userId") String userId,
-                            @Field("password") String password,
-                            @Field("creonAccount") String creonAccount);
+                      @Field("password") String password,
+                      @Field("creonAccount") String creonAccount);
 
     @FormUrlEncoded
     @POST("/login")
     Call<Post> login(@Field("userId") String userId,
-                           @Field("password") String password);
+                     @Field("password") String password);
 
     @FormUrlEncoded
     @POST("/home")
@@ -34,13 +34,16 @@ public interface RetrofitAPI {
     Call<Post> info(@Field("companyName") String companyName);
 
     @FormUrlEncoded
-    @POST("/OnAutoTrade")
+    @POST("/onAutoTrade")
     Call<Post> OnAutoTrade(@Field("userId") String userId,
                            @Field("companyName") String companyName,
-                           @Field("budgets") int budgets);
+                           @Field("budgets") int budgets,
+                           @Field("check1") Boolean check1,
+                           @Field("check2") Boolean check2,
+                           @Field("check3") Boolean check3);
 
     @FormUrlEncoded
-    @POST("/OffAutoTrade")
+    @POST("/offAutoTrade")
     Call<Post> OffAutoTrade(@Field("userId") String userId,
                            @Field("companyName") String companyName);
 

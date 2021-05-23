@@ -90,7 +90,8 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
     private TextView title;
     private TextView price;
     private TextView price_change;
-    private Button auto_trade;
+    private Button on_auto_trade;
+    private Button off_auto_trade;
 
     private JSONArray chartData;
     private JSONArray newsData;
@@ -98,6 +99,9 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
     RecyclerView mRecyclerView;
     InfoNewsAdapter mAdapter;
     private ArrayList<NewsItem> mArrayList;
+
+    private String userId = "choi3";
+    private String companyName;
 
     public InfoFragment() {
         // Required empty public constructor
@@ -157,13 +161,21 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
         title = v.findViewById(R.id.title);
         price = v.findViewById(R.id.price);
         price_change = v.findViewById(R.id.price_change);
-        auto_trade = v.findViewById(R.id.auto_button);
-        auto_trade.setOnClickListener(new View.OnClickListener() {
+        on_auto_trade = v.findViewById(R.id.onAutoTrade_button);
+        on_auto_trade.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), auto_trade.class);
                 intent.putExtra("종목",title.getText());
                 startActivity(intent);
+            }
+        });
+
+        off_auto_trade = v.findViewById(R.id.offAutoTrade_button);
+        off_auto_trade.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                requestOffAutoTrade(userId, companyName);
             }
         });
 
@@ -185,7 +197,6 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
 
-        String companyName = "";
         Integer presentPrice;
 
         switch (v.getId()){
@@ -339,6 +350,40 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
                         e.printStackTrace();
                     }
 
+                }
+                else {
+                    Toast.makeText(getActivity().getApplicationContext(), postResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                    Log.d("==========", postResponse.getMessage());
+                }
+            }
+            @Override
+            public void onFailure(Call<Post> call, Throwable t) {
+                Toast.makeText(getActivity().getApplicationContext(),"서버와의 연결에 실패했습니다.", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void requestOffAutoTrade(String userId, String companyName){
+        /*
+         * userId : 사용자 아이디를 입력값으로 요청
+         * companyName : 투자할 회사의 이름
+         * budget : 투자할 금액
+         * 요청에 대한 결과를 화면에 표시하거나 로그로 기록
+         * */
+
+        Call<Post> call = RetrofitClient.getApiService().OffAutoTrade(userId, companyName);
+        call.enqueue(new Callback<Post>() {
+            @Override
+            public void onResponse(Call<Post> call, Response<Post> response) {
+                if(!response.isSuccessful()){
+                    Toast.makeText(getActivity().getApplicationContext(),"서버통신에 오류가 발생했습니다.".concat(String.valueOf(response.code())), Toast.LENGTH_SHORT).show();
+
+                    return;
+                }
+                Post postResponse = response.body();
+                if (postResponse.getSuccess()){
+                    Toast.makeText(getActivity().getApplicationContext(), postResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                    Log.d("==========", postResponse.getMessage());
                 }
                 else {
                     Toast.makeText(getActivity().getApplicationContext(), postResponse.getMessage(), Toast.LENGTH_SHORT).show();
