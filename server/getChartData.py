@@ -14,6 +14,7 @@ class CpCybos:
 
 class getRealTimeChartData:
     def __init__(self):
+        print('init getRealTimeChartData')
         self.codes = ['A000270','A000660','A005380','A005490','A005930','A035420','A035720','A051910','A068270']
         self.datas = dict()
 
@@ -47,13 +48,14 @@ class getRealTimeChartData:
 
 class getDayChartData:
     def __init__(self):
+        print('init getDayChartData')
         self.codes = ['A000270', 'A000660', 'A005380', 'A005490', 'A005930', 'A035420', 'A035720', 'A051910', 'A068270']
         self.names = ['기아', 'SK하이닉스', '현대차', 'POSCO', '삼성전자', 'NAVER', '카카오', 'LG화학', '셀트리온']
         self.client = MongoClient("mongodb+srv://choi:zeKf2E10mHYA9Ivu@cluster0.pidsj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
         self.db = self.client.chartData
         self.updateTime = datetime.datetime.now().strftime("%Y%m%d")
         self.datas = {}
-        self.getOldDatas(30)
+        self.getOldDatas(1)
         dates = [(datetime.datetime.now() - relativedelta(days=i)).strftime("%Y%m%d") for i in range(60)]
         for name in tqdm.tqdm(self.names, desc='getChartDataFromDB'):
             cnt = 0
