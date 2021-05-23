@@ -94,7 +94,7 @@ public class MyPageFragment extends Fragment {
         budgets = v.findViewById(R.id.budget_info);
         yield = v.findViewById(R.id.yield_info);
 
-        request("choi2");
+        request("choi3");
 
         ItemMyPage item1 = new ItemMyPage("네이버","8000 원","4 주", "2021-05-25",
                 null, null, 0);

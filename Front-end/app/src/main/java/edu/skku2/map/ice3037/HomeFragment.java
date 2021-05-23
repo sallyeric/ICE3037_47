@@ -95,20 +95,9 @@ public class HomeFragment extends Fragment {
         mRecyclerView.setAdapter(mAdapter) ;
 
         request("choi3");
-<<<<<<< HEAD
-
-        Item item3 = new Item(ContextCompat.getDrawable(v.getContext(), R.drawable.logo_skhynix),
-                "SK 하이닉스", "6000","30000", "+0.5");
-        mArrayList.add(item3);
 
         mAdapter.notifyDataSetChanged() ;
 
-=======
-//        Item item3 = new Item(ContextCompat.getDrawable(v.getContext(), R.drawable.logo_skhynix),
-//                "SK 하이닉스", "6000", "+0.5");
-//        mArrayList.add(item3);
-//        mAdapter.notifyDataSetChanged() ;
->>>>>>> 6c8148da55da89c39f565b28112221bf85f7bf05
         return v;
     }
 
