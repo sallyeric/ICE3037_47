@@ -60,7 +60,9 @@ public class auto_trade extends AppCompatActivity {
     public void onButtonClick(View v){
         String textBudget;
         textBudget = budget.getText().toString();
-        money = Integer.getInteger(textBudget);
+        money = Integer.parseInt(textBudget);
+
+        Log.d("sf", String.valueOf(money));
 
         if (!textBudget.isEmpty()) {
             requestOnAutoTrade(userId, companyName, money, lstm.isChecked(), macd.isChecked(), voli.isChecked());
@@ -104,7 +106,7 @@ public class auto_trade extends AppCompatActivity {
                 }
                 Post postResponse = response.body();
                 if (postResponse.getSuccess()){
-//                    Toast.makeText(getActivity().getApplicationContext(), postResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), postResponse.getMessage(), Toast.LENGTH_SHORT).show();
                     Log.d("==========", postResponse.getMessage());
                     Intent intent = new Intent(auto_trade.this, MainActivity.class);
                     intent.putExtra("금액", money);
