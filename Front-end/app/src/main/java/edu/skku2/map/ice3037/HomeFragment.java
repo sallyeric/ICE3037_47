@@ -82,8 +82,10 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_home, container, false);
+
         budgets = v.findViewById(R.id.budgets);
         yield = v.findViewById(R.id.yield);
+
         RecyclerView mRecyclerView = v.findViewById(R.id.recyclerView);
         LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(v.getContext());
         mRecyclerView.setLayoutManager(mLinearLayoutManager) ;
@@ -95,10 +97,13 @@ public class HomeFragment extends Fragment {
         mRecyclerView.setAdapter(mAdapter) ;
 
         request("choi3");
+
 //        Item item3 = new Item(ContextCompat.getDrawable(v.getContext(), R.drawable.logo_skhynix),
 //                "SK 하이닉스", "6000", "+0.5");
 //        mArrayList.add(item3);
+////
 //        mAdapter.notifyDataSetChanged() ;
+
         return v;
     }
 
@@ -122,6 +127,7 @@ public class HomeFragment extends Fragment {
                 Post postResponse = response.body();
                 if (postResponse.getSuccess()){
                     Log.d("==========", postResponse.getMessage());
+
                     try {
                         obj = new JSONObject(postResponse.getMessage());
 
@@ -136,8 +142,6 @@ public class HomeFragment extends Fragment {
                                 budgets.setText(String.format("%s원", new DecimalFormat("###,###").format(obj.getInt("currentMoney"))));
                                 yield.setText(String.format("%.2f%%", (float)obj.getInt("currentDiff")/obj.getInt("currentMoney")*100));
 
-//                                Item item = new Item(enterpriseList[i], String.valueOf(price), String.format("%.2f%%", (float)diff/price*100));
-//                                mArrayList.add(item);
                                 // 로고 설정
                                 if(enterpriseList[i] == "삼성전자"){
                                     Item item = new Item(ContextCompat.getDrawable(getContext(), R.drawable.logo_samsung), enterpriseList[i], String.valueOf(price), String.format("%.2f%%", (float)diff/price*100));

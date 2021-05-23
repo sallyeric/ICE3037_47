@@ -1,21 +1,30 @@
 from pymongo import MongoClient
 from flask import Flask, request, session, g, redirect, url_for, abort, render_template, flash, jsonify
 from getChartData import getDayChartData, getRealTimeChartData
+from getMACD import getRealTimeMACD
+from creonTrade import creonTrade
 from newsCrawl import newsCrawl
 import json
 
 # configuration
 DEBUG = False
+SECRET_KEY = 'development key'
+client = None
 
 # create our little application
 app = Flask(__name__)
 app.config.from_object(__name__)
+creonTradeObj = creonTrade()
 realTimeChartObj = getRealTimeChartData()
+realTimeMACDObj = getRealTimeMACD(creonTradeObj)
 dayChartObj = getDayChartData()
 newsCrawlObj = newsCrawl()
+print('init complete')
+
 
 @app.before_request
 def before_request():
+    # g.client = MongoClient("localhost", 27017)
     g.client = MongoClient("mongodb+srv://yoo:789retry@cluster0.pidsj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
 
 @app.teardown_request
@@ -32,6 +41,7 @@ def login():
 
         if user:
             if user['password'] == request.form['password']:
+                db.userData.update_one({'userId':request.form['userId']}, {'$set':{'token':request.form['token']}})
                 return jsonify({'success': success, 'message': message}), 200
             else:
                 success = False
@@ -58,7 +68,13 @@ def signup():
             success = False
             message = "중복되는 아이디가 존재합니다."
         else:
-            data = {"userId": request.form['userId'], "password": request.form['password'], "creonAccount": request.form['creonAccount'], 'active': False}
+            data = {"userId": request.form['userId'],
+                    "password": request.form['password'],
+                    "creonAccount": request.form['creonAccount'],
+                    'active':{'money':100000},
+                    'own':{'stocks':{}},
+                    'history':[],
+                    'active':{'money':0}}
             g.client.Project.userData.insert_one(data)
     print('signup')
     print(success, message)
@@ -77,8 +93,12 @@ def home():
             user['own']['currentDiff'] = 0
             for stock in user['own']['stocks']:
                 user['own']['stocks'][stock]['diff'] = user['own']['stocks'][stock]['price'] - realTimeChartObj.datas[stock]['price']
+                user['own']['stocks'][stock]['currentPrice'] = realTimeChartObj.datas[stock]['price']
                 user['own']['currentMoney'] += realTimeChartObj.datas[stock]['price']
-                user['own']['currentDiff'] += user['own']['stocks'][stock]['diff'] * user['own']['stocks'][stock]['size']
+            for stock in user['active']:
+                user['own']['currentMoney'] += user['active'][stock]['current']
+                user['own']['currentDiff'] += user['active'][stock]['origin']
+            user['own']['currentDiff'] = user['own']['currentMoney'] - user['own']['currentDiff']
             success = True
             message = user['own']
     print('home')
@@ -98,10 +118,9 @@ def info():
                        'chartData': dayChartObj.datas[request.form['companyName']]}
             db = g.client.Project
             news = db.newsData.find({'회사명': request.form['companyName']}).limit(20)
-            message['newsData'] = [{'기사제목': n['기사제목'], '언론사':n['언론사'], '날짜':n['날짜'], '시간':n['시간'], '링크':n['링크']} for n in news]
+            message['newsData'] = [{'기사제목': n['기사제목'], '언론사':n['언론사'], '날짜':n['날짜'], '링크':n['링크']} for n in news]
     print('info')
     print(success, message)
-    print(jsonify({'success': success, 'message': json.dumps(message, ensure_ascii=False)}))
     return jsonify({'success': success, 'message': json.dumps(message, ensure_ascii=False)}), 200
 
 @app.route('/myInfo', methods=['POST'])
@@ -116,12 +135,53 @@ def myInfo():
             user['own']['currentMoney'] = 0
             user['own']['currentDiff'] = 0
             for stock in user['own']['stocks']:
+                user['own']['stocks'][stock]['diff'] = user['own']['stocks'][stock]['price'] - \
+                                                       realTimeChartObj.datas[stock]['price']
                 user['own']['currentMoney'] += realTimeChartObj.datas[stock]['price']
-                user['own']['currentDiff'] += (user['own']['stocks'][stock]['price'] - realTimeChartObj.datas[stock]['price']) * user['own']['stocks'][stock][
-                    'size']
+            for stock in user['active']:
+                user['own']['currentMoney'] += user['active'][stock]['current']
+                user['own']['currentDiff'] += user['active'][stock]['origin']
+            user['own']['currentDiff'] = user['own']['currentMoney'] - user['own']['currentDiff']
             message = user['own']
             message['history'] = [h for h in user['history'][:30]]
     print('myInfo')
+    print(success, message)
+    print(jsonify({'success': success, 'message': json.dumps(message, ensure_ascii=False)}))
+    return jsonify({'success': success, 'message': json.dumps(message, ensure_ascii=False)}), 200
+
+@app.route('/OnAutoTrade', methods=['POST'])
+def OnAutoTrade():
+    success = False
+    message = '유저가 존재하지 않습니다.'
+    if request.method == 'POST':
+        db = g.client.Project
+        user = db.userData.find_one({"userId": request.form['userId']})
+        if user:
+            success = True
+            message = "성공"
+            db.userData.update_one({'userId':request.form['userId']}, {'$set':{{request.form['companyName'] : {'origin': request.form['budgets'], 'current': request.form['budgets']}}}})
+    print('OnAutoTrade')
+    print(success, message)
+    print(jsonify({'success': success, 'message': json.dumps(message, ensure_ascii=False)}))
+    return jsonify({'success': success, 'message': json.dumps(message, ensure_ascii=False)}), 200
+
+@app.route('/OffAutoTrade', methods=['POST'])
+def OffAutoTrade():
+    success = False
+    message = '유저가 존재하지 않습니다.'
+    if request.method == 'POST':
+        db = g.client.Project
+        user = db.userData.find_one({"userId": request.form['userId']})
+        if user:
+            success = True
+            message = "성공"
+            size = user['own']['stocks'][request.form['companyName']]['size']
+            buyPrice = user['own']['stocks'][request.form['companyName']]['price']
+            sellPrice = realTimeChartObj.datas[request.form['companyName']]['price']
+            db.userData.update_one({'userId':request.form['userId']}, {'$unset':{'own.stocks.'+request.form['companyName']:1}})
+            db.userData.update_one({'userId':request.form['userId']}, {'$unset':{'active.' + request.form['companyName']: 1}})
+
+    print('OnAutoTrade')
     print(success, message)
     print(jsonify({'success': success, 'message': json.dumps(message, ensure_ascii=False)}))
     return jsonify({'success': success, 'message': json.dumps(message, ensure_ascii=False)}), 200
@@ -130,4 +190,6 @@ if __name__ == '__main__':
     realTimeChartObj.run()
     dayChartObj.run()
     newsCrawlObj.start()
+
+    print('flask ready to run')
     app.run(debug=DEBUG, host='0.0.0.0', port=5000)

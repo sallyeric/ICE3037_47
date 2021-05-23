@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "902235130721",
+    "project_id": "ice3037-1ef12",
+    "storage_bucket": "ice3037-1ef12.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:902235130721:android:6834ab2ddbf2cb0b575320",
+        "android_client_info": {
+          "package_name": "edu.skku2.map.ice3037"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "902235130721-7kcrscvj9g3vm90aqhj496ljbumu7tos.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBcKX3y_LZPLHko392AiA894XyTMnG3WYw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "902235130721-7kcrscvj9g3vm90aqhj496ljbumu7tos.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

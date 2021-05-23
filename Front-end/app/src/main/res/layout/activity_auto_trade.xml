@@ -15,28 +15,55 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
             android:layout_gravity="center"
+            android:layout_marginTop="50dp"
+            android:textSize="30dp"
             android:text="종목명" />
 
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/textBudget"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="50dp"
             android:ems="10"
-            android:inputType="number"
+            android:gravity="center"
             android:hint="금액을 정하세요"
-            android:gravity="center"/>
+            android:inputType="number" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <CheckBox
+                android:id="@+id/LSTM"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="LSTM 주가예측모델" />
+
+            <CheckBox
+                android:id="@+id/MACD"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="MACD" />
+
+            <CheckBox
+                android:id="@+id/volatility"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="변동성돌파전략" />
+        </LinearLayout>
+
         <Button
             android:id="@+id/bu1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
             android:layout_gravity="center"
-            android:text="확인"
-            android:onClick="onButtonClick"/>
+            android:layout_marginTop="50dp"
+            android:onClick="onButtonClick"
+            android:text="매매시작" />
 
     </LinearLayout>
 
