@@ -98,11 +98,14 @@ public class HomeFragment extends Fragment {
 
 //        request("choi3");
 
-//        Item item3 = new Item(ContextCompat.getDrawable(v.getContext(), R.drawable.logo_skhynix),
-//                "SK 하이닉스", "6000", "+0.5");
-//        mArrayList.add(item3);
-////
-//        mAdapter.notifyDataSetChanged() ;
+        Item item2 = new Item(ContextCompat.getDrawable(v.getContext(), R.drawable.logo_samsung),
+                "삼성전자", "8000", "+0.2");
+        mArrayList.add(item2);
+        Item item3 = new Item(ContextCompat.getDrawable(v.getContext(), R.drawable.logo_skhynix),
+                "SK 하이닉스", "6000", "+0.5");
+        mArrayList.add(item3);
+
+        mAdapter.notifyDataSetChanged() ;
 
         return v;
     }
