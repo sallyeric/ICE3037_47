@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="#2E2E2E">
+    android:background="#393838">
 
 
     <ImageView
@@ -18,7 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="주 파 고"
-        android:textColor="#9496A1"
+        android:textColor="#E91E63"
         android:textSize="30dp"
         android:fontFamily="@font/nanumbarunpenbold"
         android:layout_alignParentBottom="true"
@@ -31,7 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="150dp"
-        android:indeterminateTint="#ED645A" />
+        android:indeterminateTint="#6E6165" />
 
 
 </RelativeLayout>

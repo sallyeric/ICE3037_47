@@ -8,22 +8,25 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <TextView
+                android:gravity="center_horizontal"
+                android:fontFamily="@font/nanumbarunpenbold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:text="Home"
+                android:text="홈"
                 android:textColor="#FF000000"
                 android:textSize="30dp"
                 android:textStyle="bold" />
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginBottom="10dp">
                 <LinearLayout
                     android:layout_width="match_parent"
