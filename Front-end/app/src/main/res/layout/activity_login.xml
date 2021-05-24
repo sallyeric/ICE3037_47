@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    android:background="@drawable/login_background"
+    android:background="#2E2E2E"
     tools:context=".LoginActivity">
 
 
@@ -16,15 +16,30 @@
         android:orientation="vertical"
         android:layout_marginBottom="150dp"
         android:gravity="center_horizontal">
-
-        <TextView
-            android:layout_width="150dp"
+        <LinearLayout
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Ju-Phago"
-            android:textSize="30dp"
-            android:id="@+id/Title"
-            />
+            android:orientation="horizontal"
+            android:gravity="center_horizontal">
+            <ImageView
+                android:id="@+id/splashLogo"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/barchart2" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="주 파 고"
+                android:textColor="#02B5A4"
+                android:textSize="40dp"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="30dp"
+                android:fontFamily="@font/nanumbarunpenbold"
+                android:id="@+id/Title" />
+        </LinearLayout>
 
         <TextView
             android:layout_width="300dp"
@@ -33,9 +48,7 @@
             android:textSize="15dp"
             android:textColor="#FFF"
             android:textStyle="bold"
-            android:text="Username"
-            />
-
+            android:text="Username" />
         <EditText
             android:id="@+id/userid"
             android:layout_width="300dp"

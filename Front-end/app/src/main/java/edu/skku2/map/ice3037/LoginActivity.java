@@ -10,7 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.iid.FirebaseInstanceId;
+//import com.google.firebase.iid.FirebaseInstanceId;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -39,24 +39,24 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // DB에서 값 비교
-                uid = usernameET.getText().toString();
-                pw = passwordET.getText().toString();
-                if(uid.isEmpty() || pw.isEmpty()){
-                    Toast.makeText(getApplicationContext(),"아이디와 비밀번호를 모두 입력해주세요", Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    String token = FirebaseInstanceId.getInstance().getToken();
-                    SharedPreferences pref = getSharedPreferences("userFile",MODE_PRIVATE);
-                    SharedPreferences.Editor editor = pref.edit();
-                    editor.putString("token",token);
-                    editor.commit();
-                    request(uid, pw, token);
-                }
+//                uid = usernameET.getText().toString();
+//                pw = passwordET.getText().toString();
+//                if(uid.isEmpty() || pw.isEmpty()){
+//                    Toast.makeText(getApplicationContext(),"아이디와 비밀번호를 모두 입력해주세요", Toast.LENGTH_SHORT).show();
+//                }
+//                else{
+//                    String token = FirebaseInstanceId.getInstance().getToken();
+//                    SharedPreferences pref = getSharedPreferences("userFile",MODE_PRIVATE);
+//                    SharedPreferences.Editor editor = pref.edit();
+//                    editor.putString("token",token);
+//                    editor.commit();
+//                    request(uid, pw, token);
+//                }
 
-//                EditText username = (EditText) findViewById(R.id.userid);
-//                Intent loginIntent = new Intent(LoginActivity.this, MainActivity.class);
-//                loginIntent.putExtra("Username", username.getText().toString());
-//                startActivity(loginIntent);
+                EditText username = (EditText) findViewById(R.id.userid);
+                Intent loginIntent = new Intent(LoginActivity.this, MainActivity.class);
+                loginIntent.putExtra("Username", username.getText().toString());
+                startActivity(loginIntent);
             }
         });
 

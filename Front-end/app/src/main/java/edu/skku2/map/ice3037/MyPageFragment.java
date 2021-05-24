@@ -94,19 +94,19 @@ public class MyPageFragment extends Fragment {
         budgets = v.findViewById(R.id.budget_info);
         yield = v.findViewById(R.id.yield_info);
 
-        request("choi3");
+//        request("choi3");
 
-//        ItemMyPage item1 = new ItemMyPage("네이버","8000 원","4 주", "2021-05-25",
-//                null, null, 0);
-//        mArrayList.add(item1);
-//        ItemMyPage item2 = new ItemMyPage("삼성전자","10000 원","8 주", "2021-05-26",
-//                "2000 원", "5 %", 1);
-//        mArrayList.add(item2);
-//        ItemMyPage item3 = new ItemMyPage("SK 하이닉스","20000 원","6 주", "2021-05-27",
-//                "- 1000 원", "- 5 %", 2);
-//        mArrayList.add(item3);
-//
-//        mAdapter.notifyDataSetChanged() ;
+        ItemMyPage item1 = new ItemMyPage("네이버","8000 원","4 주", "2021-05-25",
+                null, null, 0);
+        mArrayList.add(item1);
+        ItemMyPage item2 = new ItemMyPage("삼성전자","10000 원","8 주", "2021-05-26",
+                "2000 원", "5 %", 1);
+        mArrayList.add(item2);
+        ItemMyPage item3 = new ItemMyPage("SK 하이닉스","20000 원","6 주", "2021-05-27",
+                "- 1000 원", "- 5 %", 2);
+        mArrayList.add(item3);
+
+        mAdapter.notifyDataSetChanged() ;
 
         return v;
     }
