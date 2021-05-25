@@ -1,6 +1,8 @@
 package edu.skku2.map.ice3037;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -18,6 +20,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.gson.JsonIOException;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -44,19 +48,21 @@ public class HomeFragment extends Fragment {
     };
 
     private Integer[] logos = {
-            R.drawable.logo_samsung,
+            R.drawable.samsung,
             R.drawable.logo_skhynix,
-            R.drawable.lgchemi,
-            R.drawable.celltrion,
+            R.drawable.logo_lg,
+            R.drawable.logo_celltrion,
             R.drawable.logo_skhynix,
-            R.drawable.naver,
-            R.drawable.kakao,
-            R.drawable.kia,
-            R.drawable.posco
+            R.drawable.logo_naver,
+            R.drawable.logo_kakao,
+            R.drawable.logo_kia,
+            R.drawable.logo_posco
     };
 
     HomeAdapter mAdapter;
+    HomeAdapter2 mAdapter2;
     private ArrayList<Item> mArrayList;
+    private ArrayList<Item2> mArrayList2;
     private int count = -1;
 
     private static final String ARG_PARAM1 = "param1";
@@ -107,17 +113,25 @@ public class HomeFragment extends Fragment {
         LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(v.getContext());
         mRecyclerView.setLayoutManager(mLinearLayoutManager) ;
 
-        mArrayList = new ArrayList<>();
+        RecyclerView mRecyclerView2 = v.findViewById(R.id.recyclerView2);
+        LinearLayoutManager mLinearLayoutManager2 = new LinearLayoutManager(v.getContext());
+        mRecyclerView2.setLayoutManager(mLinearLayoutManager2) ;
 
+        mArrayList = new ArrayList<>();
+        mArrayList2 = new ArrayList<>();
         mAdapter = new HomeAdapter(getActivity().getApplicationContext(), mArrayList);
+        mAdapter2 = new HomeAdapter2(getActivity().getApplicationContext(), mArrayList2);
 
         mRecyclerView.setAdapter(mAdapter) ;
+        mRecyclerView2.setAdapter(mAdapter2) ;
 
-        request("choi3");
-
+        SharedPreferences check = this.getActivity().getSharedPreferences("userFile", Context.MODE_PRIVATE);
+        String ID = check.getString("userid","");
+        Log.d("idid",ID);
+        request(ID);
 
         mAdapter.notifyDataSetChanged() ;
-
+        mAdapter2.notifyDataSetChanged() ;
         return v;
     }
 
@@ -134,22 +148,19 @@ public class HomeFragment extends Fragment {
         customProgressDialog.getWindow().setGravity(Gravity.CENTER);
         customProgressDialog.setCancelable(false);
         customProgressDialog.show();
-        Call<Post> call = RetrofitClient.getApiService().home("choi3");
+        Call<Post> call = RetrofitClient.getApiService().home(userId);
         call.enqueue(new Callback<Post>() {
             @Override
             public void onResponse(Call<Post> call, Response<Post> response) {
                 if(!response.isSuccessful()){
                     Toast.makeText(getActivity().getApplicationContext(),"서버통신에 오류가 발생했습니다.".concat(String.valueOf(response.code())), Toast.LENGTH_SHORT).show();
-
                     return;
                 }
                 Post postResponse = response.body();
                 if (postResponse.getSuccess()){
                     Log.d("==========", postResponse.getMessage());
-
                     try {
                         obj = new JSONObject(postResponse.getMessage());
-
                         for(int i = 0; i < enterpriseList.length; i++){
                             try{
                                 JSONObject tmp = (JSONObject) obj.get("stocks");
@@ -158,7 +169,6 @@ public class HomeFragment extends Fragment {
                                 int price = enter.getInt("price"); // 산 가격
                                 int diff = enter.getInt("diff"); // 현재 가격 - 산 가격
                                 int currentPrice = enter.getInt("currentPrice"); // 현재가
-
                                 float frofitRate = (float)obj.getInt("currentDiff")/obj.getInt("currentMoney")*100;
 
                                 budgets.setText(new DecimalFormat("###,### 원").format(obj.getInt("currentMoney")));
@@ -182,19 +192,25 @@ public class HomeFragment extends Fragment {
                                     updown = String.format("%.2f%%", rate);
                                     flag = false;
                                 }
-
-                                Item item = new Item(ContextCompat.getDrawable(getContext(), logos[i]), enterpriseList[i], new DecimalFormat("###,### 원").format(currentPrice), new DecimalFormat("###,### 원").format(currentPrice*size), updown, flag);
+                                Item item = new Item(ContextCompat.getDrawable(getContext(), logos[i]), enterpriseList[i], new DecimalFormat("###,### 원").format(currentPrice), new DecimalFormat("###,### 원").format(currentPrice*size), updown, flag, new DecimalFormat("#주").format(size));
                                 mArrayList.add(item);
-
-
                             }catch (JSONException e){
-
                             }
                         }
-
+                        for(int i = 0; i < enterpriseList.length; i++){
+                            try{
+                                JSONObject tmp = (JSONObject) obj.get("active");
+                                JSONObject enter = (JSONObject) tmp.get(enterpriseList[i]);
+                                int price = enter.getInt("origin");
+                                Item2 item = new Item2(ContextCompat.getDrawable(getContext(), logos[i]), enterpriseList[i], new DecimalFormat("###,### 원").format(price));
+                                mArrayList2.add(item);
+                            }catch (JSONException e){
+                            }
+                        }
                         //로딩종료
                         customProgressDialog.dismiss();
                         mAdapter.notifyDataSetChanged() ;
+                        mAdapter2.notifyDataSetChanged() ;
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

@@ -1,6 +1,8 @@
 package edu.skku2.map.ice3037;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -86,7 +88,9 @@ public class MyPageFragment extends Fragment {
         budgets = v.findViewById(R.id.budget_info);
         yield = v.findViewById(R.id.yield_info);
 
-        request("choi3");
+        SharedPreferences check = this.getActivity().getSharedPreferences("userFile", Context.MODE_PRIVATE);
+        String ID = check.getString("userid","");
+        request(ID);
 
         return v;
     }

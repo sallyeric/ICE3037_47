@@ -7,6 +7,7 @@ import android.text.SpannableString;
 import android.text.TextPaint;
 import android.text.style.URLSpan;
 import android.text.util.Linkify;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,7 +68,15 @@ public class InfoNewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 return "";
             }
         };
-        Pattern mPattern = Pattern.compile(mholder.title.getText().toString());
+        String tmp = mholder.title.getText().toString();
+        Pattern tmpp = Pattern.compile("\\[");
+        Pattern tmpp2 = Pattern.compile("]");
+        Matcher matcher = tmpp.matcher(tmp);
+        String result = matcher.replaceAll("<");
+        Matcher matcher2 = tmpp2.matcher(result);
+        String result2 = matcher2.replaceAll(">");
+        Pattern mPattern = Pattern.compile(result2);
+        mholder.title.setText(result2);
         Linkify.addLinks(mholder.title, mPattern, myDataList.get(position).getLink(),null, mTransform);
         mholder.title.setLinkTextColor(Color.parseColor("#000000"));
         stripUnderlines(mholder.title);

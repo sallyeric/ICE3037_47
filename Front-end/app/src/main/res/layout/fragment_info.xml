@@ -105,7 +105,7 @@
                                     android:id="@+id/bt1"
                                     android:layout_width="70dp"
                                     android:layout_height="70dp"
-                                    android:src="@drawable/logo_samsung"
+                                    android:src="@drawable/samsung"
                                     app:civ_border_width="1dp"
                                     app:civ_border_color="#131832"
                                     ></de.hdodenhof.circleimageview.CircleImageView>
@@ -298,7 +298,7 @@
                                         android:layout_height="wrap_content"
                                         android:layout_marginTop="5dp"
                                         android:layout_marginLeft="10dp"
-                                        android:text="뉴스"
+                                        android:text="최신뉴스"
                                         android:textColor="#FF000000"
                                         android:textSize="22dp"
                                         android:textStyle="bold" />

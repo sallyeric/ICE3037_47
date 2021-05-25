@@ -1,7 +1,9 @@
 package edu.skku2.map.ice3037;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -174,6 +176,9 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
                 startActivity(intent);
             }
         });
+
+        SharedPreferences check = this.getActivity().getSharedPreferences("userFile", Context.MODE_PRIVATE);
+        userId = check.getString("userid","");
 
         off_auto_trade = v.findViewById(R.id.offAutoTrade_button);
         off_auto_trade.setOnClickListener(new View.OnClickListener() {
