@@ -46,6 +46,10 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.Holder>{
         holder.price.setText(mData.get(itemposition).getPrice());
         holder.eval.setText(mData.get(itemposition).getEval());
         holder.updown.setText(mData.get(itemposition).getUpdown());
+        if(mData.get(itemposition).getUp())
+            holder.updown.setTextColor(0xAAff0000);
+        else
+            holder.updown.setTextColor(0xAA0000ff);
     }
 
     // getItemCount() - 전체 데이터 갯수 리턴.

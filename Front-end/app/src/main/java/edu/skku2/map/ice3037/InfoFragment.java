@@ -179,7 +179,7 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
         off_auto_trade.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                requestOffAutoTrade(userId, companyName);
+                requestOffAutoTrade(userId, companyName);
             }
         });
 
@@ -187,13 +187,8 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
         mRecyclerView = v.findViewById(R.id.recyclerView_news);
         LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(v.getContext());
         mRecyclerView.setLayoutManager(mLinearLayoutManager) ;
-//        mArrayList = new ArrayList<>();
-//        mAdapter = new InfoNewsAdapter(mArrayList);
-//        mRecyclerView.setAdapter(mAdapter);
 
-//        mAdapter.notifyDataSetChanged();
-
-//        request(companyNameList[0]);
+        request(companyNameList[0]);
         chart = v.findViewById(R.id.line_chart);
 
         return v;
@@ -232,7 +227,7 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
                 companyName = companyNameList[8];
                 break;
         }
-//        request(companyName);
+        request(companyName);
     }
 
     public void makeChart(LineChart chart, JSONArray chartData){
@@ -330,7 +325,17 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
                         Log.d("==========", obj.toString());
 
                         price.setText(String.format("%s원", new DecimalFormat("###,###").format(obj.getInt("price"))));
-                        price_change.setText(String.format("%s(%.2f%%)", new DecimalFormat("###,###").format(obj.getInt("diff")), (float) obj.getInt("diff")/ obj.getInt("price")*100));
+
+                        float tmp = (float) obj.getInt("diff")/ obj.getInt("price")*100;
+                        if(tmp > 0){
+                            price_change.setText(String.format("+%s(%.2f%%)", new DecimalFormat("###,###").format(obj.getInt("diff")), tmp));
+                            price_change.setTextColor(0xAAff0000);
+                        }
+                        else{
+                            price_change.setText(String.format("%s(%.2f%%)", new DecimalFormat("###,###").format(obj.getInt("diff")), tmp));
+                            price_change.setTextColor(0xAA00ff);
+                        }
+
 
                         chartData = (JSONArray) obj.get("chartData");
                         newsData = (JSONArray) obj.get("newsData");
