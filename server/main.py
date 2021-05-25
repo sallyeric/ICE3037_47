@@ -130,8 +130,8 @@ def info():
                        'diff': realTimeChartObj.datas[request.form['companyName']]['diff'],
                        'chartData': dayChartObj.datas[request.form['companyName']]}
             db = g.client.Project
-            news = db.newsData.find({'회사명': request.form['companyName']}).limit(20)
-            message['newsData'] = list(reversed([{'기사제목': n['기사제목'], '언론사':n['언론사'], '날짜':n['날짜'], '링크':n['링크']} for n in news]))
+            news = db.newsData.find({'회사명': request.form['companyName']}).sort([('$natural',-1)]).limit(20)
+            message['newsData'] = [{'기사제목': n['기사제목'], '언론사':n['언론사'], '날짜':n['날짜'], '링크':n['링크']} for n in news]
     print('info')
     print(success, message)
     return jsonify({'success': success, 'message': json.dumps(message, ensure_ascii=False)}), 200
