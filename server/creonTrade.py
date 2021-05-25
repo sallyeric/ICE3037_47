@@ -75,10 +75,13 @@ class creonTrade():
     def buyOrder(self, code, type, userId=None):
         # 주식 매수 주문
         db = self.client.Project
-        users = db.userData.find()
+        users = None
+        if userId == None:
+            users = db.userData.find()
+        else:
+            users = db.userData.find_one({'userId':userId})
         price = self.currentPrice.Request(code)['buyPrice']
         for user in users:
-            if userId is not None and user['userId'] != userId: continue
             name = self.codeNames[code]
             company_active = user['active'].get(name)
             company_own = user['own']['stocks'].get(name)
@@ -126,10 +129,13 @@ class creonTrade():
     def sellOrder(self, code, type, userId=None):
         # 주식 매도 주문
         db = self.client.Project
-        users = db.userData.find()
+        users = None
+        if userId == None:
+            users = db.userData.find()
+        else:
+            users = db.userData.find_one({'userId': userId})
         price = self.currentPrice.Request(code)['sellPrice']
         for user in users:
-            if userId is not None and user['userId'] != userId: continue
             name = self.codeNames[code]
             company_own = user['own']['stocks'].get(name)
             if company_own is None: continue
