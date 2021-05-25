@@ -12,14 +12,16 @@ public class Item {
     private String priceString; // 현재가
     private String evalString; // 평가금액
     private String updownString; // 변화량(%)
+    private Boolean up;
 
 //    public Item(Drawable logo, String corp, String price, String eval, String updown) {
-    public Item(Drawable logo, String corp, String price, String eval, String updown) {
+    public Item(Drawable logo, String corp, String price, String eval, String updown, Boolean flag) {
         logoDrawable = logo;
         corpString = corp;
         priceString = price;
         evalString = eval;
         updownString = updown;
+        up = flag;
     }
 
     public void setLogo(Drawable logo) { logoDrawable = logo ; }
@@ -35,10 +37,12 @@ public class Item {
     public void setUpdown(String updown) {
         updownString = updown ;
     }
+    public void setUp(Boolean up) { this.up = up; }
 
     public Drawable getLogo() { return logoDrawable; }
     public String getCorp() { return corpString; }
     public String getPrice() { return priceString; }
     public String getEval() { return evalString; }
     public String getUpdown() { return updownString; }
+    public Boolean getUp() { return up; }
 }

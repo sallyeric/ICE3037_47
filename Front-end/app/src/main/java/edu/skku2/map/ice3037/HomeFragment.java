@@ -1,7 +1,6 @@
 package edu.skku2.map.ice3037;
 
-import android.content.Intent;
-import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
@@ -14,7 +13,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,8 +26,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static android.content.Context.MODE_PRIVATE;
-
 public class HomeFragment extends Fragment {
 
     private String[] enterpriseList = {
@@ -42,6 +38,18 @@ public class HomeFragment extends Fragment {
             "카카오",
             "기아",
             "POSCO"
+    };
+
+    private Integer[] logos = {
+            R.drawable.logo_samsung,
+            R.drawable.logo_skhynix,
+            R.drawable.lgchemi,
+            R.drawable.celltrion,
+            R.drawable.logo_skhynix,
+            R.drawable.naver,
+            R.drawable.kakao,
+            R.drawable.kia,
+            R.drawable.posco
     };
 
     HomeAdapter mAdapter;
@@ -87,8 +95,10 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_home, container, false);
+
         budgets = v.findViewById(R.id.budgets);
         yield = v.findViewById(R.id.yield);
+
         RecyclerView mRecyclerView = v.findViewById(R.id.recyclerView);
         LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(v.getContext());
         mRecyclerView.setLayoutManager(mLinearLayoutManager) ;
@@ -99,9 +109,8 @@ public class HomeFragment extends Fragment {
 
         mRecyclerView.setAdapter(mAdapter) ;
 
-        SharedPreferences check = this.getActivity().getSharedPreferences("userFile",MODE_PRIVATE);
-        String pastID = check.getString("userid","");
-        request(pastID);
+        request("choi3");
+
 
         mAdapter.notifyDataSetChanged() ;
 
@@ -141,48 +150,34 @@ public class HomeFragment extends Fragment {
                                 int diff = enter.getInt("diff"); // 현재 가격 - 산 가격
                                 int currentPrice = enter.getInt("currentPrice"); // 현재가
 
-                                budgets.setText(new DecimalFormat("###,### 원").format(obj.getInt("currentMoney")));
-                                yield.setText(String.format("%.2f%%", (float)obj.getInt("currentDiff")/obj.getInt("currentMoney")*100));
+                                float frofitRate = (float)obj.getInt("currentDiff")/obj.getInt("currentMoney")*100;
 
-//                                Item item = new Item(enterpriseList[i], String.valueOf(price), String.format("%.2f%%", (float)diff/price*100));
-//                                mArrayList.add(item);
-                                // 로고 설정
-                                if(enterpriseList[i] == "삼성전자"){
-                                    Item item = new Item(ContextCompat.getDrawable(getContext(), R.drawable.logo_samsung), enterpriseList[i], new DecimalFormat("###,### 원").format(currentPrice), new DecimalFormat("###,### 원").format(currentPrice*size), String.format("%.2f%%", (float)diff/price*100));
-                                    mArrayList.add(item);
+                                budgets.setText(new DecimalFormat("###,### 원").format(obj.getInt("currentMoney")));
+                                if(frofitRate > 0){
+                                    yield.setText(String.format("+%.2f%%", frofitRate));
+                                    yield.setTextColor(0xAAff0000);
                                 }
-                                else if (enterpriseList[i] == "SK하이닉스"){
-                                    Item item = new Item(ContextCompat.getDrawable(getContext(), R.drawable.logo_skhynix), enterpriseList[i], new DecimalFormat("###,### 원").format(currentPrice), new DecimalFormat("###,### 원").format(currentPrice*size), String.format("%.2f%%", (float)diff/price*100));
-                                    mArrayList.add(item);
+                                else{
+                                    yield.setText(String.format("%.2f%%", frofitRate));
+                                    yield.setTextColor(0xAA0000ff);
                                 }
-                                else if (enterpriseList[i] == "LG화학"){
-                                    Item item = new Item(ContextCompat.getDrawable(getContext(), R.drawable.lgchemi), enterpriseList[i], new DecimalFormat("###,### 원").format(currentPrice), new DecimalFormat("###,### 원").format(currentPrice*size), String.format("%.2f%%", (float)diff/price*100));
-                                    mArrayList.add(item);
+
+                                float rate = (float)diff/price*100;
+                                Boolean flag;
+                                String updown;
+                                if(rate>0){
+                                    updown = String.format("+%.2f%%", rate);
+                                    flag = true;
                                 }
-                                else if (enterpriseList[i] == "셀트리온"){
-                                    Item item = new Item(ContextCompat.getDrawable(getContext(), R.drawable.celltrion), enterpriseList[i], new DecimalFormat("###,### 원").format(currentPrice), new DecimalFormat("###,### 원").format(currentPrice*size), String.format("%.2f%%", (float)diff/price*100));
-                                    mArrayList.add(item);
+                                else{
+                                    updown = String.format("%.2f%%", rate);
+                                    flag = false;
                                 }
-                                else if (enterpriseList[i] == "NAVER"){
-                                    Item item = new Item(ContextCompat.getDrawable(getContext(), R.drawable.logo_skhynix), enterpriseList[i], new DecimalFormat("###,### 원").format(currentPrice), new DecimalFormat("###,### 원").format(currentPrice*size), String.format("%.2f%%", (float)diff/price*100));
-                                    mArrayList.add(item);
-                                }
-                                else if (enterpriseList[i] == "현대차"){
-                                    Item item = new Item(ContextCompat.getDrawable(getContext(), R.drawable.naver), enterpriseList[i], new DecimalFormat("###,### 원").format(currentPrice), new DecimalFormat("###,### 원").format(currentPrice*size), String.format("%.2f%%", (float)diff/price*100));
-                                    mArrayList.add(item);
-                                }
-                                else if (enterpriseList[i] == "카카오"){
-                                    Item item = new Item(ContextCompat.getDrawable(getContext(), R.drawable.kakao), enterpriseList[i], new DecimalFormat("###,### 원").format(currentPrice), new DecimalFormat("###,### 원").format(currentPrice*size), String.format("%.2f%%", (float)diff/price*100));
-                                    mArrayList.add(item);
-                                }
-                                else if (enterpriseList[i] == "기아"){
-                                    Item item = new Item(ContextCompat.getDrawable(getContext(), R.drawable.kia), enterpriseList[i], new DecimalFormat("###,### 원").format(currentPrice), new DecimalFormat("###,### 원").format(currentPrice*size), String.format("%.2f%%", (float)diff/price*100));
-                                    mArrayList.add(item);
-                                }
-                                else if (enterpriseList[i] == "POSCO"){
-                                    Item item = new Item(ContextCompat.getDrawable(getContext(), R.drawable.posco), enterpriseList[i], new DecimalFormat("###,### 원").format(currentPrice), new DecimalFormat("###,### 원").format(currentPrice*size), String.format("%.2f%%", (float)diff/price*100));
-                                    mArrayList.add(item);
-                                }
+
+                                Item item = new Item(ContextCompat.getDrawable(getContext(), logos[i]), enterpriseList[i], new DecimalFormat("###,### 원").format(currentPrice), new DecimalFormat("###,### 원").format(currentPrice*size), updown, flag);
+                                mArrayList.add(item);
+
+
                             }catch (JSONException e){
 
                             }

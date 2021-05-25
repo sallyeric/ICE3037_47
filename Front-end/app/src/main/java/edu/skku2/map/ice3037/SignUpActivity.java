@@ -63,21 +63,21 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private void request(String userId, String pw){
-        Call<Post> call = RetrofitClient.getApiService().signUp(signupUsername, signupPassword, signupCreonAccount);
-        call.enqueue(new Callback<Post>() {
-            @Override
-            public void onResponse(Call<Post> call, Response<Post> response) {
-                if(!response.isSuccessful()){
-                    Toast.makeText(getApplicationContext(),"서버통신에 오류가 발생했습니다.".concat(String.valueOf(response.code())), Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                Post postResponse = response.body();
-
-                Log.v("",postResponse.getSuccess().toString());
-
-                if (postResponse.getSuccess()){
-                    Toast.makeText(getApplicationContext(), postResponse.getMessage(), Toast.LENGTH_SHORT).show();
+//        Call<Post> call = RetrofitClient.getApiService().signUp(signupUsername, signupPassword, signupCreonAccount);
+//        call.enqueue(new Callback<Post>() {
+//            @Override
+//            public void onResponse(Call<Post> call, Response<Post> response) {
+//                if(!response.isSuccessful()){
+//                    Toast.makeText(getApplicationContext(),"서버통신에 오류가 발생했습니다.".concat(String.valueOf(response.code())), Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
+//
+//                Post postResponse = response.body();
+//
+//                Log.v("",postResponse.getSuccess().toString());
+//
+//                if (postResponse.getSuccess()){
+//                    Toast.makeText(getApplicationContext(), postResponse.getMessage(), Toast.LENGTH_SHORT).show();
 
                     // Intent: Go to Login Activity
                     EditText username = (EditText) findViewById(R.id.signupUsername);
@@ -85,16 +85,16 @@ public class SignUpActivity extends AppCompatActivity {
                     signupIntent.putExtra("Username", username.getText().toString());
                     startActivity(signupIntent);
 
-                }
-                else {
-                    Toast.makeText(getApplicationContext(), postResponse.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-
-            }
-            @Override
-            public void onFailure(Call<Post> call, Throwable t) {
-                Toast.makeText(getApplicationContext(),"서버와의 연결에 실패했습니다.", Toast.LENGTH_SHORT).show();
-            }
-        });
+//                }
+//                else {
+//                    Toast.makeText(getApplicationContext(), postResponse.getMessage(), Toast.LENGTH_SHORT).show();
+//                }
+//
+//            }
+//            @Override
+//            public void onFailure(Call<Post> call, Throwable t) {
+//                Toast.makeText(getApplicationContext(),"서버와의 연결에 실패했습니다.", Toast.LENGTH_SHORT).show();
+//            }
+//        });
     }
 }

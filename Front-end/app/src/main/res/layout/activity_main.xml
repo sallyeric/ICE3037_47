@@ -18,21 +18,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/white"
-            android:layout_alignParentBottom="true">
+            android:layout_alignParentBottom="true"
+            app:tabTextAppearance="@style/tab_text"
+            app:tabIndicatorColor="#E91E63">
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:icon="@drawable/tab_home"
-                android:text="Home"/>
+                android:icon="@drawable/tab_home" />
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:icon="@drawable/tab_info"
-                android:text="Info"/>
+                android:icon="@drawable/tab_info" />
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:icon="@drawable/tab_mypage"
-                android:text="My Page"/>
+                android:icon="@drawable/tab_mypage" />
         </com.google.android.material.tabs.TabLayout>
 </RelativeLayout>

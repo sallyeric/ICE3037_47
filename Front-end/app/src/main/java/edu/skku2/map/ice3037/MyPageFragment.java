@@ -77,48 +77,13 @@ public class MyPageFragment extends Fragment {
         LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(v.getContext());
         mRecyclerView.setLayoutManager(mLinearLayoutManager) ;
 
-//        mArrayList = new ArrayList<>();
-//
-//        mAdapter = new MyPageAdapter(mArrayList);
-//
-//        mRecyclerView.setAdapter(mAdapter) ;
-
-        /*TODO
-        *  [Backend] 여기 코드 수정하면 될 것 같습니다.
-        * 아이템 추가.
-        * viewType에 따라 item의 색깔이 다르게 나타납니다. (회색/빨강/파랑)
-        * 수익/손실에 따라 viewType을 설정해주면 됩니다. (0/1/2)
-        * 매수: 회사명, 매수금액, 몇 주, 시간, viewType(0)
-        * 매도 (+): 회사명, 매수금액, 몇 주, 시간,  수익/손실, 수익률/손실률, viewType(1)
-        * 매도 (-): 회사명, 매수금액, 몇 주, 시간,  수익/손실, 수익률/손실률, viewType(2) */
-
         // 내 자산과 수익률
         budgets = v.findViewById(R.id.budget_info);
         yield = v.findViewById(R.id.yield_info);
 
         request("choi3");
 
-//        ItemMyPage item1 = new ItemMyPage("네이버","8000 원","4 주", "2021-05-25",
-//                null, null, 0);
-//        mArrayList.add(item1);
-//        ItemMyPage item2 = new ItemMyPage("삼성전자","10000 원","8 주", "2021-05-26",
-//                "2000 원", "5 %", 1);
-//        mArrayList.add(item2);
-//        ItemMyPage item3 = new ItemMyPage("SK 하이닉스","20000 원","6 주", "2021-05-27",
-//                "- 1000 원", "- 5 %", 2);
-//        mArrayList.add(item3);
-//
-//        mAdapter.notifyDataSetChanged() ;
-
         return v;
-        // Inflate the layout for this fragment
-//        View v = inflater.inflate(R.layout.fragment_my_page, container, false);
-//        budgets = v.findViewById(R.id.budget_info);
-//        yield = v.findViewById(R.id.yield_info);
-//
-//        request("choi2");
-//
-//        return v;
     }
 
     private void request(String userId){
@@ -144,7 +109,21 @@ public class MyPageFragment extends Fragment {
                         Log.d("==========", obj.toString());
 
                         budgets.setText(new DecimalFormat("###,###원").format(obj.getInt("currentMoney")));
-                        yield.setText(String.format("%s원 (%.2f%%)", new DecimalFormat("###,###").format(obj.getInt("currentDiff")), (float) 1.1));
+
+                        float tmp = (float) 1.1;
+                        if(tmp > 0){
+                            yield.setText(String.format("+%s원 (%.2f%%)", new DecimalFormat("###,###").format(obj.getInt("currentDiff")), tmp));
+                            yield.setTextColor(0xAAff5555);
+                        }
+                        else{
+                            yield.setText(String.format("%s원 (%.2f%%)", new DecimalFormat("###,###").format(obj.getInt("currentDiff")), tmp));
+                            yield.setTextColor(0xAA0000ff);
+                        }
+
+                        /* 매수: 회사명, 매수금액, 몇 주, 시간, viewType(0)
+                        * 매도 (+): 회사명, 매수금액, 몇 주, 시간,  수익/손실, 수익률/손실률, viewType(1)
+                        * 매도 (-): 회사명, 매수금액, 몇 주, 시간,  수익/손실, 수익률/손실률, viewType(2) */
+
 
                         stocks = (JSONObject) obj.get("stocks");
                         history = (JSONArray) obj.get("history");
@@ -163,19 +142,29 @@ public class MyPageFragment extends Fragment {
                             String date = object.getString("date"); // 시간
                             int type = object.getInt("type"); // 매수 / 매도
                             int diff = object.getInt("diff"); // 수익
+
+
+                            ItemMyPage item;
                             if(type == 1){
-                                if(diff > 0)
-                                    type = 1;
-                                else
-                                    type = 2;
+                                if(diff > 0){
+                                    item = new ItemMyPage(name, new DecimalFormat("###,###원").format(price), String.format("%d주", size),
+                                            dateToString(date), new DecimalFormat("+###,###원").format(diff), String.format("+%.2f%%", (float) diff/price*100), 1);
+                                }
+                                else {
+                                    item = new ItemMyPage(name, new DecimalFormat("###,###원").format(price), String.format("%d주", size),
+                                            dateToString(date), new DecimalFormat("###,###원").format(diff), String.format("%.2f%%", (float) diff/price*100), 2);
+                                }
+                            }
+                            else{
+                                item = new ItemMyPage(name, new DecimalFormat("###,###원").format(price), String.format("%d주", size),
+                                        dateToString(date), new DecimalFormat("###,###원").format(diff), String.format("%.2f%%", (float) diff/price*100), 0);
                             }
 
-                            ItemMyPage item = new ItemMyPage(name, new DecimalFormat("###,###원").format(price), String.format("%d주", size),
-                                    dateToString(date), new DecimalFormat("###,###원").format(diff), String.format("%.2f%%", (float) diff/price*100), type);
                             mArrayList.add(item);
                         }
 
                         mAdapter.notifyDataSetChanged() ;
+
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -190,6 +179,7 @@ public class MyPageFragment extends Fragment {
             @Override
             public void onFailure(Call<Post> call, Throwable t) {
                 Toast.makeText(getActivity().getApplicationContext(),"서버와의 연결에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                Log.d("Tab3", "Success");
             }
         });
     }

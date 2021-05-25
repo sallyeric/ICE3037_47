@@ -17,9 +17,10 @@
             android:layout_height="wrap_content"
             android:gravity="left"
             android:text="제목"
+            android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
             android:textColor="#FF000000"
-            android:textSize="15dp"
+            android:textSize="18dp"
             android:textStyle="bold"/>
 
         <LinearLayout
@@ -33,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:text="신문사"
                 android:textColor="#44000000"
-                android:textSize="10dp"
+                android:textSize="14dp"
                 android:textStyle="bold"
                 android:layout_marginRight="10dp"/>
             <TextView
@@ -43,7 +44,7 @@
                 android:layout_marginRight="5dp"
                 android:text="·"
                 android:textColor="#44000000"
-                android:textSize="10dp"
+                android:textSize="20dp"
                 android:textStyle="bold" />
             <TextView
                 android:id="@+id/news_date"
@@ -52,7 +53,7 @@
                 android:gravity="left"
                 android:text="몇시간 전"
                 android:textColor="#44000000"
-                android:textSize="10dp"
+                android:textSize="14dp"
                 android:layout_marginLeft="5dp"/>
             <TextView
                 android:id="@+id/news_time"
@@ -61,7 +62,7 @@
                 android:gravity="left"
                 android:text=""
                 android:textColor="#44000000"
-                android:textSize="10dp"
+                android:textSize="14dp"
                 android:layout_marginLeft="5dp"/>
         </LinearLayout>
 
