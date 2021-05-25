@@ -14,6 +14,15 @@ client = None
 # create our little application
 app = Flask(__name__)
 app.config.from_object(__name__)
+
+codes = ['A000270', 'A000660', 'A005380', 'A005490', 'A005930', 'A035420', 'A035720', 'A051910', 'A068270']
+names = ['기아', 'SK하이닉스', '현대차', 'POSCO', '삼성전자', 'NAVER', '카카오', 'LG화학', '셀트리온']
+codeToName = {}
+nameToCode = {}
+for i in range(9):
+    codeToName[codes[i]] = names[i]
+    nameToCode[names[i]] = codes[i]
+
 creonTradeObj = creonTrade()
 realTimeChartObj = getRealTimeChartData()
 realTimeMACDObj = getRealTimeMACD(creonTradeObj)
@@ -137,6 +146,7 @@ def myInfo():
             for stock in user['own']['stocks']:
                 user['own']['stocks'][stock]['diff'] = user['own']['stocks'][stock]['price'] - \
                                                        realTimeChartObj.datas[stock]['price']
+                user['own']['stocks'][stock]['currentPrice'] = realTimeChartObj.datas[stock]['price']
                 user['own']['currentMoney'] += realTimeChartObj.datas[stock]['price']
             for stock in user['active']:
                 user['own']['currentMoney'] += user['active'][stock]['current']
@@ -159,7 +169,11 @@ def OnAutoTrade():
         if user:
             success = True
             message = "성공"
-            db.userData.update_one({'userId':request.form['userId']}, {'$set':{{request.form['companyName'] : {'origin': request.form['budgets'], 'current': request.form['budgets']}}}})
+            db.userData.update_one({'userId':request.form['userId']}, {'$set':{{request.form['companyName'] : {'origin': request.form['budgets'],
+                                                                                                               'current': request.form['budgets'],
+                                                                                                               'macd': request.form['check1'],
+                                                                                                               'volat': request.form['check2'],
+                                                                                                               'lstm': request.form['check3']}}}})
     print('OnAutoTrade')
     print(success, message)
     print(jsonify({'success': success, 'message': json.dumps(message, ensure_ascii=False)}))
@@ -175,11 +189,7 @@ def OffAutoTrade():
         if user:
             success = True
             message = "성공"
-            size = user['own']['stocks'][request.form['companyName']]['size']
-            buyPrice = user['own']['stocks'][request.form['companyName']]['price']
-            sellPrice = realTimeChartObj.datas[request.form['companyName']]['price']
-            db.userData.update_one({'userId':request.form['userId']}, {'$unset':{'own.stocks.'+request.form['companyName']:1}})
-            db.userData.update_one({'userId':request.form['userId']}, {'$unset':{'active.' + request.form['companyName']: 1}})
+            creonTradeObj.sellOrder(nameToCode[request.form['companyName']], request.form['userId'])
 
     print('OnAutoTrade')
     print(success, message)

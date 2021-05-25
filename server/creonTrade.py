@@ -69,21 +69,22 @@ class creonTrade():
         self.client = MongoClient("mongodb+srv://yoo:789retry@cluster0.pidsj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
         self.codes = ['A000270', 'A000660', 'A005380', 'A005490', 'A005930', 'A035420', 'A035720', 'A051910', 'A068270']
         self.names = ['기아', 'SK하이닉스', '현대차', 'POSCO', '삼성전자', 'NAVER', '카카오', 'LG화학', '셀트리온']
-
+        self.types = ['macd', 'volat', 'lstm']
         self.codeNames = {}
         for i in range(9): self.codeNames[self.codes[i]] = self.names[i]
-    def buyOrder(self, code):
+    def buyOrder(self, code, type, userId=None):
         # 주식 매수 주문
         db = self.client.Project
         users = db.userData.find()
         price = self.currentPrice.Request(code)['buyPrice']
         for user in users:
+            if userId is not None and user['userId'] != userId: continue
             name = self.codeNames[code]
             company_active = user['active'].get(name)
             company_own = user['own']['stocks'].get(name)
             if company_active is None: continue
             if company_own: continue
-
+            if company_active[self.types[type]] == False: continue
             amount = int(company_active['current'] / price)
             if amount <= 0: continue
             print(user['userId'], "신규 매수", code, price, amount)
@@ -113,7 +114,7 @@ class creonTrade():
             db.userData.update_one({'userId': user['userId']},
                                    {'$set': {'active.' + name+'.current': company_active['current'] - price * amount}})
             db.userData.update_one({'userId': user['userId']},
-                                   {'$set': {'own.stocks.' + name: {'size':amount, 'price':price}}})
+                                   {'$set': {'own.stocks.' + name: {'size':amount, 'price':price, 'type':type}}})
             db.userData.update_one({'userId': user['userId']},
                                    {'$push': {'history': {'name':name,
                                                           'size':amount,
@@ -122,15 +123,17 @@ class creonTrade():
                                                           'type':1}}})
         return True
 
-    def sellOrder(self, code):
+    def sellOrder(self, code, type, userId=None):
         # 주식 매도 주문
         db = self.client.Project
         users = db.userData.find()
         price = self.currentPrice.Request(code)['sellPrice']
         for user in users:
+            if userId is not None and user['userId'] != userId: continue
             name = self.codeNames[code]
             company_own = user['own']['stocks'].get(name)
             if company_own is None: continue
+            if company_own['type'] != type: continue
             amount = company_own['size']
             print("신규 매도", code, price, amount)
             price = self.currentPrice.Request(code)['sellPrice']
@@ -145,11 +148,6 @@ class creonTrade():
 
             # 매도 주문 요청
             ret = self.objOrder.BlockRequest()
-            if ret == 4:
-                remainTime = self.g_objCpStatus.LimitRequestRemainTime
-                print('주의: 주문 연속 통신 제한에 걸렸음. 대기해서 주문할 지 여부 판단이 필요 남은 시간', remainTime)
-                return False
-
             rqStatus = self.objOrder.GetDibStatus()
             rqRet = self.objOrder.GetDibMsg1()
             print("통신상태", rqStatus, rqRet)

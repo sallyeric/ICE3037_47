@@ -356,12 +356,12 @@ class CMinchartData:
         if self.data['OSC'][-3] < 0:
             if self.data['OSC'][-2] > 0:
                 ## 매수신호
-                self.creonTradeObj.buyOrder(self.code)
+                self.creonTradeObj.buyOrder(self.code, 0)
                 print('MACD 매수, 종목코드 %d, 시간 %d, 가격 %d' % (self.code, self.data['T'][-1], self.data['C'][-1]))
         elif self.data['OSC'][-3] > 0:
             if self.data['OSC'][-2] < 0:
                 ## 매도신호
-                self.creonTradeObj.sellOrder(self.code)
+                self.creonTradeObj.sellOrder(self.code, 0)
                 print('MACD 매도, 종목코드 %d, 시간 %d, 가격 %d' % (self.code, self.data['T'][-1], self.data['C'][-1]))
 
 
