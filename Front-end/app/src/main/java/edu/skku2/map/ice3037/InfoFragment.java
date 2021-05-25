@@ -336,6 +336,13 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
                             price_change.setTextColor(0xAA00ff);
                         }
 
+                        price_change.setText(String.format("%s(%.2f%%)", new DecimalFormat("###,###").format(obj.getInt("diff")), (float) obj.getInt("diff")/ obj.getInt("price")*100));
+                        if (obj.getInt("diff") < 0){
+                            price_change.setTextColor(Color.BLUE);
+                        }
+                        else{
+                            price_change.setTextColor(Color.RED);
+                        }
 
                         chartData = (JSONArray) obj.get("chartData");
                         newsData = (JSONArray) obj.get("newsData");

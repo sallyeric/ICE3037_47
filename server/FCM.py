@@ -15,25 +15,16 @@ app = Flask(__name__)
 app.config.from_object(__name__)
 push_service = FCMNotification(APIKEY)
 
-@app.before_request
-def before_request():
-    # g.client = MongoClient("localhost", 27017)
-    g.client = MongoClient("mongodb+srv://yoo:789retry@cluster0.pidsj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
 
-@app.teardown_request
-def teardown_request(exception):
-    g.client.close()
+class FCM:
+    def sendMessage(body, title, token):
 
-
-def sendMessage(body, title):
-    # 메시지 (data 타입)
-    data_message = {
-        "body": body,
-        "title": title
-    }
-    # 토큰값을 이용해 1명에게 푸시알림을 전송함
-    result = push_service.single_device_data_message(registration_id=TOKEN, data_message=data_message)
-    # 전송 결과 출력
-    print(result)
-
-sendMessage("배달의 민족", "치킨 8000원 쿠폰 도착!")
+        # 메시지 (data 타입)
+        data_message = {
+            "body": body,
+            "title": title
+        }
+        # 토큰값을 이용해 1명에게 푸시알림을 전송함
+        result = push_service.single_device_data_message(registration_id=token, data_message=data_message)
+        # 전송 결과 출력
+        print("FCM 알림:", result)

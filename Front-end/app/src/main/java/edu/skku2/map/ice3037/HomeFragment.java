@@ -1,6 +1,8 @@
 package edu.skku2.map.ice3037;
 
+import android.app.ProgressDialog;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
@@ -10,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,6 +69,7 @@ public class HomeFragment extends Fragment {
     private TextView yield;
 
     private JSONObject obj;
+    private ProgressDialog customProgressDialog;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -124,7 +128,12 @@ public class HomeFragment extends Fragment {
          * budgets, yield 에 표시되는 값을 변경
          * mArrayList 에 값을 할당
          * */
-
+        //로딩창
+        customProgressDialog = new ProgressDialog(getActivity());
+        customProgressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        customProgressDialog.getWindow().setGravity(Gravity.CENTER);
+        customProgressDialog.setCancelable(false);
+        customProgressDialog.show();
         Call<Post> call = RetrofitClient.getApiService().home("choi3");
         call.enqueue(new Callback<Post>() {
             @Override
@@ -183,6 +192,8 @@ public class HomeFragment extends Fragment {
                             }
                         }
 
+                        //로딩종료
+                        customProgressDialog.dismiss();
                         mAdapter.notifyDataSetChanged() ;
                     } catch (JSONException e) {
                         e.printStackTrace();

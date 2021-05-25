@@ -55,12 +55,12 @@ class CpRPCurrentPrice:
         return curData
 
 class creonTrade():
-    def __init__(self):
+    def __init__(self, fcm):
         print('init creonTrade')
         self.g_objCpStatus = win32com.client.Dispatch('CpUtil.CpCybos')
         self.g_objCpTrade = win32com.client.Dispatch('CpTrade.CpTdUtil')
         InitPlusCheck(self.g_objCpStatus, self.g_objCpTrade)
-
+        self.fcm = fcm
         self.acc = self.g_objCpTrade.AccountNumber[0]  # 계좌번호
         self.accFlag = self.g_objCpTrade.GoodsList(self.acc, 1)  # 주식상품 구분
         print(self.acc, self.accFlag[0])
@@ -91,6 +91,10 @@ class creonTrade():
             amount = int(company_active['current'] / price)
             if amount <= 0: continue
             print(user['userId'], "신규 매수", code, price, amount)
+
+            # 자동매매 알림 (주문요청 후에 넣어야 될 것)
+            print("token값: ", user['token'])
+            self.fcm.sendMessage("매수", "원에 자동으로 매수했습니다", user['token'])
 
             self.objOrder.SetInputValue(0, "2")  # 2: 매수
             self.objOrder.SetInputValue(1, self.acc)  # 계좌번호
@@ -142,6 +146,11 @@ class creonTrade():
             if company_own['type'] != type: continue
             amount = company_own['size']
             print("신규 매도", code, price, amount)
+
+            # 자동매매 알림 (주문요청 후에 넣어야 될 것)
+            print("token값: ", user['token'])
+            self.fcm.sendMessage("매도", "자동으로 매도했습니다", user['token'])
+
             price = self.currentPrice.Request(code)['sellPrice']
             self.objOrder.SetInputValue(0, "1")  # 1: 매도
             self.objOrder.SetInputValue(1, self.acc)  # 계좌번호

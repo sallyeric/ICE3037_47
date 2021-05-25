@@ -4,6 +4,7 @@ from getChartData import getDayChartData, getRealTimeChartData
 from getMACD import getRealTimeMACD
 from creonTrade import creonTrade
 from newsCrawl import newsCrawl
+from FCM import FCM
 import json
 
 # configuration
@@ -23,14 +24,12 @@ for i in range(9):
     codeToName[codes[i]] = names[i]
     nameToCode[names[i]] = codes[i]
 
-creonTradeObj = creonTrade()
+creonTradeObj = creonTrade(FCM)
 realTimeChartObj = getRealTimeChartData()
 realTimeMACDObj = getRealTimeMACD(creonTradeObj)
 dayChartObj = getDayChartData()
 newsCrawlObj = newsCrawl()
-
 print('init complete')
-
 
 @app.before_request
 def before_request():

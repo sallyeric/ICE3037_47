@@ -1,5 +1,8 @@
 package edu.skku2.map.ice3037;
 
+import android.app.ProgressDialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.core.content.ContextCompat;
@@ -8,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,6 +48,7 @@ public class MyPageFragment extends Fragment {
     private JSONArray history;
 
     private RecyclerView mRecyclerView;
+    private ProgressDialog customProgressDialog;
 
     public MyPageFragment() {
         // Required empty public constructor
@@ -92,6 +97,12 @@ public class MyPageFragment extends Fragment {
     * budgets_info, yield_info 에 표시되는 값을 변경
     * stocks, history 에 각각의 JSONObject, JSONArray 를 할당
     * */
+        //로딩창
+        customProgressDialog = new ProgressDialog(getActivity());
+        customProgressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        customProgressDialog.getWindow().setGravity(Gravity.CENTER);
+        customProgressDialog.setCancelable(false);
+        customProgressDialog.show();
         Call<Post> call = RetrofitClient.getApiService().myInfo(userId);
         call.enqueue(new Callback<Post>() {
             @Override
@@ -163,6 +174,8 @@ public class MyPageFragment extends Fragment {
                             mArrayList.add(item);
                         }
 
+                        //로딩종료
+                        customProgressDialog.dismiss();
                         mAdapter.notifyDataSetChanged() ;
 
 

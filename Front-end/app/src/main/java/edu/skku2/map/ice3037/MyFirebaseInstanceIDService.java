@@ -3,8 +3,10 @@ package edu.skku2.map.ice3037;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.util.Log;
 
@@ -56,26 +58,33 @@ public class MyFirebaseInstanceIDService extends FirebaseMessagingService {
             channelMessage.setShowBadge(false);
             channelMessage.setVibrationPattern(new long[]{100, 200, 100, 200});
             notichannel.createNotificationChannel(channelMessage);
-
+            PendingIntent mPendingIntent = PendingIntent.getActivity(this,
+                    0,
+                    new Intent(getApplicationContext(), MainActivity.class),PendingIntent.FLAG_UPDATE_CURRENT);
             NotificationCompat.Builder notificationBuilder =
                     new NotificationCompat.Builder(this, channel)
-                            .setSmallIcon(R.drawable.ic_launcher_background)
+                            .setSmallIcon(R.mipmap.ic_launcher)
                             .setContentTitle(title)
                             .setContentText(message)
                             .setChannelId(channel)
                             .setAutoCancel(true)
+                            .setContentIntent(mPendingIntent)
                             .setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE);
 
             NotificationManager notificationManager =
                     (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
             notificationManager.notify(9999, notificationBuilder.build());
         } else {
+            PendingIntent mPendingIntent = PendingIntent.getActivity(this,
+                    0,
+                    new Intent(getApplicationContext(), MainActivity.class),PendingIntent.FLAG_UPDATE_CURRENT);
             NotificationCompat.Builder notificationBuilder =
                     new NotificationCompat.Builder(this, "")
-                            .setSmallIcon(R.drawable.ic_launcher_background)
+                            .setSmallIcon(R.mipmap.ic_launcher)
                             .setContentTitle(title)
                             .setContentText(message)
                             .setAutoCancel(true)
+                            .setContentIntent(mPendingIntent)
                             .setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE);
 
             NotificationManager notificationManager =

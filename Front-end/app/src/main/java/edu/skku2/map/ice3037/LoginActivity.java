@@ -12,6 +12,8 @@ import android.widget.Toast;
 
 //import com.google.firebase.iid.FirebaseInstanceId;
 
+import com.google.firebase.iid.FirebaseInstanceId;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -35,6 +37,19 @@ public class LoginActivity extends AppCompatActivity {
             username.setText(signupIntent.getStringExtra("Username"));
         }
         TextView login = (TextView) findViewById(R.id.loginButton);
+
+        SharedPreferences check = getSharedPreferences("userFile",MODE_PRIVATE);
+        String pastID = check.getString("userid","");
+        String pastPW = check.getString("password","");
+
+        if (pastID.length()>0 && pastPW.length() > 0){
+            Toast.makeText(getApplicationContext(), "자동 로그인 완료", Toast.LENGTH_SHORT).show();
+            EditText username = (EditText) findViewById(R.id.userid);
+            Intent loginIntent = new Intent(LoginActivity.this, MainActivity.class);
+            loginIntent.putExtra("Username", username.getText().toString());
+            startActivity(loginIntent);
+        }
+
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,7 +67,20 @@ public class LoginActivity extends AppCompatActivity {
 //                    editor.commit();
 //                    request(uid, pw, token);
 //                }
+                uid = usernameET.getText().toString();
+                pw = passwordET.getText().toString();
+                if(uid.isEmpty() || pw.isEmpty()){
+                    Toast.makeText(getApplicationContext(),"아이디와 비밀번호를 모두 입력해주세요", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    String token = FirebaseInstanceId.getInstance().getToken();
+                    SharedPreferences pref = getSharedPreferences("userFile",MODE_PRIVATE);
+                    SharedPreferences.Editor editor = pref.edit();
+                    editor.putString("token",token);
+                    editor.commit();
 
+                    request(uid, pw, token);
+                }
                 EditText username = (EditText) findViewById(R.id.userid);
                 Intent loginIntent = new Intent(LoginActivity.this, MainActivity.class);
                 loginIntent.putExtra("Username", username.getText().toString());
