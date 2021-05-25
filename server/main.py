@@ -173,7 +173,7 @@ def OnAutoTrade():
         if user:
             success = True
             message = "성공"
-            db.userData.update_one({'userId':request.form['userId']}, {'$set':{{request.form['companyName'] : {'origin': request.form['budgets'],
+            db.userData.update_one({'userId':request.form['userId']}, {'$set':{{'active.'+request.form['companyName'] : {'origin': request.form['budgets'],
                                                                                                                'current': request.form['budgets'],
                                                                                                                'macd': request.form['check1'],
                                                                                                                'volat': request.form['check2'],
