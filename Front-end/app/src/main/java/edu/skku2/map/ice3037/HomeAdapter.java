@@ -44,7 +44,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.Holder>{
         holder.logo.setImageDrawable(mData.get(itemposition).getLogo());
         holder.corp.setText(mData.get(itemposition).getCorp());
         holder.price.setText(mData.get(itemposition).getPrice());
-//        holder.eval.setText(mData.get(itemposition).getEval());
+        holder.eval.setText(mData.get(itemposition).getEval());
         holder.updown.setText(mData.get(itemposition).getUpdown());
     }
 
@@ -59,7 +59,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.Holder>{
         ImageView logo;
         TextView corp;
         TextView price;
-//        TextView eval;
+        TextView eval;
         TextView updown;
 
         public Holder(View view) {
@@ -69,7 +69,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.Holder>{
             logo = (ImageView) view.findViewById(R.id.home_item_logo);
             corp = (TextView) view.findViewById(R.id.home_item_corp);
             price = (TextView) view.findViewById(R.id.home_item_price);
-//            eval = (TextView) view.findViewById(R.id.home_item_eval);
+            eval = (TextView) view.findViewById(R.id.home_item_eval);
             updown = (TextView) view.findViewById(R.id.home_item_updown);
 
             Log.d("Contact", "make one");

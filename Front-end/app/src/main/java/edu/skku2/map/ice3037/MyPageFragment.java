@@ -43,6 +43,8 @@ public class MyPageFragment extends Fragment {
     private JSONObject stocks;
     private JSONArray history;
 
+    private RecyclerView mRecyclerView;
+
     public MyPageFragment() {
         // Required empty public constructor
     }
@@ -71,15 +73,15 @@ public class MyPageFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_my_page, container, false);
 
-        RecyclerView mRecyclerView = v.findViewById(R.id.recyclerView2);
+        mRecyclerView = v.findViewById(R.id.recyclerView2);
         LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(v.getContext());
         mRecyclerView.setLayoutManager(mLinearLayoutManager) ;
 
-        mArrayList = new ArrayList<>();
-
-        mAdapter = new MyPageAdapter(mArrayList);
-
-        mRecyclerView.setAdapter(mAdapter) ;
+//        mArrayList = new ArrayList<>();
+//
+//        mAdapter = new MyPageAdapter(mArrayList);
+//
+//        mRecyclerView.setAdapter(mAdapter) ;
 
         /*TODO
         *  [Backend] 여기 코드 수정하면 될 것 같습니다.
@@ -96,17 +98,17 @@ public class MyPageFragment extends Fragment {
 
         request("choi3");
 
-        ItemMyPage item1 = new ItemMyPage("네이버","8000 원","4 주", "2021-05-25",
-                null, null, 0);
-        mArrayList.add(item1);
-        ItemMyPage item2 = new ItemMyPage("삼성전자","10000 원","8 주", "2021-05-26",
-                "2000 원", "5 %", 1);
-        mArrayList.add(item2);
-        ItemMyPage item3 = new ItemMyPage("SK 하이닉스","20000 원","6 주", "2021-05-27",
-                "- 1000 원", "- 5 %", 2);
-        mArrayList.add(item3);
-
-        mAdapter.notifyDataSetChanged() ;
+//        ItemMyPage item1 = new ItemMyPage("네이버","8000 원","4 주", "2021-05-25",
+//                null, null, 0);
+//        mArrayList.add(item1);
+//        ItemMyPage item2 = new ItemMyPage("삼성전자","10000 원","8 주", "2021-05-26",
+//                "2000 원", "5 %", 1);
+//        mArrayList.add(item2);
+//        ItemMyPage item3 = new ItemMyPage("SK 하이닉스","20000 원","6 주", "2021-05-27",
+//                "- 1000 원", "- 5 %", 2);
+//        mArrayList.add(item3);
+//
+//        mAdapter.notifyDataSetChanged() ;
 
         return v;
         // Inflate the layout for this fragment
@@ -141,15 +143,39 @@ public class MyPageFragment extends Fragment {
                         JSONObject obj = new JSONObject(postResponse.getMessage());
                         Log.d("==========", obj.toString());
 
-                        budgets.setText(String.format("%s원", new DecimalFormat("###,###").format(obj.getInt("currentMoney"))));
-                        yield.setText(String.format("%s(%.2f%%)", new DecimalFormat("###,###").format(obj.getInt("currentDiff")), (float) obj.getInt("currentDiff")/ obj.getInt("money")*100));
+                        budgets.setText(new DecimalFormat("###,###원").format(obj.getInt("currentMoney")));
+                        yield.setText(String.format("%s원 (%.2f%%)", new DecimalFormat("###,###").format(obj.getInt("currentDiff")), (float) 1.1));
 
                         stocks = (JSONObject) obj.get("stocks");
                         history = (JSONArray) obj.get("history");
 
-                        int size = stocks.getInt("size"); // 몇 주
-                        int price = stocks.getInt("price"); // 현재가
-                        int diff = stocks.getInt("diff"); // 현재 가격 - 산 가격
+                        mArrayList = new ArrayList<>();
+                        mAdapter = new MyPageAdapter(mArrayList);
+                        mRecyclerView.setAdapter(mAdapter) ;
+
+
+                        for(int n = 0; n < history.length(); n++)
+                        {
+                            JSONObject object = (JSONObject) history.opt(n);
+                            String name = object.getString("name"); // 회사명
+                            int price = object.getInt("price"); // 메수금액
+                            int size = object.getInt("size"); // 몇 주
+                            String date = object.getString("date"); // 시간
+                            int type = object.getInt("type"); // 매수 / 매도
+                            int diff = object.getInt("diff"); // 수익
+                            if(type == 1){
+                                if(diff > 0)
+                                    type = 1;
+                                else
+                                    type = 2;
+                            }
+
+                            ItemMyPage item = new ItemMyPage(name, new DecimalFormat("###,###원").format(price), String.format("%d주", size),
+                                    dateToString(date), new DecimalFormat("###,###원").format(diff), String.format("%.2f%%", (float) diff/price*100), type);
+                            mArrayList.add(item);
+                        }
+
+                        mAdapter.notifyDataSetChanged() ;
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -166,5 +192,10 @@ public class MyPageFragment extends Fragment {
                 Toast.makeText(getActivity().getApplicationContext(),"서버와의 연결에 실패했습니다.", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    String dateToString(String str){
+        String res = str.substring(0, 4) + "." + str.substring(4, 6) + "." + str.substring(6, 8) + "." + str.substring(8, 10) + ":" + str.substring(10);
+        return res;
     }
 }

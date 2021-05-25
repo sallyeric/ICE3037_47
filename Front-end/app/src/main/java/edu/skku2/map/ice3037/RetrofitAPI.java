@@ -35,7 +35,7 @@ public interface RetrofitAPI {
     Call<Post> info(@Field("companyName") String companyName);
 
     @FormUrlEncoded
-    @POST("/onAutoTrade")
+    @POST("/OnAutoTrade")
     Call<Post> OnAutoTrade(@Field("userId") String userId,
                            @Field("companyName") String companyName,
                            @Field("budgets") int budgets,
@@ -44,7 +44,7 @@ public interface RetrofitAPI {
                            @Field("check3") Boolean check3);
 
     @FormUrlEncoded
-    @POST("/offAutoTrade")
+    @POST("/OffAutoTrade")
     Call<Post> OffAutoTrade(@Field("userId") String userId,
                            @Field("companyName") String companyName);
 

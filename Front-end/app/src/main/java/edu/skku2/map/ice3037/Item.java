@@ -14,11 +14,11 @@ public class Item {
     private String updownString; // 변화량(%)
 
 //    public Item(Drawable logo, String corp, String price, String eval, String updown) {
-    public Item(Drawable logo, String corp, String price, String updown) {
+    public Item(Drawable logo, String corp, String price, String eval, String updown) {
         logoDrawable = logo;
         corpString = corp;
         priceString = price;
-//        evalString = eval;
+        evalString = eval;
         updownString = updown;
     }
 
