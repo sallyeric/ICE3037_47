@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    android:background="#EDEDED"
+    android:background="#3B3E4E"
     tools:context=".LoginActivity">
-
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-
+        android:layout_marginTop="80dp"
         android:gravity="center_horizontal">
         <LinearLayout
             android:layout_marginTop="20dp"
@@ -33,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="주 파 고"
-                android:textColor="#E91E63"
+                android:textColor="#EC4880"
                 android:textSize="40dp"
                 android:layout_centerInParent="true"
                 android:layout_marginLeft="30dp"
@@ -98,4 +97,4 @@
             />
     </LinearLayout>
 
-</LinearLayout>
+</FrameLayout>

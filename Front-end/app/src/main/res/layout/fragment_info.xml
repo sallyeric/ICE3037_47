@@ -99,87 +99,88 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
                                 android:layout_marginBottom="5dp"
+                                android:layout_marginRight="25dp"
                                 android:orientation="horizontal">
                                 <de.hdodenhof.circleimageview.CircleImageView
                                     android:id="@+id/bt1"
                                     android:layout_width="70dp"
                                     android:layout_height="70dp"
-                                    android:src="@drawable/samsung"
+                                    android:src="@drawable/logo_samsung"
                                     app:civ_border_width="1dp"
-                                    app:civ_border_color="#FF000000"
+                                    app:civ_border_color="#131832"
                                     ></de.hdodenhof.circleimageview.CircleImageView>
                                 <de.hdodenhof.circleimageview.CircleImageView
                                     android:id="@+id/bt2"
                                     android:layout_width="70dp"
                                     android:layout_height="70dp"
-                                    android:src="@drawable/skhn"
+                                    android:src="@drawable/logo_skhynix"
                                     android:layout_marginLeft="10dp"
                                     android:layout_gravity="center"
                                     app:civ_border_width="1dp"
-                                    app:civ_border_color="#FF000000"
+                                    app:civ_border_color="#131832"
                                     ></de.hdodenhof.circleimageview.CircleImageView>
                                 <de.hdodenhof.circleimageview.CircleImageView
                                     android:id="@+id/bt3"
                                     android:layout_width="70dp"
                                     android:layout_height="70dp"
                                     android:layout_marginLeft="10dp"
-                                    android:src="@drawable/lgchemi"
+                                    android:src="@drawable/logo_lg"
                                     app:civ_border_width="1dp"
-                                    app:civ_border_color="#FF000000"
+                                    app:civ_border_color="#131832"
                                     ></de.hdodenhof.circleimageview.CircleImageView>
                                 <de.hdodenhof.circleimageview.CircleImageView
                                     android:id="@+id/bt4"
                                     android:layout_width="70dp"
                                     android:layout_height="70dp"
                                     android:layout_marginLeft="10dp"
-                                    android:src="@drawable/celltrion"
+                                    android:src="@drawable/logo_celltrion"
                                     app:civ_border_width="1dp"
-                                    app:civ_border_color="#FF000000"
+                                    app:civ_border_color="#131832"
                                     ></de.hdodenhof.circleimageview.CircleImageView>
                                 <de.hdodenhof.circleimageview.CircleImageView
                                     android:id="@+id/bt5"
                                     android:layout_width="70dp"
                                     android:layout_height="70dp"
                                     android:layout_marginLeft="10dp"
-                                    android:src="@drawable/naver"
+                                    android:src="@drawable/logo_naver"
                                     app:civ_border_width="1dp"
-                                    app:civ_border_color="#FF000000"
+                                    app:civ_border_color="#131832"
                                     ></de.hdodenhof.circleimageview.CircleImageView>
                                 <de.hdodenhof.circleimageview.CircleImageView
                                     android:id="@+id/bt6"
                                     android:layout_width="70dp"
                                     android:layout_height="70dp"
                                     android:layout_marginLeft="10dp"
-                                    android:src="@drawable/hyundai"
+                                    android:src="@drawable/logo_hyundai"
                                     app:civ_border_width="1dp"
-                                    app:civ_border_color="#FF000000"
+                                    app:civ_border_color="#131832"
                                     ></de.hdodenhof.circleimageview.CircleImageView>
                                 <de.hdodenhof.circleimageview.CircleImageView
                                     android:id="@+id/bt7"
                                     android:layout_width="70dp"
                                     android:layout_height="70dp"
                                     android:layout_marginLeft="10dp"
-                                    android:src="@drawable/kakao"
+                                    android:src="@drawable/logo_kakao"
                                     app:civ_border_width="1dp"
-                                    app:civ_border_color="#FF000000"
+                                    app:civ_border_color="#131832"
                                     ></de.hdodenhof.circleimageview.CircleImageView>
                                 <de.hdodenhof.circleimageview.CircleImageView
                                     android:id="@+id/bt8"
                                     android:layout_width="70dp"
                                     android:layout_height="70dp"
                                     android:layout_marginLeft="10dp"
-                                    android:src="@drawable/kia"
+                                    android:src="@drawable/logo_kia"
                                     app:civ_border_width="1dp"
-                                    app:civ_border_color="#FF000000"
+                                    app:civ_border_color="#131832"
                                     ></de.hdodenhof.circleimageview.CircleImageView>
                                 <de.hdodenhof.circleimageview.CircleImageView
                                     android:id="@+id/bt9"
                                     android:layout_width="70dp"
                                     android:layout_height="70dp"
                                     android:layout_marginLeft="10dp"
-                                    android:src="@drawable/posco"
+                                    android:src="@drawable/logo_posco"
                                     app:civ_border_width="1dp"
-                                    app:civ_border_color="#FF000000"
+                                    app:civ_border_color="#131832"
                                     ></de.hdodenhof.circleimageview.CircleImageView>
                             </LinearLayout>
                         </LinearLayout>
@@ -207,10 +208,29 @@
                                 android:layout_marginRight="10dp"
                                 android:layout_marginBottom="30dp"
                                 android:orientation="vertical">
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal">
+                                    <ImageView
+                                        android:layout_width="30dp"
+                                        android:layout_height="30dp"
+                                        android:src="@drawable/chart"/>
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="5dp"
+                                        android:layout_marginLeft="10dp"
+                                        android:text="차트"
+                                        android:textColor="#FF000000"
+                                        android:textSize="22dp"
+                                        android:textStyle="bold" />
+                                </LinearLayout>
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
+                                    android:layout_marginTop="10dp"
                                     android:orientation="horizontal">
 
                                     <TextView
@@ -225,24 +245,6 @@
                                         android:textColor="#FF000000"
                                         android:textSize="20dp"
                                         android:textStyle="bold" />
-
-<!--                                    <Button-->
-<!--                                        android:id="@+id/onAutoTrade_button"-->
-<!--                                        android:layout_width="wrap_content"-->
-<!--                                        android:layout_height="wrap_content"-->
-<!--                                        android:layout_gravity="center"-->
-<!--                                        android:layout_weight="1"-->
-<!--                                        android:textSize="30px"-->
-<!--                                        android:text="매매시작" />-->
-<!--                                    <Button-->
-<!--                                        android:id="@+id/offAutoTrade_button"-->
-<!--                                        android:layout_width="wrap_content"-->
-<!--                                        android:layout_height="wrap_content"-->
-<!--                                        android:layout_gravity="center"-->
-<!--                                        android:layout_weight="1"-->
-<!--                                        android:textSize="30px"-->
-<!--                                        android:layout_marginRight="5dp"-->
-<!--                                        android:text="매매중지" />-->
                                 </LinearLayout>
 
                                 <TextView
@@ -274,8 +276,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
-                            android:layout_marginRight="10dp"
-                            android:layout_marginBottom="30dp">
+                            android:layout_marginRight="10dp">
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
@@ -284,16 +285,24 @@
                                 android:layout_marginRight="10dp"
                                 android:layout_marginBottom="30dp"
                                 android:orientation="vertical">
-                                <TextView
+                                <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginBottom="10dp"
-                                    android:gravity="left"
-                                    android:paddingTop="10dp"
-                                    android:text="뉴스"
-                                    android:textColor="#FF000000"
-                                    android:textSize="20dp"
-                                    android:textStyle="bold" />
+                                    android:orientation="horizontal">
+                                    <ImageView
+                                        android:layout_width="30dp"
+                                        android:layout_height="30dp"
+                                        android:src="@drawable/news"/>
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="5dp"
+                                        android:layout_marginLeft="10dp"
+                                        android:text="뉴스"
+                                        android:textColor="#FF000000"
+                                        android:textSize="22dp"
+                                        android:textStyle="bold" />
+                                </LinearLayout>
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
@@ -303,6 +312,7 @@
                                     <androidx.recyclerview.widget.RecyclerView
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
+                                        android:layout_marginTop="10dp"
                                         android:layout_marginBottom="5dp"
                                         android:id="@+id/recyclerView_news" />
                                 </LinearLayout>
@@ -332,7 +342,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="left"
-                            android:layout_marginBottom="10dp"
+                            android:layout_marginBottom="100dp"
                             android:textSize="10dp"
                             android:text="제공하는 투자 정보는 고객의 투자 판단을 위한 단순 참고용일뿐, 투자 제안 및 권유 종목 추천을 위해 작성된 것이 아닙니다." />
                     </LinearLayout>
@@ -346,8 +356,7 @@
             android:orientation="horizontal"
             android:layout_gravity="bottom"
             android:gravity="center_horizontal"
-            android:layout_marginBottom="15dp"
-            >
+            android:layout_marginBottom="15dp">
             <Button
                 android:id="@+id/onAutoTrade_button"
                 android:layout_width="180dp"

@@ -164,7 +164,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="10dp"
-                                android:text="투자 기업 목록"
+                                android:text="투자 목록"
                                 android:textColor="#FF000000"
                                 android:textSize="22dp"
                                 android:textStyle="bold" />

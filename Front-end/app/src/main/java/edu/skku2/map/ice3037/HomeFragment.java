@@ -155,11 +155,11 @@ public class HomeFragment extends Fragment {
                                     mArrayList.add(item);
                                 }
                                 else if (enterpriseList[i] == "LG화학"){
-                                    Item item = new Item(ContextCompat.getDrawable(getContext(), R.drawable.lgchemi), enterpriseList[i], String.valueOf(price), String.format("%.2f%%", (float)diff/price*100));
+                                    Item item = new Item(ContextCompat.getDrawable(getContext(), R.drawable.logo_lg), enterpriseList[i], String.valueOf(price), String.format("%.2f%%", (float)diff/price*100));
                                     mArrayList.add(item);
                                 }
                                 else if (enterpriseList[i] == "셀트리온"){
-                                    Item item = new Item(ContextCompat.getDrawable(getContext(), R.drawable.celltrion), enterpriseList[i], String.valueOf(price), String.format("%.2f%%", (float)diff/price*100));
+                                    Item item = new Item(ContextCompat.getDrawable(getContext(), R.drawable.logo_celltrion), enterpriseList[i], String.valueOf(price), String.format("%.2f%%", (float)diff/price*100));
                                     mArrayList.add(item);
                                 }
                                 else if (enterpriseList[i] == "NAVER"){
@@ -167,19 +167,19 @@ public class HomeFragment extends Fragment {
                                     mArrayList.add(item);
                                 }
                                 else if (enterpriseList[i] == "현대차"){
-                                    Item item = new Item(ContextCompat.getDrawable(getContext(), R.drawable.naver), enterpriseList[i], String.valueOf(price), String.format("%.2f%%", (float)diff/price*100));
+                                    Item item = new Item(ContextCompat.getDrawable(getContext(), R.drawable.logo_naver), enterpriseList[i], String.valueOf(price), String.format("%.2f%%", (float)diff/price*100));
                                     mArrayList.add(item);
                                 }
                                 else if (enterpriseList[i] == "카카오"){
-                                    Item item = new Item(ContextCompat.getDrawable(getContext(), R.drawable.kakao), enterpriseList[i], String.valueOf(price), String.format("%.2f%%", (float)diff/price*100));
+                                    Item item = new Item(ContextCompat.getDrawable(getContext(), R.drawable.logo_kakao), enterpriseList[i], String.valueOf(price), String.format("%.2f%%", (float)diff/price*100));
                                     mArrayList.add(item);
                                 }
                                 else if (enterpriseList[i] == "기아"){
-                                    Item item = new Item(ContextCompat.getDrawable(getContext(), R.drawable.kia), enterpriseList[i], String.valueOf(price), String.format("%.2f%%", (float)diff/price*100));
+                                    Item item = new Item(ContextCompat.getDrawable(getContext(), R.drawable.logo_kia), enterpriseList[i], String.valueOf(price), String.format("%.2f%%", (float)diff/price*100));
                                     mArrayList.add(item);
                                 }
                                 else if (enterpriseList[i] == "POSCO"){
-                                    Item item = new Item(ContextCompat.getDrawable(getContext(), R.drawable.posco), enterpriseList[i], String.valueOf(price), String.format("%.2f%%", (float)diff/price*100));
+                                    Item item = new Item(ContextCompat.getDrawable(getContext(), R.drawable.logo_posco), enterpriseList[i], String.valueOf(price), String.format("%.2f%%", (float)diff/price*100));
                                     mArrayList.add(item);
                                 }
                             }catch (JSONException e){

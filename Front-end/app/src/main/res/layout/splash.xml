@@ -18,7 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="주 파 고"
-        android:textColor="#E91E63"
+        android:textColor="#EC4880"
         android:textSize="30dp"
         android:fontFamily="@font/nanumbarunpenbold"
         android:layout_alignParentBottom="true"
@@ -31,7 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="150dp"
-        android:indeterminateTint="#6E6165" />
+        android:indeterminateTint="#009688" />
 
 
 </RelativeLayout>

@@ -22,17 +22,17 @@
             android:orientation="horizontal">
 
             <LinearLayout
-                android:layout_width="220dp"
+                android:layout_width="190dp"
                 android:layout_height="wrap_content">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:text="매수"
-                    android:textColor="#FF000000"
-                    android:textSize="20dp"
-                    android:textStyle="normal" />
+                    android:text="BUY"
+                    android:textColor="#fff"
+                    android:textSize="17dp"
+                    android:textStyle="bold" />
 
             </LinearLayout>
             <LinearLayout
@@ -44,9 +44,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:text="2021-05-27"
-                    android:textColor="#FF000000"
+                    android:textColor="#FFF"
                     android:textSize="15dp"
-                    android:textStyle="normal" />
+                    android:textStyle="bold" />
             </LinearLayout>
 
         </LinearLayout>
@@ -58,21 +58,20 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
-
-
                     <TextView
                         android:id="@+id/corp"
-                        android:layout_width="170dp"
+                        android:layout_width="140dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:text="삼성전자"
-                        android:textColor="#FF000000"
-                        android:textSize="25dp"
-                        android:textStyle="bold" />
+                        android:textColor="#fff"
+                        android:textSize="20dp"
+                        android:textStyle="normal" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_marginTop="5dp"
@@ -92,7 +91,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="매수금액: "
-                                android:textColor="#FF000000"
+                                android:textColor="#fff"
                                 android:textSize="15dp"
                                 android:textStyle="normal" />
                             <TextView
@@ -101,7 +100,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="10dp"
                                 android:text="3000 원"
-                                android:textColor="#FF000000"
+                                android:textColor="#fff"
                                 android:textSize="15dp"
                                 android:textStyle="normal" />
                         </LinearLayout>
@@ -114,7 +113,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="몇 주: "
-                                android:textColor="#FF000000"
+                                android:textColor="#fff"
                                 android:textSize="15dp"
                                 android:textStyle="normal" />
                             <TextView
@@ -123,7 +122,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="10dp"
                                 android:text="10 주"
-                                android:textColor="#FF000000"
+                                android:textColor="#fff"
                                 android:textSize="15dp"
                                 android:textStyle="normal" />
                         </LinearLayout>
