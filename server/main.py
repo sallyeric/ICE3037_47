@@ -4,6 +4,7 @@ from getChartData import getDayChartData, getRealTimeChartData
 from getMACD import getRealTimeMACD
 from creonTrade import creonTrade
 from newsCrawl import newsCrawl
+from Volatility import Volatility
 import json
 
 # configuration
@@ -26,6 +27,7 @@ for i in range(9):
 creonTradeObj = creonTrade()
 realTimeChartObj = getRealTimeChartData()
 realTimeMACDObj = getRealTimeMACD(creonTradeObj)
+realTimeVolatility = Volatility(creonTradeObj)
 dayChartObj = getDayChartData()
 newsCrawlObj = newsCrawl()
 print('init complete')
@@ -200,6 +202,7 @@ if __name__ == '__main__':
     realTimeChartObj.run()
     dayChartObj.run()
     newsCrawlObj.start()
+    realTimeVolatility.start()
 
     print('flask ready to run')
     app.run(debug=DEBUG, host='0.0.0.0', port=5000)
