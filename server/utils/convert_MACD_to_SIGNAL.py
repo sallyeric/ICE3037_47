@@ -5,8 +5,8 @@ names = ['기아', 'SK하이닉스', '현대차', 'POSCO', '삼성전자', 'NAVE
 for name in names:
     macd = pd.read_csv('./macdData/'+name+'MACD.csv')
     chart = pd.read_csv('./chartData/' + name + '.csv')
-    t = macd[::-1].iloc[:, 0].values
-    osc = macd[::-1].iloc[:, 3].values
+    t = macd.iloc[:, 0].values
+    osc = macd.iloc[:, 3].values
     origin_prices = chart[::-1].iloc[:, 4].values
 
     types = [0]
