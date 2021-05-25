@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:id="@+id/RelativeLayout01"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#3B3E4E">
+
+
+    <ImageView
+        android:id="@+id/splashLogo"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="150dp"
+        android:src="@drawable/barchart2" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="주 파 고"
+        android:textColor="#EC4880"
+        android:textSize="30dp"
+        android:fontFamily="@font/nanumbarunpenbold"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="260dp"
+        android:layout_centerInParent="true"/>
+
+    <ProgressBar
+        android:id="@+id/my_progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="150dp"
+        android:indeterminateTint="#009688" />
+
+
+</RelativeLayout>

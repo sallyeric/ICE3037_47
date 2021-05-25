@@ -179,7 +179,7 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
         off_auto_trade.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                requestOffAutoTrade(userId, companyName);
+//                requestOffAutoTrade(userId, companyName);
             }
         });
 
@@ -193,7 +193,7 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
 
 //        mAdapter.notifyDataSetChanged();
 
-        request(companyNameList[0]);
+//        request(companyNameList[0]);
         chart = v.findViewById(R.id.line_chart);
 
         return v;
@@ -232,7 +232,7 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
                 companyName = companyNameList[8];
                 break;
         }
-        request(companyName);
+//        request(companyName);
     }
 
     public void makeChart(LineChart chart, JSONArray chartData){

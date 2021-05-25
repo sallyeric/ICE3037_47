@@ -1,70 +1,168 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".auto_trade">
-
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:src="@drawable/backgrounddesign"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="20dp"
         android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="50dp"
-            android:textSize="30dp"
-            android:text="종목명" />
-
-        <EditText
-            android:id="@+id/textBudget"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="50dp"
-            android:ems="10"
-            android:gravity="center"
-            android:hint="금액을 정하세요"
-            android:inputType="number" />
-
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:orientation="vertical">
-
-            <CheckBox
-                android:id="@+id/LSTM"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal">
+            <ImageView
+                android:id="@+id/splashLogo"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/barchart2" />
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="LSTM 주가예측모델" />
-
-            <CheckBox
-                android:id="@+id/MACD"
-                android:layout_width="match_parent"
+                android:layout_gravity="center"
+                android:text="주 파 고"
+                android:textColor="#E91E63"
+                android:textSize="20dp"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="30dp"
+                android:fontFamily="@font/nanumbarunpenbold" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="MACD" />
-
-            <CheckBox
-                android:id="@+id/volatility"
-                android:layout_width="match_parent"
+                android:layout_marginLeft="30dp"
+                android:fontFamily="@font/nanumbarunpenbold"
+                android:textSize="40dp"
+                android:textColor="#00AA9A"
+                android:text="자동매매" />
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="변동성돌파전략" />
+                android:layout_marginLeft="10dp"
+                android:fontFamily="@font/nanumbarunpenbold"
+                android:textSize="40dp"
+                android:textColor="#fff"
+                android:text="신청" />
         </LinearLayout>
 
-        <Button
-            android:id="@+id/bu1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="50dp"
-            android:onClick="onButtonClick"
-            android:text="매매시작" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="50dp"
+                    android:textSize="22dp"
+                    android:textColor="#393939"
+                    android:text="기업명: " />
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="50dp"
+                    android:textSize="25dp"
+                    android:textColor="#E91E63"
+                    android:text="종목명" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:textSize="20dp"
+                    android:textColor="#393939"
+                    android:text="투자금액: " />
+                <EditText
+                    android:id="@+id/textBudget"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:gravity="center"
+                    android:hint="금액을 정하세요"
+                    android:inputType="number" />
+            </LinearLayout>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="20dp"
+                android:textSize="20dp"
+                android:textColor="#393939"
+                android:text="투자방식: " />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="5dp"
+                android:textSize="15dp"
+                android:textColor="#009688"
+                android:textStyle="bold"
+                android:text="(* 복수선택 가능합니다.)" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="40dp"
+                android:orientation="vertical">
+                <CheckBox
+                    android:id="@+id/LSTM"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:text="LSTM 주가예측모델" />
+                <CheckBox
+                    android:id="@+id/MACD"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:text="MACD" />
+                <CheckBox
+                    android:id="@+id/volatility"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:text="변동성돌파전략" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/bu1"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="50dp"
+                android:background="@drawable/signupbutton_click"
+                android:onClick="onButtonClick"
+                android:textSize="20dp"
+                android:textColor="#fff"
+                android:textStyle="bold"
+                android:text="신청하기" />
+
+        </LinearLayout>
     </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

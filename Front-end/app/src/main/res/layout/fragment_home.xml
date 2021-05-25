@@ -7,97 +7,182 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <LinearLayout
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <TextView
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:src="@drawable/backgrounddesign"/>
+            <LinearLayout
+                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:text="Home"
-                android:textColor="#FF000000"
-                android:textSize="30dp"
-                android:textStyle="bold" />
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="10dp">
-                <LinearLayout
+                android:orientation="vertical">
+                <TextView
+                    android:gravity="center_horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:text="Home"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+                <LinearLayout
+                    android:layout_marginTop="30dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center_horizontal">
+                    <ImageView
+                        android:layout_marginLeft="30dp"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:src="@drawable/personstock"/>
+                    <LinearLayout
+                        android:layout_marginTop="20dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_gravity="center_horizontal">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/nanumbarunpenbold"
+                                android:textSize="40dp"
+                                android:textColor="#EF4780"
+                                android:text="주파고"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:fontFamily="@font/nanumbarunpenbold"
+                                android:textSize="30dp"
+                                android:textColor="#fff"
+                                android:text="와 함께"/>
+                        </LinearLayout>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/nanumbarunpenbold"
+                            android:textSize="30dp"
+                            android:textColor="#fff"
+                            android:text="투자하세요."/>
+                    </LinearLayout>
+                </LinearLayout>
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
                     android:layout_marginBottom="10dp"
-                    android:orientation="vertical">
-                    <TextView
-                        android:layout_width="250dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:text="내 자산"
-                        android:textColor="#FF000000"
-                        android:textSize="22dp"
-                        android:textStyle="bold" />
-                    <TextView
-                        android:id="@+id/yield_info"
-                        android:layout_height="wrap_content"
-                        android:layout_width="wrap_content">
-                    </TextView>
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp">
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
-                        android:orientation="horizontal"/>
-                        <TextView
-                            android:id="@+id/budgets"
-                            android:layout_width="250dp"
+                        android:orientation="vertical"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp">
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:src="@drawable/wallet"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginLeft="10dp"
+                                android:text="내 자산"
+                                android:textColor="#FF000000"
+                                android:textSize="22dp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
                             android:layout_marginLeft="10dp"
-                            android:text="0 원"
-                            android:textColor="#FF000000"
-                            android:textSize="20dp"
-                            android:textStyle="bold" />
-                        <TextView
-                            android:id="@+id/yield"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="(+ 0.0 %)"
-                            android:textColor="#FF0000"
-                            android:textSize="20dp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-            </androidx.cardview.widget.CardView>
+                            android:layout_marginRight="10dp"
+                            android:orientation="horizontal">
+                                <TextView
+                                    android:id="@+id/budgets"
+                                    android:layout_width="250dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="10dp"
+                                    android:text="0 원"
+                                    android:textColor="#FF000000"
+                                    android:textSize="20dp"
+                                    android:textStyle="bold" />
+                                <TextView
+                                    android:id="@+id/yield"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="(+ 0.0 %)"
+                                    android:textColor="#FF0000"
+                                    android:textSize="20dp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+                        </LinearLayout>
+                </androidx.cardview.widget.CardView>
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp">
-                <LinearLayout
+                <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:orientation="vertical">
-                    <TextView
+                    android:layout_marginBottom="30dp">
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="투자 기업 목록"
-                        android:textColor="#FF000000"
-                        android:textSize="22dp"
-                        android:textStyle="bold" />
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recyclerView"
-                        android:overScrollMode="never"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_alignParentBottom="true"
-                        android:scrollbars="vertical"
-                        />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-        </LinearLayout>
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="30dp"
+                        android:orientation="vertical">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:src="@drawable/investlist"/>
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:text="투자 목록"
+                                android:textColor="#FF000000"
+                                android:textSize="22dp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recyclerView"
+
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_alignParentBottom="true"
+                            android:scrollbars="vertical"
+                            />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+        </FrameLayout>
     </ScrollView>
 </FrameLayout>
