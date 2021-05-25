@@ -19,6 +19,7 @@
             android:layout_height="wrap_content"
             android:background="@android:color/white"
             android:layout_alignParentBottom="true"
+            app:tabTextAppearance="@style/tab_text"
             app:tabIndicatorColor="#E91E63">
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"

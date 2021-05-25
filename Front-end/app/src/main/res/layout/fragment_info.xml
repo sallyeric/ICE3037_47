@@ -338,17 +338,19 @@
                     </LinearLayout>
                 </LinearLayout>
         </ScrollView>
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:orientation="horizontal"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="500dp">
+            android:layout_gravity="bottom"
+            android:gravity="center_horizontal"
+            android:layout_marginBottom="15dp"
+            >
             <Button
                 android:id="@+id/onAutoTrade_button"
-                android:layout_width="50dp"
+                android:layout_width="180dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/loginbutton_click"
                 android:layout_gravity="center"
@@ -360,10 +362,10 @@
                 android:text="매매시작" />
             <Button
                 android:id="@+id/offAutoTrade_button"
-                android:layout_width="50dp"
+                android:layout_width="180dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/signupbutton_click"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="200dp"
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:textSize="20dp"
@@ -372,6 +374,6 @@
                 android:textStyle="bold"
                 android:elevation="20dp"
                 android:text="매매중지" />
-        </LinearLayout>
+        </RelativeLayout>
     </FrameLayout>
 </FrameLayout>
