@@ -92,7 +92,7 @@ def home():
             user['own']['currentMoney'] = 0
             user['own']['currentDiff'] = 0
             for stock in user['own']['stocks']:
-                user['own']['stocks'][stock]['diff'] = user['own']['stocks'][stock]['price'] - realTimeChartObj.datas[stock]['price']
+                user['own']['stocks'][stock]['diff'] = realTimeChartObj.datas[stock]['price'] - user['own']['stocks'][stock]['price']
                 user['own']['stocks'][stock]['currentPrice'] = realTimeChartObj.datas[stock]['price']
                 user['own']['currentMoney'] += realTimeChartObj.datas[stock]['price']
             for stock in user['active']:
