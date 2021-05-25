@@ -92,9 +92,7 @@ class creonTrade():
             if amount <= 0: continue
             print(user['userId'], "신규 매수", code, price, amount)
 
-            # 자동매매 알림 (주문요청 후에 넣어야 될 것)
-            print("token값: ", user['token'])
-            self.fcm.sendMessage("매수", "원에 자동으로 매수했습니다", user['token'])
+
 
             self.objOrder.SetInputValue(0, "2")  # 2: 매수
             self.objOrder.SetInputValue(1, self.acc)  # 계좌번호
@@ -117,7 +115,9 @@ class creonTrade():
             print("통신상태", rqStatus, rqRet)
             if rqStatus != 0:
                 return False
-
+            # 자동매매 알림 (주문요청 후에 넣어야 될 것)
+            print("token값: ", user['token'])
+            self.fcm.sendMessage("매수", "원에 자동으로 매수했습니다", user['token'])
             db.userData.update_one({'userId': user['userId']},
                                    {'$set': {'active.' + name+'.current': company_active['current'] - price * amount}})
             db.userData.update_one({'userId': user['userId']},
@@ -147,10 +147,6 @@ class creonTrade():
             amount = company_own['size']
             print("신규 매도", code, price, amount)
 
-            # 자동매매 알림 (주문요청 후에 넣어야 될 것)
-            print("token값: ", user['token'])
-            self.fcm.sendMessage("매도", "자동으로 매도했습니다", user['token'])
-
             price = self.currentPrice.Request(code)['sellPrice']
             self.objOrder.SetInputValue(0, "1")  # 1: 매도
             self.objOrder.SetInputValue(1, self.acc)  # 계좌번호
@@ -168,6 +164,9 @@ class creonTrade():
             print("통신상태", rqStatus, rqRet)
             if rqStatus != 0:
                 return False
+            # 자동매매 알림 (주문요청 후에 넣어야 될 것)
+            print("token값: ", user['token'])
+            self.fcm.sendMessage("매도", "자동으로 매도했습니다", user['token'])
 
             db.userData.update_one({'userId': user['userId']},
                                    {'$push': {'history': {'name': name,
