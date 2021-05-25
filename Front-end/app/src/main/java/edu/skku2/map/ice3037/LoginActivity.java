@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -40,8 +41,7 @@ public class LoginActivity extends AppCompatActivity {
 
         SharedPreferences check = getSharedPreferences("userFile",MODE_PRIVATE);
         String pastID = check.getString("userid","");
-        String pastPW = check.getString("password","");
-
+        String pastPW = check.getString("password",null);
         if (pastID.length()>0 && pastPW.length() > 0){
             Toast.makeText(getApplicationContext(), "자동 로그인 완료", Toast.LENGTH_SHORT).show();
             EditText username = (EditText) findViewById(R.id.userid);
