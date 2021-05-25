@@ -6,6 +6,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="10dp"
+    android:layout_marginTop="10dp"
     android:background="@drawable/item_buy">
 
     <LinearLayout
@@ -21,7 +22,7 @@
             android:orientation="horizontal">
 
             <LinearLayout
-                android:layout_width="200dp"
+                android:layout_width="220dp"
                 android:layout_height="wrap_content">
 
                 <TextView
@@ -31,7 +32,7 @@
                     android:text="매수"
                     android:textColor="#FF000000"
                     android:textSize="20dp"
-                    android:textStyle="bold" />
+                    android:textStyle="normal" />
 
             </LinearLayout>
             <LinearLayout
@@ -45,7 +46,7 @@
                     android:text="2021-05-27"
                     android:textColor="#FF000000"
                     android:textSize="15dp"
-                    android:textStyle="bold" />
+                    android:textStyle="normal" />
             </LinearLayout>
 
         </LinearLayout>
@@ -65,12 +66,12 @@
 
                     <TextView
                         android:id="@+id/corp"
-                        android:layout_width="200dp"
+                        android:layout_width="170dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:text="삼성전자"
                         android:textColor="#FF000000"
-                        android:textSize="30dp"
+                        android:textSize="25dp"
                         android:textStyle="bold" />
                 </LinearLayout>
                 <LinearLayout
@@ -93,7 +94,7 @@
                                 android:text="매수금액: "
                                 android:textColor="#FF000000"
                                 android:textSize="15dp"
-                                android:textStyle="bold" />
+                                android:textStyle="normal" />
                             <TextView
                                 android:id="@+id/price"
                                 android:layout_width="wrap_content"
@@ -102,7 +103,7 @@
                                 android:text="3000 원"
                                 android:textColor="#FF000000"
                                 android:textSize="15dp"
-                                android:textStyle="bold" />
+                                android:textStyle="normal" />
                         </LinearLayout>
                         <LinearLayout
                             android:layout_marginTop="3dp"
@@ -115,7 +116,7 @@
                                 android:text="몇 주: "
                                 android:textColor="#FF000000"
                                 android:textSize="15dp"
-                                android:textStyle="bold" />
+                                android:textStyle="normal" />
                             <TextView
                                 android:id="@+id/stock"
                                 android:layout_width="wrap_content"
@@ -124,7 +125,7 @@
                                 android:text="10 주"
                                 android:textColor="#FF000000"
                                 android:textSize="15dp"
-                                android:textStyle="bold" />
+                                android:textStyle="normal" />
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
