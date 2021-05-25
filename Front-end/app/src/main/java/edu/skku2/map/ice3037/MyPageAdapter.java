@@ -32,7 +32,8 @@ public class MyPageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             view = inflater.inflate(R.layout.item_buy, parent, false);
             return new BuyViewHolder(view);
         }
-        else if(viewType == ViewTypeCode.ViewType.SELL_LOSS)
+//        else if
+        if(viewType == ViewTypeCode.ViewType.SELL_LOSS)
         {
             view = inflater.inflate(R.layout.item_sell_loss, parent, false);
             return new SellLossViewHolder(view);
