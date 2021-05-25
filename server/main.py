@@ -4,7 +4,6 @@ from getChartData import getDayChartData, getRealTimeChartData
 from getMACD import getRealTimeMACD
 from creonTrade import creonTrade
 from newsCrawl import newsCrawl
-from Volatility import Volatility
 import json
 
 # configuration
@@ -27,9 +26,9 @@ for i in range(9):
 creonTradeObj = creonTrade()
 realTimeChartObj = getRealTimeChartData()
 realTimeMACDObj = getRealTimeMACD(creonTradeObj)
-realTimeVolatility = Volatility(creonTradeObj)
 dayChartObj = getDayChartData()
 newsCrawlObj = newsCrawl()
+
 print('init complete')
 
 
@@ -105,7 +104,10 @@ def home():
             for stock in user['own']['stocks']:
                 user['own']['stocks'][stock]['diff'] = realTimeChartObj.datas[stock]['price'] - user['own']['stocks'][stock]['price']
                 user['own']['stocks'][stock]['currentPrice'] = realTimeChartObj.datas[stock]['price']
-                user['own']['currentMoney'] += realTimeChartObj.datas[stock]['price']
+                user['own']['currentMoney'] += realTimeChartObj.datas[stock]['price'] * user['own']['stocks'][stock]['size']
+                user['own']['currentDiff'] += user['own']['stocks'][stock][
+                    'price'] * user['own']['stocks'][stock][
+                    'size']
             for stock in user['active']:
                 user['own']['currentMoney'] += user['active'][stock]['current']
                 user['own']['currentDiff'] += user['active'][stock]['origin']
@@ -129,7 +131,7 @@ def info():
                        'chartData': dayChartObj.datas[request.form['companyName']]}
             db = g.client.Project
             news = db.newsData.find({'회사명': request.form['companyName']}).limit(20)
-            message['newsData'] = [{'기사제목': n['기사제목'], '언론사':n['언론사'], '날짜':n['날짜'], '링크':n['링크']} for n in news]
+            message['newsData'] = list(reversed([{'기사제목': n['기사제목'], '언론사':n['언론사'], '날짜':n['날짜'], '링크':n['링크']} for n in news]))
     print('info')
     print(success, message)
     return jsonify({'success': success, 'message': json.dumps(message, ensure_ascii=False)}), 200
@@ -155,7 +157,7 @@ def myInfo():
                 user['own']['currentDiff'] += user['active'][stock]['origin']
             user['own']['currentDiff'] = user['own']['currentMoney'] - user['own']['currentDiff']
             message = user['own']
-            message['history'] = [h for h in user['history'][:30]]
+            message['history'] = list(reversed([h for h in user['history'][:30]]))
     print('myInfo')
     print(success, message)
     print(jsonify({'success': success, 'message': json.dumps(message, ensure_ascii=False)}))
@@ -202,7 +204,6 @@ if __name__ == '__main__':
     realTimeChartObj.run()
     dayChartObj.run()
     newsCrawlObj.start()
-    realTimeVolatility.start()
 
     print('flask ready to run')
     app.run(debug=DEBUG, host='0.0.0.0', port=5000)
