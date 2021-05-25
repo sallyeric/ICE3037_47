@@ -111,6 +111,7 @@ def home():
                 user['own']['currentMoney'] += user['active'][stock]['current']
                 user['own']['currentDiff'] += user['active'][stock]['origin']
             user['own']['currentDiff'] = user['own']['currentMoney'] - user['own']['currentDiff']
+            user['own']['active'] = user['active']
             success = True
             message = user['own']
     print('home')
