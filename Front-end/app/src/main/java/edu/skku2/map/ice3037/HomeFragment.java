@@ -48,15 +48,15 @@ public class HomeFragment extends Fragment {
     };
 
     private Integer[] logos = {
-            R.drawable.logo_samsung,
+            R.drawable.samsung,
             R.drawable.logo_skhynix,
-            R.drawable.lgchemi,
-            R.drawable.celltrion,
+            R.drawable.logo_lg,
+            R.drawable.logo_celltrion,
             R.drawable.logo_skhynix,
-            R.drawable.naver,
-            R.drawable.kakao,
-            R.drawable.kia,
-            R.drawable.posco
+            R.drawable.logo_naver,
+            R.drawable.logo_kakao,
+            R.drawable.logo_kia,
+            R.drawable.logo_posco
     };
 
     HomeAdapter mAdapter;
