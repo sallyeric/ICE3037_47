@@ -69,7 +69,6 @@ public class InfoNewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             }
         };
         String tmp = mholder.title.getText().toString();
-        Log.d("st",tmp);
         Pattern tmpp = Pattern.compile("\\[");
         Pattern tmpp2 = Pattern.compile("]");
         Matcher matcher = tmpp.matcher(tmp);

@@ -48,8 +48,6 @@ class newsCrawl(threading.Thread):
                 title = title.get_text().strip()
                 title = re.sub('\n', '', title)
                 title = re.sub('\t', '', title)
-                title = re.sub('\[', '<', title)
-                title = re.sub(']', '>', title)
                 title_result.append(title)
 
             # 뉴스 링크
