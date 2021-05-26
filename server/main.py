@@ -28,7 +28,7 @@ for i in range(9):
 
 creonTradeObj = creonTrade(FCM)
 realTimeChartObj = getRealTimeChartData()
-realTimeMACDObj = getRealTimeMACD(creonTradeObj)
+#realTimeMACDObj = getRealTimeMACD(creonTradeObj)
 dayChartObj = getDayChartData()
 newsCrawlObj = newsCrawl()
 print('init complete')
@@ -105,9 +105,6 @@ def home():
                 user['own']['stocks'][stock]['diff'] = realTimeChartObj.datas[stock]['price'] - user['own']['stocks'][stock]['price']
                 user['own']['stocks'][stock]['currentPrice'] = realTimeChartObj.datas[stock]['price']
                 user['own']['currentMoney'] += realTimeChartObj.datas[stock]['price'] * user['own']['stocks'][stock]['size']
-                user['own']['currentDiff'] += user['own']['stocks'][stock][
-                    'price'] * user['own']['stocks'][stock][
-                    'size']
             for stock in user['active']:
                 user['own']['currentMoney'] += user['active'][stock]['current']
                 user['own']['currentDiff'] += user['active'][stock]['origin']
@@ -149,10 +146,11 @@ def myInfo():
             user['own']['currentMoney'] = 0
             user['own']['currentDiff'] = 0
             for stock in user['own']['stocks']:
-                user['own']['stocks'][stock]['diff'] = user['own']['stocks'][stock]['price'] - \
-                                                       realTimeChartObj.datas[stock]['price']
+                user['own']['stocks'][stock]['diff'] = realTimeChartObj.datas[stock]['price'] - \
+                                                       user['own']['stocks'][stock]['price']
                 user['own']['stocks'][stock]['currentPrice'] = realTimeChartObj.datas[stock]['price']
-                user['own']['currentMoney'] += realTimeChartObj.datas[stock]['price']
+                user['own']['currentMoney'] += realTimeChartObj.datas[stock]['price'] * user['own']['stocks'][stock][
+                    'size']
             for stock in user['active']:
                 user['own']['currentMoney'] += user['active'][stock]['current']
                 user['own']['currentDiff'] += user['active'][stock]['origin']
@@ -208,8 +206,9 @@ if __name__ == '__main__':
     realTimeChartObj.run()
     dayChartObj.run()
     newsCrawlObj.start()
-    qapp = QApplication(sys.argv)
-    qapp.exec_()
+
+    #qapp = QApplication(sys.argv)
+    #qapp.exec_()
     print('flask ready to run')
     #realTimeMACDObj = getRealTimeMACD(creonTradeObj)
     app.run(debug=DEBUG, host='0.0.0.0', port=5000)
