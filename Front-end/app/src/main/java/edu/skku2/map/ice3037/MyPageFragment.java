@@ -156,11 +156,13 @@ public class MyPageFragment extends Fragment {
                             int size = object.getInt("size"); // 몇 주
                             String date = object.getString("date"); // 시간
                             int type = object.getInt("type"); // 매수 / 매도
-                            int diff = object.getInt("diff"); // 수익
-
+                            int diff = 0;
+                            if (type == 0){
+                                diff = object.getInt("diff"); // 수익
+                            }
 
                             ItemMyPage item;
-                            if(type == 1){
+                            if(type == 0){
                                 if(diff > 0){
                                     item = new ItemMyPage(name, new DecimalFormat("###,###원").format(price), String.format("%d주", size),
                                             dateToString(date), new DecimalFormat("+###,###원").format(diff), String.format("+%.2f%%", (float) diff/price*100), 1);

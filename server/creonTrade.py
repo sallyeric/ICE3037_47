@@ -117,7 +117,7 @@ class creonTrade():
                 return False
             # 자동매매 알림 (주문요청 후에 넣어야 될 것)
             print("token값: ", user['token'])
-            self.fcm.sendMessage("매수", "원에 자동으로 매수했습니다", user['token'])
+            self.fcm.sendMessage("매수", "{}원에 자동으로 {}을 매수했습니다".format(price, name), user['token'])
             db.userData.update_one({'userId': user['userId']},
                                    {'$set': {'active.' + name+'.current': company_active['current'] - price * amount}})
             db.userData.update_one({'userId': user['userId']},
@@ -166,7 +166,7 @@ class creonTrade():
                 return False
             # 자동매매 알림 (주문요청 후에 넣어야 될 것)
             print("token값: ", user['token'])
-            self.fcm.sendMessage("매도", "자동으로 매도했습니다", user['token'])
+            self.fcm.sendMessage("매도", "{}원에 자동으로 {}을 매도했습니다".format(price, name), user['token'])
 
             db.userData.update_one({'userId': user['userId']},
                                    {'$push': {'history': {'name': name,

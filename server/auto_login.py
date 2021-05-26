@@ -11,7 +11,7 @@ os.system('wmic process where "name like \'%DibServer%\'" call terminate')
 time.sleep(5)
 
 id = "sy3136"
-pw = "0510p!"
+pw = ""
 pwcert = ""
 
 app = application.Application()
