@@ -17,6 +17,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -72,6 +73,9 @@ public class MyPageFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+
+
     }
 
     @Override
@@ -102,9 +106,16 @@ public class MyPageFragment extends Fragment {
     * stocks, history 에 각각의 JSONObject, JSONArray 를 할당
     * */
         //로딩창
-        customProgressDialog = new ProgressDialog(getActivity());
+        customProgressDialog = new ProgressDialog(getActivity(), R.style.CustomProgress);
         customProgressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        customProgressDialog.getWindow().setGravity(Gravity.CENTER | Gravity.CENTER_HORIZONTAL);
+        customProgressDialog.getWindow().setGravity(Gravity.CENTER);
+//        WindowManager.LayoutParams wmlp = customProgressDialog.getWindow().getAttributes();
+//
+//        wmlp.x = 2000;
+//        customProgressDialog.getWindow().setAttributes(wmlp);
+//        customProgressDialog.getWindow().setGravity(Gravity.CENTER_HORIZONTAL);
+
+//        customProgressDialog.
         customProgressDialog.setCancelable(false);
         customProgressDialog.show();
         Call<Post> call = RetrofitClient.getApiService().myInfo(userId);
