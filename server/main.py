@@ -28,7 +28,7 @@ for i in range(9):
 
 creonTradeObj = creonTrade(FCM)
 realTimeChartObj = getRealTimeChartData()
-realTimeMACDObj = getRealTimeMACD(creonTradeObj)
+#realTimeMACDObj = getRealTimeMACD(creonTradeObj)
 dayChartObj = getDayChartData()
 newsCrawlObj = newsCrawl()
 print('init complete')
