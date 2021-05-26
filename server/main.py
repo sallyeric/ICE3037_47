@@ -5,6 +5,8 @@ from getMACD import getRealTimeMACD
 from creonTrade import creonTrade
 from newsCrawl import newsCrawl
 from FCM import FCM
+import sys
+from PyQt5.QtWidgets import *
 import json
 
 # configuration
@@ -80,7 +82,6 @@ def signup():
             data = {"userId": request.form['userId'],
                     "password": request.form['password'],
                     "creonAccount": request.form['creonAccount'],
-                    'active':{'money':100000},
                     'own':{'stocks':{}},
                     'history':[],
                     'active':{'money':0}}
@@ -108,8 +109,6 @@ def home():
                     'price'] * user['own']['stocks'][stock][
                     'size']
             for stock in user['active']:
-                if user['active'][stock] == 0:
-                    continue
                 user['own']['currentMoney'] += user['active'][stock]['current']
                 user['own']['currentDiff'] += user['active'][stock]['origin']
             user['own']['currentDiff'] = user['own']['currentMoney'] - user['own']['currentDiff']
@@ -155,8 +154,6 @@ def myInfo():
                 user['own']['stocks'][stock]['currentPrice'] = realTimeChartObj.datas[stock]['price']
                 user['own']['currentMoney'] += realTimeChartObj.datas[stock]['price']
             for stock in user['active']:
-                if user['active'][stock] == 0:
-                    continue
                 user['own']['currentMoney'] += user['active'][stock]['current']
                 user['own']['currentDiff'] += user['active'][stock]['origin']
             user['own']['currentDiff'] = user['own']['currentMoney'] - user['own']['currentDiff']
@@ -198,21 +195,11 @@ def OffAutoTrade():
         if user:
             success = True
             message = "성공"
-            is_flag = False
-            for stock in user['active']:
-                for s in user['own']['stocks']:
-                    if stock == s:
-                        is_flag = True
-                        print("매수했던 종목")
-                        break
-            if not is_flag:
-                print("매수안했던 종목삭제")
+            creonTradeObj.sellOrder(nameToCode[request.form['companyName']], request.form['userId'])
+            if user['active'].get(request.form['companyName']):
                 db.userData.update_one({'userId': request.form['userId']},
-                                       {'$unset': {'active.' + request.form['companyName']: 1}})
-            else:
-                creonTradeObj.sellOrder(nameToCode[request.form['companyName']], request.form['userId'])
-
-    print('OffAutoTrade')
+                                        {'$unset': {'active.' + request.form['companyName']: 1}})
+    print('OnAutoTrade')
     print(success, message)
     print(jsonify({'success': success, 'message': json.dumps(message, ensure_ascii=False)}))
     return jsonify({'success': success, 'message': json.dumps(message, ensure_ascii=False)}), 200
@@ -221,6 +208,9 @@ if __name__ == '__main__':
     realTimeChartObj.run()
     dayChartObj.run()
     newsCrawlObj.start()
-
+    qapp = QApplication(sys.argv)
+    qapp.exec_()
     print('flask ready to run')
+    #realTimeMACDObj = getRealTimeMACD(creonTradeObj)
     app.run(debug=DEBUG, host='0.0.0.0', port=5000)
+

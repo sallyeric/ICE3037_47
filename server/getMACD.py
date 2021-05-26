@@ -26,7 +26,7 @@ class CpEvent:
 
             if exFlag != ord('2'):
                 return
-
+            #print('received', code)
             item = {}
             item['code'] = code
             item['time'] = timess
@@ -101,13 +101,13 @@ class CMACD:
         self.objIndex.put_IndexKind("MACD")  # 계산할 지표: MACD
         self.objIndex.put_IndexDefault("MACD")  # MACD 지표 기본 변수 자동 세팅
 
-        print("MACD 변수", self.objIndex.get_Term1(), self.objIndex.get_Term2(), self.objIndex.get_Signal())
+        #print("MACD 변수", self.objIndex.get_Term1(), self.objIndex.get_Term2(), self.objIndex.get_Signal())
 
         # 지표 데이터 계산 하기
         self.objIndex.Calculate()
 
         cntofIndex = self.objIndex.ItemCount
-        print("지표 개수:  ", cntofIndex)
+        #print("지표 개수:  ", cntofIndex)
         indexName = ["MACD", "SIGNAL", "OSC"]
 
         result['MACD'] = []
@@ -122,7 +122,7 @@ class CMACD:
             #    value = self.objIndex.GetResult(index,j)
             # print(indexName[index], value)  # 지표의 최근 값 표시
 
-        print('MACD %.2f SIGNLA %.2f OSC %.2f' % (result['MACD'][-1], result['SIGNAL'][-1], result['OSC'][-1]))
+        #print('MACD %.2f SIGNLA %.2f OSC %.2f' % (result['MACD'][-1], result['SIGNAL'][-1], result['OSC'][-1]))
         return (True, result)
 
     # MACD 업데이트(차트 데이터 개수에 변화가 없을 경우에만 사용)
@@ -133,7 +133,7 @@ class CMACD:
                               chartData['V'][-1])
         self.objIndex.update()
         cntofIndex = self.objIndex.ItemCount
-        print("지표 개수:  ", cntofIndex)
+        #print("지표 개수:  ", cntofIndex)
 
         indexName = ["MACD", "SIGNAL", "OSC"]
 
@@ -147,7 +147,7 @@ class CMACD:
                 value = self.objIndex.GetResult(index, j)
                 result[indexName[index]].append(value)
 
-        print('MACD %.2f SIGNLA %.2f OSC %.2f' % (result['MACD'][-1], result['SIGNAL'][-1], result['OSC'][-1]))
+        #print('MACD %.2f SIGNLA %.2f OSC %.2f' % (result['MACD'][-1], result['SIGNAL'][-1], result['OSC'][-1]))
         return (True, result)
 
 
@@ -228,7 +228,7 @@ class CMinchartData:
             exit()
 
         len = objRq.GetHeaderValue(3)
-        print(totlen)
+        print(len)
         totlen += len
 
         print("날짜", "시가", "고가", "저가", "종가", "거래량")
@@ -302,7 +302,7 @@ class CMinchartData:
         a, b = divmod(converedMintime, self.interval)
         intervaltime = a * self.interval
         lCurTime = self.getChartTime(intervaltime)
-        print('차트 시간 계산 : 들어온 시간 %d, 차트 시간 %d' % (time, lCurTime))
+        #print('차트 시간 계산 : 들어온 시간 %d, 차트 시간 %d' % (time, lCurTime))
 
         if (nLen > 0):
             lLastTime = self.data['T'][-1]
@@ -315,7 +315,7 @@ class CMinchartData:
                 if (self.data['L'][-1] > cur):
                     self.data['L'][-1] = cur
                 self.data['V'][-1] += vol
-                print('들어온 시간 %d ==> 마지막 분차트 시간 %d 에 업데이트' % (time, lLastTime))
+                #print('들어온 시간 %d ==> 마지막 분차트 시간 %d 에 업데이트' % (time, lLastTime))
 
                 ret, result = self.objMACD.updateMACD(self.data)
                 self.data['MACD'] = result['MACD']
@@ -324,7 +324,7 @@ class CMinchartData:
 
         # 신규 봉이 추가
         if bFind == False:
-            print('들어온 시간 %d ==> 새로운 분차트 시간 %d 에 업데이트' % (time, lCurTime))
+            #print(f'{self.code} 들어온 시간 {time} ==> 새로운 분차트 시간 {lCurTime} 에 업데이트')
             self.data['D'].append(self.todayDate)
             self.data['T'].append(lCurTime)
             self.data['O'].append(cur)
@@ -352,17 +352,17 @@ class CMinchartData:
             return
         # 현재 시점에서 이전 봉(-2) 가 매수신호/매도 신호 발생했는 지 체크
         # -1 : 현재 시점 -2: 바로 직전 봉 -3 그 전 봉
-        print('osc', self.data['OSC'][-3], self.data['OSC'][-2], self.data['OSC'][-1])
+        print(self.code, 'osc', self.data['OSC'][-3], self.data['OSC'][-2], self.data['OSC'][-1])
         if self.data['OSC'][-3] < 0:
             if self.data['OSC'][-2] > 0:
                 ## 매수신호
                 self.creonTradeObj.buyOrder(self.code, 0)
-                print('MACD 매수, 종목코드 %d, 시간 %d, 가격 %d' % (self.code, self.data['T'][-1], self.data['C'][-1]))
+                print('MACD 매수, 종목코드 %s, 시간 %d, 가격 %d' % (self.code, self.data['T'][-1], self.data['C'][-1]))
         elif self.data['OSC'][-3] > 0:
             if self.data['OSC'][-2] < 0:
                 ## 매도신호
                 self.creonTradeObj.sellOrder(self.code, 0)
-                print('MACD 매도, 종목코드 %d, 시간 %d, 가격 %d' % (self.code, self.data['T'][-1], self.data['C'][-1]))
+                print('MACD 매도, 종목코드 %s, 시간 %d, 가격 %d' % (self.code, self.data['T'][-1], self.data['C'][-1]))
 
 
 ################################################
