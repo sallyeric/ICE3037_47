@@ -107,7 +107,7 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
     private ProgressDialog customProgressDialog;
 
     private String userId = "choi3";
-    private String companyName;
+    private String companyName = "삼성전자";
 
     public InfoFragment() {
         // Required empty public constructor
@@ -386,6 +386,8 @@ public class InfoFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onFailure(Call<Post> call, Throwable t) {
                 Toast.makeText(getActivity().getApplicationContext(),"서버와의 연결에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                //로딩종료
+                customProgressDialog.dismiss();
             }
         });
     }

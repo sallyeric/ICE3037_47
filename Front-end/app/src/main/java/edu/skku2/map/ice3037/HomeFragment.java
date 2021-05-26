@@ -224,6 +224,8 @@ public class HomeFragment extends Fragment {
             @Override
             public void onFailure(Call<Post> call, Throwable t) {
                 Toast.makeText(getActivity().getApplicationContext(),"서버와의 연결에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                //로딩종료
+                customProgressDialog.dismiss();
             }
         });
     }

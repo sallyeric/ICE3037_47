@@ -34,14 +34,17 @@ public interface RetrofitAPI {
     @POST("/info")
     Call<Post> info(@Field("companyName") String companyName);
 
-    @FormUrlEncoded
+//    @FormUrlEncoded
+//    @POST("/OnAutoTrade")
+//    Call<Post> OnAutoTrade(@Field("userId") String userId,
+//                           @Field("companyName") String companyName,
+//                           @Field("budgets") int budgets,
+//                           @Field("check1") Boolean check1,
+//                           @Field("check2") Boolean check2,
+//                           @Field("check3") Boolean check3);
+
     @POST("/OnAutoTrade")
-    Call<Post> OnAutoTrade(@Field("userId") String userId,
-                           @Field("companyName") String companyName,
-                           @Field("budgets") int budgets,
-                           @Field("check1") Boolean check1,
-                           @Field("check2") Boolean check2,
-                           @Field("check3") Boolean check3);
+    Call<Post> OnAutoTrade(@Body trading_inform t_info);
 
     @FormUrlEncoded
     @POST("/OffAutoTrade")

@@ -8,7 +8,9 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
@@ -55,6 +57,8 @@ public class auto_trade extends AppCompatActivity {
         lstm = (CheckBox)findViewById(R.id.LSTM);
         macd = (CheckBox)findViewById(R.id.MACD);
         voli = (CheckBox)findViewById(R.id.volatility);
+        SharedPreferences check = getSharedPreferences("userFile", Context.MODE_PRIVATE);
+        userId = check.getString("userid","");
     }
 
     public void onButtonClick(View v){
@@ -86,7 +90,6 @@ public class auto_trade extends AppCompatActivity {
             notificationManager.createNotificationChannel(channel);
         }
     }
-
     private void requestOnAutoTrade(String userId, String companyName, int budget, Boolean check1, Boolean check2, Boolean check3){
         /*
          * userId : 사용자 아이디를 입력값으로 요청
@@ -94,8 +97,9 @@ public class auto_trade extends AppCompatActivity {
          * budget : 투자할 금액
          * 요청에 대한 결과를 화면에 표시하거나 로그로 기록
          * */
+        trading_inform t_info = new trading_inform(userId, companyName, budget, check1, check2, check3);
 
-        Call<Post> call = RetrofitClient.getApiService().OnAutoTrade(userId, companyName, budget, check1, check2, check3);
+        Call<Post> call = RetrofitClient.getApiService().OnAutoTrade(t_info);
         call.enqueue(new Callback<Post>() {
             @Override
             public void onResponse(Call<Post> call, Response<Post> response) {

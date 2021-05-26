@@ -108,6 +108,8 @@ def home():
                     'price'] * user['own']['stocks'][stock][
                     'size']
             for stock in user['active']:
+                if user['active'][stock] == 0:
+                    continue
                 user['own']['currentMoney'] += user['active'][stock]['current']
                 user['own']['currentDiff'] += user['active'][stock]['origin']
             user['own']['currentDiff'] = user['own']['currentMoney'] - user['own']['currentDiff']
@@ -153,6 +155,8 @@ def myInfo():
                 user['own']['stocks'][stock]['currentPrice'] = realTimeChartObj.datas[stock]['price']
                 user['own']['currentMoney'] += realTimeChartObj.datas[stock]['price']
             for stock in user['active']:
+                if user['active'][stock] == 0:
+                    continue
                 user['own']['currentMoney'] += user['active'][stock]['current']
                 user['own']['currentDiff'] += user['active'][stock]['origin']
             user['own']['currentDiff'] = user['own']['currentMoney'] - user['own']['currentDiff']
@@ -168,16 +172,17 @@ def OnAutoTrade():
     success = False
     message = '유저가 존재하지 않습니다.'
     if request.method == 'POST':
+        context = request.get_json()
         db = g.client.Project
-        user = db.userData.find_one({"userId": request.form['userId']})
+        user = db.userData.find_one({"userId": context['userId']})
         if user:
             success = True
             message = "성공"
-            db.userData.update_one({'userId':request.form['userId']}, {'$set':{{'active.'+request.form['companyName'] : {'origin': request.form['budgets'],
-                                                                                                               'current': request.form['budgets'],
-                                                                                                               'macd': request.form['check1'],
-                                                                                                               'volat': request.form['check2'],
-                                                                                                               'lstm': request.form['check3']}}}})
+            db.userData.update_one({'userId':context['userId']}, {'$set':{'active.'+context['companyName'] : {'origin': context['budgets'],
+                                                                                                               'current': context['budgets'],
+                                                                                                               'macd': context['check1'],
+                                                                                                               'volat': context['check2'],
+                                                                                                               'lstm': context['check3']}}})
     print('OnAutoTrade')
     print(success, message)
     print(jsonify({'success': success, 'message': json.dumps(message, ensure_ascii=False)}))
@@ -193,9 +198,21 @@ def OffAutoTrade():
         if user:
             success = True
             message = "성공"
-            creonTradeObj.sellOrder(nameToCode[request.form['companyName']], request.form['userId'])
+            is_flag = False
+            for stock in user['active']:
+                for s in user['own']['stocks']:
+                    if stock == s:
+                        is_flag = True
+                        print("매수했던 종목")
+                        break
+            if not is_flag:
+                print("매수안했던 종목삭제")
+                db.userData.update_one({'userId': request.form['userId']},
+                                       {'$unset': {'active.' + request.form['companyName']: 1}})
+            else:
+                creonTradeObj.sellOrder(nameToCode[request.form['companyName']], request.form['userId'])
 
-    print('OnAutoTrade')
+    print('OffAutoTrade')
     print(success, message)
     print(jsonify({'success': success, 'message': json.dumps(message, ensure_ascii=False)}))
     return jsonify({'success': success, 'message': json.dumps(message, ensure_ascii=False)}), 200
