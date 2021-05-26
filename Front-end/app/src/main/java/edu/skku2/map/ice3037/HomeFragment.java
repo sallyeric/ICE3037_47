@@ -52,8 +52,8 @@ public class HomeFragment extends Fragment {
             R.drawable.logo_skhynix,
             R.drawable.logo_lg,
             R.drawable.logo_celltrion,
-            R.drawable.logo_skhynix,
             R.drawable.logo_naver,
+            R.drawable.logo_hyundai,
             R.drawable.logo_kakao,
             R.drawable.logo_kia,
             R.drawable.logo_posco
