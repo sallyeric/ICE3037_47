@@ -52,8 +52,8 @@ public class HomeFragment extends Fragment {
             R.drawable.logo_skhynix,
             R.drawable.logo_lg,
             R.drawable.logo_celltrion,
-            R.drawable.logo_skhynix,
             R.drawable.logo_naver,
+            R.drawable.logo_hyundai,
             R.drawable.logo_kakao,
             R.drawable.logo_kia,
             R.drawable.logo_posco
@@ -145,7 +145,7 @@ public class HomeFragment extends Fragment {
         //로딩창
         customProgressDialog = new ProgressDialog(getActivity());
         customProgressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        customProgressDialog.getWindow().setGravity(Gravity.CENTER);
+        customProgressDialog.getWindow().setGravity(Gravity.CENTER | Gravity.CENTER_HORIZONTAL);
         customProgressDialog.setCancelable(false);
         customProgressDialog.show();
         Call<Post> call = RetrofitClient.getApiService().home(userId);

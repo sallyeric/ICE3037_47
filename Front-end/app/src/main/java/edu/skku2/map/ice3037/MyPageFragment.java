@@ -104,7 +104,7 @@ public class MyPageFragment extends Fragment {
         //로딩창
         customProgressDialog = new ProgressDialog(getActivity());
         customProgressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        customProgressDialog.getWindow().setGravity(Gravity.CENTER);
+        customProgressDialog.getWindow().setGravity(Gravity.CENTER | Gravity.CENTER_HORIZONTAL);
         customProgressDialog.setCancelable(false);
         customProgressDialog.show();
         Call<Post> call = RetrofitClient.getApiService().myInfo(userId);
@@ -125,7 +125,7 @@ public class MyPageFragment extends Fragment {
 
                         budgets.setText(new DecimalFormat("###,###원").format(obj.getInt("currentMoney")));
 
-                        float tmp = (float) 1.1;
+                        float tmp = (float) obj.getInt("currentDiff")/ obj.getInt("origin");
                         if(tmp > 0){
                             yield.setText(String.format("+%s원 (%.2f%%)", new DecimalFormat("###,###").format(obj.getInt("currentDiff")), tmp));
                             yield.setTextColor(0xAAff5555);
@@ -165,16 +165,16 @@ public class MyPageFragment extends Fragment {
                             if(type == 0){
                                 if(diff > 0){
                                     item = new ItemMyPage(name, new DecimalFormat("###,###원").format(price), String.format("%d주", size),
-                                            dateToString(date), new DecimalFormat("+###,###원").format(diff), String.format("+%.2f%%", (float) diff/price*100), 1);
+                                            dateToString(date), new DecimalFormat("+###,###원").format(diff*size), String.format("+%.2f%%", (float) diff/price*100), 1);
                                 }
                                 else {
                                     item = new ItemMyPage(name, new DecimalFormat("###,###원").format(price), String.format("%d주", size),
-                                            dateToString(date), new DecimalFormat("###,###원").format(diff), String.format("%.2f%%", (float) diff/price*100), 2);
+                                            dateToString(date), new DecimalFormat("###,###원").format(diff*size), String.format("%.2f%%", (float) diff/price*100), 2);
                                 }
                             }
                             else{
                                 item = new ItemMyPage(name, new DecimalFormat("###,###원").format(price), String.format("%d주", size),
-                                        dateToString(date), new DecimalFormat("###,###원").format(diff), String.format("%.2f%%", (float) diff/price*100), 0);
+                                        dateToString(date), new DecimalFormat("###,###원").format(diff*size), String.format("%.2f%%", (float) diff/price*100), 0);
                             }
 
                             mArrayList.add(item);
