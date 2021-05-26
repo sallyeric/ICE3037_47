@@ -23,6 +23,7 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.iid.FirebaseInstanceId;
 //import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.lang.reflect.Array;
@@ -53,6 +54,12 @@ public class MainActivity extends AppCompatActivity{
             }
         }
 
+        String token = FirebaseInstanceId.getInstance().getToken();
+        SharedPreferences pref = getSharedPreferences("userFile",MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString("token",token);
+        editor.commit();
+        
         viewPager = findViewById(R.id.view_pager);
         tabLayout = findViewById(R.id.tab_layout);
 
