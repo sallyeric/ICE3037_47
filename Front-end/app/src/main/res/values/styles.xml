@@ -6,6 +6,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:colorPrimaryDark">@color/colorStatusBar</item>
     </style>
 
     <style name="tab_text" parent="@android:style/TextAppearance.Widget.TabWidget">
@@ -18,5 +19,4 @@
     <style name="CustomProgress" parent="Theme.AppCompat.Dialog">
         <item name="android:gravity">center</item>
     </style>
-
 </resources>
