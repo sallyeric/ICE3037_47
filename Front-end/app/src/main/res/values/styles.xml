@@ -13,4 +13,10 @@
 
     </style>
 
+
+<!--    <style name="CustomProgress" parent="android:Theme.Holo.Dialog">-->
+    <style name="CustomProgress" parent="Theme.AppCompat.Dialog">
+        <item name="android:gravity">center</item>
+    </style>
+
 </resources>

@@ -143,9 +143,10 @@ public class HomeFragment extends Fragment {
          * mArrayList 에 값을 할당
          * */
         //로딩창
-        customProgressDialog = new ProgressDialog(getActivity());
+        customProgressDialog = new ProgressDialog(getActivity(), R.style.CustomProgress);
         customProgressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        customProgressDialog.getWindow().setGravity(Gravity.CENTER);
+
+        customProgressDialog.getWindow().setGravity(Gravity.CENTER | Gravity.CENTER_HORIZONTAL);
         customProgressDialog.setCancelable(false);
         customProgressDialog.show();
         Call<Post> call = RetrofitClient.getApiService().home(userId);
