@@ -139,11 +139,11 @@ public class MyPageFragment extends Fragment {
                         float tmp = (float) obj.getInt("currentDiff")/(float)(obj.getInt("currentMoney")+ Math.abs(obj.getInt("currentDiff")));
                         if(tmp > 0){
                             yield.setText(String.format("+%s원 (%.2f%%)", new DecimalFormat("###,###").format(obj.getInt("currentDiff")), tmp*100));
-                            yield.setTextColor(0xAAff5555);
+                            yield.setTextColor(0xAAEF4780);
                         }
                         else{
                             yield.setText(String.format("%s원 (%.2f%%)", new DecimalFormat("###,###").format(obj.getInt("currentDiff")), tmp*100));
-                            yield.setTextColor(0xAA0000ff);
+                            yield.setTextColor(0xAA00B3A2);
                         }
 
                         /* 매수: 회사명, 매수금액, 몇 주, 시간, viewType(0)

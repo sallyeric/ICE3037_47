@@ -103,7 +103,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="5dp"
                                 android:layout_marginLeft="10dp"
-                                android:text="총 평가금액"
+                                android:text="총 자산"
                                 android:textColor="#FF000000"
                                 android:textSize="22dp"
                                 android:textStyle="bold" />
