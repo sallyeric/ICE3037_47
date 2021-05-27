@@ -136,13 +136,13 @@ public class MyPageFragment extends Fragment {
 
                         budgets.setText(new DecimalFormat("###,###원").format(obj.getInt("currentMoney")));
 
-                        float tmp = (float) obj.getInt("currentDiff")/ (float)(obj.getInt("currentMoney")+ Math.abs(obj.getInt("currentDiff")));
+                        float tmp = (float) obj.getInt("currentDiff")/(float)(obj.getInt("currentMoney")+ Math.abs(obj.getInt("currentDiff")));
                         if(tmp > 0){
-                            yield.setText(String.format("+%s원 (%.2f%%)", new DecimalFormat("###,###").format(obj.getInt("currentDiff")), tmp));
+                            yield.setText(String.format("+%s원 (%.2f%%)", new DecimalFormat("###,###").format(obj.getInt("currentDiff")), tmp*100));
                             yield.setTextColor(0xAAff5555);
                         }
                         else{
-                            yield.setText(String.format("%s원 (%.2f%%)", new DecimalFormat("###,###").format(obj.getInt("currentDiff")), tmp));
+                            yield.setText(String.format("%s원 (%.2f%%)", new DecimalFormat("###,###").format(obj.getInt("currentDiff")), tmp*100));
                             yield.setTextColor(0xAA0000ff);
                         }
 
